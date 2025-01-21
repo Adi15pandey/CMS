@@ -70,7 +70,6 @@ class _TicketscreenState extends State<Ticketscreen> {
 
         if (data['success']) {
           print("Task accepted successfully!");
-          // Update UI or refetch tasks
           fetchRequestedTasks();
         } else {
           print("Failed to accept task: ${data['message']}");
@@ -100,7 +99,6 @@ class _TicketscreenState extends State<Ticketscreen> {
 
         if (data['success']) {
           print("Task rejected successfully!");
-          // Update UI or refetch tasks
           fetchRequestedTasks();
         } else {
           print("Failed to reject task: ${data['message']}");
