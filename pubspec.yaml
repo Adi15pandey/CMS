@@ -47,7 +47,7 @@ dev_dependencies:
   intl: any
   shared_preferences: any
   google_fonts: any
-  excel: any
+  excel: ^2.0.2
   permission_handler: any
   file_saver: any
 
@@ -72,6 +72,7 @@ flutter:
 
   assets:
     - assets/images/logo-cms-whire.png
+    - assets/images/thumbnail_CMS  RECQARZ.2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

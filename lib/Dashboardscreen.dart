@@ -62,7 +62,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Case Repository'),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CnrDetailsScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyCouncil()));
 
 
 
@@ -117,7 +117,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Case Repository'),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesCaserepository()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyCouncil()));
 
 
                     },
