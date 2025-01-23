@@ -1,8 +1,10 @@
 import 'dart:io'; // For File class
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:file_picker/file_picker.dart'; // For file picking functionality
 import 'package:http/http.dart' as http; // For HTTP requests
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart'; // For launching URLs
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';// For launching URLs
 
 class EditDocumentPage extends StatefulWidget {
   final String cnrNumber;
@@ -21,12 +23,45 @@ class EditDocumentPage extends StatefulWidget {
 
 class _EditDocumentPageState extends State<EditDocumentPage> {
   List<DocumentCard> _documentCards = [];
+  String?token;
+  bool  _isLoading=true;
 
   @override
   void initState() {
     super.initState();
+    _initializeData();
+
     _addNewDocumentCard();
     // _fetchDocumentDetails();
+  }
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      _addNewDocumentCard(); // Fetch cases if the token is valid
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+
+  // Fetch token from SharedPreferences
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Ensure we fetch the latest data
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
   }
 
   Future<void> _uploadFile(int index) async {
@@ -75,7 +110,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
         // Create a multipart request
         var request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://192.168.1.41:4001/api/document/add-more-document'),
+          Uri.parse('${GlobalService.baseUrl}/api/document/add-more-document'),
         );
 
         // Add headers

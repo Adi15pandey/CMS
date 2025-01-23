@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:cms/AddDocumentsScreen.dart';
 import 'package:cms/EditDocumentPage.dart';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DocsPage extends StatefulWidget {
   @override
@@ -13,15 +15,60 @@ class _DocsPageState extends State<DocsPage> {
   List _docsData = [];
   List _filteredDocsData = [];
   bool _isLoading = true;
+  String?token;
 
   final TextEditingController _searchController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+
+    _fetchDocsData(1, 1000); // Default page 1, limit 10
+    _searchController.addListener(() {
+      _filterByCnrNumber(_searchController.text);  // Filter data as the user types
+    });
+  }
+
+  // Initialize data by fetching the token and cases
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      _fetchDocsData(1, 10);  // Fetch cases if the token is valid
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+
+  // Fetch token from SharedPreferences
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Ensure we fetch the latest data
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
+  }
+
+
   Future<void> _fetchDocsData(int page, int limit) async {
     var headers = {
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM1MDc4MiwiZXhwIjoxNzM3NDM3MTgyfQ.AtVUVaH1pxPufFMyn2AY24Z1NDaKAYw6j47R0kevI8c',
+      'token': '$token',
+      // 'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM1MDc4MiwiZXhwIjoxNzM3NDM3MTgyfQ.AtVUVaH1pxPufFMyn2AY24Z1NDaKAYw6j47R0kevI8c',
     };
 
-    var request = http.Request('GET', Uri.parse('http://192.168.1.41:4001/api/document/get-document?currentPage=$page&pageLimit=$limit'));
+    var request = http.Request('GET', Uri.parse('${GlobalService.baseUrl}/api/document/get-document?currentPage=$page&pageLimit=$limit'));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -58,14 +105,14 @@ class _DocsPageState extends State<DocsPage> {
 
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _fetchDocsData(1, 10); // Default page 1, limit 10
-    _searchController.addListener(() {
-      _filterByCnrNumber(_searchController.text);  // Filter data as the user types
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _fetchDocsData(1, 10); // Default page 1, limit 10
+  //   _searchController.addListener(() {
+  //     _filterByCnrNumber(_searchController.text);  // Filter data as the user types
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

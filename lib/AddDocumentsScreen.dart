@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
@@ -77,7 +78,7 @@ class _AddDocumentsScreenState extends State<AddDocumentsScreen> {
 
   void submitData() async {
     try {
-      final url = Uri.parse('http://192.168.1.41:4001/api/document/add-document');
+      final url = Uri.parse('${GlobalService.baseUrl}/api/document/add-document');
       var request = http.MultipartRequest('POST', url);
 
       // Add headers

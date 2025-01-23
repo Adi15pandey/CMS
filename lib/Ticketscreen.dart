@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Ticketscreen extends StatefulWidget {
   const Ticketscreen({super.key});
@@ -12,19 +14,51 @@ class Ticketscreen extends StatefulWidget {
 class _TicketscreenState extends State<Ticketscreen> {
   List<Map<String, dynamic>> tasks = [];
   bool isLoading = true;
+  String?token;
 
   @override
   void initState() {
     super.initState();
+    _initializeData();
     fetchRequestedTasks();
   }
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      fetchRequestedTasks();// Fetch cases if the token is valid
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+
+  // Fetch token from SharedPreferences
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Ensure we fetch the latest data
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
+  }
+
 
   Future<void> fetchRequestedTasks() async {
     var headers = {
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw'
+      'token': '$token',
     };
 
-    var request = http.Request('GET', Uri.parse('http://192.168.1.20:4001/api/task/get-requested-task'));
+    var request = http.Request('GET', Uri.parse('${GlobalService.baseUrl}/api/task/get-requested-task'));
 
     request.headers.addAll(headers);
 

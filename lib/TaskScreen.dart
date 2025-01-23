@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'package:cms/GlobalService.dart';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Taskscreen extends StatefulWidget {
   const Taskscreen({super.key});
@@ -16,23 +17,56 @@ class _TaskscreenState extends State<Taskscreen> {
   final List<Map<String, dynamic>> lowPriorityTasks = [];
   final List<Map<String, dynamic>> mediumPriorityTasks = [];
   final List<Map<String, dynamic>> highPriorityTasks = [];
+  String?token;
+  bool   isLoading=true;
 
   @override
   void initState() {
     super.initState();
+    _initializeData();
     _fetchTasks();
   }
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      _fetchTasks();// Fetch cases if the token is valid
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+
+  // Fetch token from SharedPreferences
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Ensure we fetch the latest data
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
+  }
+
 
   Future<void> _fetchTasks() async {
     try {
       // Define headers
       var headers = {
-        'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw',
+        'token': '$token',
       };
 
       // Send GET request
       var response = await http.get(
-        Uri.parse('http://192.168.0.108:4001/api/task/get-alltask'),
+        Uri.parse('${GlobalService.baseUrl}/api/task/get-alltask'),
         headers: headers,
       );
 
@@ -71,12 +105,13 @@ class _TaskscreenState extends State<Taskscreen> {
   Future<void> _addTask(Map<String, String> task, String priority, File? file) async {
     try {
       var headers = {
-        'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw',
+        'token': '$token',
+        // 'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw',
       };
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://192.168.0.108:4001/api/task/add-task'),
+        Uri.parse('${GlobalService.baseUrl}/api/task/add-task'),
       );
 
       request.headers.addAll(headers);

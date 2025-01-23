@@ -1,4 +1,14 @@
+import 'package:cms/Add_Directory.dart';
+import 'package:cms/Add_User.dart';
+import 'package:cms/Add_cases.dart';
+import 'package:cms/Archieve.dart';
+import 'package:cms/Calender.dart';
+import 'package:cms/Case_repository.dart';
+import 'package:cms/Disposed_cases.dart';
 import 'package:cms/Management_screen.dart';
+import 'package:cms/Setting.dart';
+import 'package:cms/Subcases_CASERepositorty.dart';
+import 'package:cms/Tracked_cases.dart';
 import 'package:flutter/material.dart';
 
 class Dashboardscreen extends StatefulWidget {
@@ -52,24 +62,35 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Case Repository'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CnrDetailsScreen()));
+
+
 
                     },
                   ),
                   ListTile(
                     title: const Text('Disposed Cases'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DisposedCases()));
+
+
 
                     },
                   ),
                   ListTile(
                     title: const Text('Tracked Cases'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Trackedcases()));
+
 
                     },
                   ),
                   ListTile(
                     title: const Text('Add Cases'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CnrSearchScreen()));
+
+
 
                     },
                   ),
@@ -94,15 +115,24 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 title: const Text('Sub-Cases'),
                 children: [
                   ListTile(
-                    title: const Text(''),
+                    title: const Text('Case Repository'),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesCaserepository()));
+
+
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Disposed Cases'),
                     onTap: () {
                     },
                   ),
                   ListTile(
-                    title: const Text(''),
+                    title: const Text('Management'),
                     onTap: () {
                     },
                   ),
+
                 ],
               ),
               ExpansionTile(
@@ -112,12 +142,17 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Add User'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddAdvocateDialog()));
+
 
                     },
                   ),
                   ListTile(
                     title: const Text('User Directory'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddDirectory()));
+
+
 
 
                     },
@@ -128,6 +163,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 leading: const Icon(Icons.archive),
                 title: const Text('Archive'),
                 onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Archieve()));
+
+
 
                 },
               ),
@@ -135,6 +173,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 leading: const Icon(Icons.calendar_today),
                 title: const Text('Calendar'),
                 onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarPage()));
+
 
                 },
               ),
@@ -145,6 +185,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 leading: const Icon(Icons.settings),
                 title: const Text('Setting'),
                 onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Setting()));
+
+
                   // Handle navigation
                 },
               ),

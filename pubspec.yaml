@@ -43,6 +43,14 @@ dev_dependencies:
   file_picker: any
   image_picker: any
   url_launcher: any
+  table_calendar: any
+  intl: any
+  shared_preferences: any
+  google_fonts: any
+  excel: any
+  permission_handler: any
+  file_saver: any
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
