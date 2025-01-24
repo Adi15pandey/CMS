@@ -17,8 +17,8 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
     super.initState();
     _initializeData();
     addExternalUser("ad");
-
   }
+
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
@@ -32,6 +32,7 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
       ));
     }
   }
+
   Future<void> _fetchToken() async {
     final prefs = await SharedPreferences.getInstance();
     // Ensure we fetch the latest data
@@ -49,14 +50,15 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
 
 
   String?token;
-  bool  _isLoading = false;
+  bool _isLoading = false;
 
   Future<void> addExternalUser(String name) async {
     var headers = {
-      'token': '$token',      'Content-Type': 'application/json'
+      'token': '$token', 'Content-Type': 'application/json'
     };
 
-    var request = http.Request('POST', Uri.parse('${GlobalService.baseUrl}/api/external-user/add-external-user'));
+    var request = http.Request('POST', Uri.parse(
+        '${GlobalService.baseUrl}/api/external-user/add-external-user'));
     request.body = json.encode({
       "name": name,
     });
@@ -80,45 +82,87 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add New Advocate'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: nameController,
-            decoration: const InputDecoration(
-              labelText: 'Name',
-              hintText: 'Enter the advocate\'s name',
+      title: Text(
+        'Add New Advocate',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.blueAccent,
+        ),
+      ),
+      content: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                labelText: 'Advocate\'s Name',
+                hintText: 'Enter the advocate\'s name',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.blueAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.blueAccent),
+                ),
+                prefixIcon: Icon(
+                  Icons.person,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              textInputAction: TextInputAction.done,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog without saving
           },
-          child: const Text('Cancel'),
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 16,
+            ),
+          ),
         ),
         ElevatedButton(
           onPressed: () {
             String name = nameController.text.trim();
             if (name.isNotEmpty) {
-              addExternalUser(name);
+              addExternalUser(name); // Add the user
               Navigator.of(context).pop(); // Close the dialog after saving
             } else {
-              // You can show a Snackbar or a message to inform the user to fill in the name
-              print('Name is required');
+              // Show a Snackbar or a message to inform the user to fill in the name
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Name is required')),
+              );
             }
           },
-          child: const Text('Save Changes'),
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white, backgroundColor: Colors.blueAccent, // Text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          ),
+          child: Text(
+            'Save Changes',
+            style: TextStyle(fontSize: 16),
+          ),
         ),
       ],
     );
   }
 }
 
-class Ticketscreen extends StatelessWidget {
+  class Ticketscreen extends StatelessWidget {
   const Ticketscreen({super.key});
 
   void showAddAdvocateDialog(BuildContext context) {

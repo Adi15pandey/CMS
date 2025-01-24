@@ -9,6 +9,7 @@ import 'package:cms/Management_screen.dart';
 import 'package:cms/Setting.dart';
 import 'package:cms/Subcases_CASERepositorty.dart';
 import 'package:cms/Tracked_cases.dart';
+import 'package:cms/subdisposedcases.dart';
 import 'package:flutter/material.dart';
 
 class Dashboardscreen extends StatefulWidget {
@@ -117,7 +118,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Case Repository'),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyCouncil()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesCaserepository()));
 
 
                     },
@@ -125,6 +126,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Disposed Cases'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubDisposedCases()));
+
+
                     },
                   ),
                   ListTile(

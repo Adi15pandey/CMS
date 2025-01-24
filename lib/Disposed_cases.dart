@@ -1,3 +1,4 @@
+import 'package:cms/CaseDetailsScreen.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,8 +22,6 @@ class _DisposedCasesState extends State<DisposedCases> {
     super.initState();
     _initializeData();
   }
-
-  // Initialize data by fetching the token and cases
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
@@ -37,7 +36,7 @@ class _DisposedCasesState extends State<DisposedCases> {
     }
   }
 
-  // Fetch token from SharedPreferences
+
   Future<void> _fetchToken() async {
     final prefs = await SharedPreferences.getInstance();
     // Ensure we fetch the latest data
@@ -109,15 +108,16 @@ class _DisposedCasesState extends State<DisposedCases> {
           final respondent = caseData['respondentAndAdvocate'];
 
           // Extract Last and Final Hearing Dates
-          String lastHearing = "";
-          String finalHearing = "";
+          String lastHearing = "Not Available";
+          String finalHearing = "Not Available";
 
           for (var status in caseStatus) {
-            if (status[0] == "First Hearing Date") {
-              lastHearing = status[1];
-            }
-            if (status[0] == "Decision Date") {
-              finalHearing = status[1];
+            if (status.isNotEmpty) {
+              if (status[0] == "First Hearing Date") {
+                lastHearing = status[1];
+              } else if (status[0] == "Decision Date") {
+                finalHearing = status[1];
+              }
             }
           }
 
@@ -135,7 +135,9 @@ class _DisposedCasesState extends State<DisposedCases> {
                   Text(
                     'CNR Number: ${caseData['cnrNumber']}',
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -149,16 +151,12 @@ class _DisposedCasesState extends State<DisposedCases> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Petitioner: ${petitioner.isNotEmpty
-                        ? petitioner[0][0]
-                        : 'N/A'}',
+                    'Petitioner: ${petitioner.isNotEmpty ? petitioner[0][0] : 'N/A'}',
                     style: const TextStyle(fontSize: 14),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Respondent: ${respondent.isNotEmpty
-                        ? respondent[0][0]
-                        : 'N/A'}',
+                    'Respondent: ${respondent.isNotEmpty ? respondent[0][0] : 'N/A'}',
                     style: const TextStyle(fontSize: 14),
                   ),
                   const SizedBox(height: 16),
@@ -167,7 +165,12 @@ class _DisposedCasesState extends State<DisposedCases> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CaseDetailsScreen(caseData: caseData)));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CaseDetailsScreen(cnrNumber: caseData['cnrNumber']),
+                            ),
+                          );
 
                         },
                         style: ElevatedButton.styleFrom(
@@ -201,14 +204,8 @@ class _DisposedCasesState extends State<DisposedCases> {
     );
   }
 
-  void _showCaseDetails(Map<String, dynamic> caseData) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CaseDetailsScreen(caseData: caseData),
-      ),
-    );
-  }
+
+
 
   void _deleteCase(int index) {
     setState(() {
@@ -219,33 +216,4 @@ class _DisposedCasesState extends State<DisposedCases> {
     );
   }
 }
-class CaseDetailsScreen extends StatelessWidget {
-  final Map<String, dynamic> caseData;
 
-  const CaseDetailsScreen({Key? key, required this.caseData}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Case Details"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'CNR Number: ${caseData['cnrNumber']}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Text('Details: ${caseData['caseDetails']}'),
-            const SizedBox(height: 10),
-            // Add more fields as needed
-          ],
-        ),
-      ),
-    );
-  }
-}

@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             "assets/images/thumbnail_CMS  RECQARZ.2.jpg",
             height: 150,
             width: 150,
-            color: Colors.black,
+            // color: Colors.blue,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 10),

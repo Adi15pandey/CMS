@@ -101,35 +101,45 @@ class _OtpVerificationState extends State<OtpVerification> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
+  // import 'package:flutter/material.dart';
+
   Widget _buildOtpFields(List<TextEditingController> controllers) {
+    List<FocusNode> focusNodes = List.generate(controllers.length, (index) => FocusNode());
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: controllers
-          .map(
-            (controller) => SizedBox(
+      children: List.generate(controllers.length, (index) {
+        return SizedBox(
           width: 50,
           child: TextField(
-            controller: controller,
+            controller: controllers[index],
+            focusNode: focusNodes[index],
             maxLength: 1,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               counterText: "",
               hintText: "-",
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: const TextStyle(color: Colors.grey),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.grey),
+                borderSide: const BorderSide(color: Colors.grey),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blue),
+                borderSide: const BorderSide(color: Colors.blue),
               ),
             ),
+            onChanged: (value) {
+              if (value.isNotEmpty && index < controllers.length - 1) {
+                FocusScope.of(focusNodes[index].context!).requestFocus(focusNodes[index + 1]);
+              } else if (value.isEmpty && index > 0) {
+                FocusScope.of(focusNodes[index].context!).requestFocus(focusNodes[index - 1]);
+              }
+            },
           ),
-        ),
-      )
-          .toList(),
+        );
+      }),
     );
   }
 

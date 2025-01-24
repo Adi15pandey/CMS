@@ -338,8 +338,10 @@ class _UsersNotificationState extends State<UsersNotification> {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {
-          'token':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI', // Authorization token
+          'token': '$token',
+
+          // 'token':
+          // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI', // Authorization token
           'Content-Type': 'application/json',  // Content type is JSON
         },
         body: json.encode(payload),  // Convert payload to JSON string

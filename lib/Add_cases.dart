@@ -20,11 +20,11 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
   bool _isLoading = false;
   String? _error;
   String?token;
+
   @override
   void initState() {
     super.initState();
     _initializeData();
-    fetchCnrData("DEFAULT_CNR_NUMBER");
   }
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
@@ -61,16 +61,12 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
     });
 
     final url = '${GlobalService.baseUrl}/api/cnr/get-singlecnr/$cnrNumber';
-    // final token = AppConstants.token; // Replace with the actual token or fetch it from local storage.
 
     try {
       final response = await http.get(
         Uri.parse(url),
         headers: {
           'token': '$token',
-          // 'token':
-          // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
-          // 'Content-Type': 'application/json',
         },
       );
 
@@ -432,9 +428,43 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
   String? _error;
   List<dynamic> _users = [];
   int? _selectedUserIndex;
+  String?token;
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+
+  }
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      fetchUsers(); // Fetch cases if the token is valid
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Ensure we fetch the latest data
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
+  }
 
   Future<void> fetchUsers() async {
-    final url = 'http://192.168.0.111:4001/api/external-user/get-external-user';
+    final url = '${GlobalService.baseUrl}/api/external-user/get-external-user';
 
     setState(() {
       _isLoading = true;
@@ -444,9 +474,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'token':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
-          // Ensure AppConstants.token is available
+          'token': '$token',
           'Content-Type': 'application/json',
         },
       );
@@ -479,12 +507,12 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    fetchUsers();
-    //   print(widget.selectedFile);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchUsers();
+  //   //   print(widget.selectedFile);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -589,11 +617,14 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
     );
 
   }
+
+
   Future<void> _uploadDocument(String userId, String userName, BuildContext context) async {
     var headers = {
-      'token':
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
-       // Replace with your actual token
+      'token': '$token',
+      // 'token':
+      // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
+      //  // Replace with your actual token
     };
 
     // Ensure the selected file is valid and exists

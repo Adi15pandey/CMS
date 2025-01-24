@@ -1,3 +1,6 @@
+import 'package:cms/(subcases)Adddocs.dart';
+import 'package:cms/Deletesubcases.dart';
+import 'package:cms/subcasesdetail.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -163,7 +166,6 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                   ),
                   const SizedBox(height: 8.0),
 
-                  // Petitioner and Respondent (Third Section)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -187,6 +189,8 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => subcasesDetailsScreen(cnrNumber: cnrNumber)));
+
                             // Handle Details
                           },
                           child: const Text("Details"),
@@ -196,16 +200,33 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            // Handle Add Doc
+                            final String id = caseItem['userId'][0]['userId'];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AddDocuments(
+                                  id: id, // Replace this with the actual `id` you want to pass
+                                  cnrNumber: cnrNumber, // Pass the actual `cnrNumber` here
+                                ),
+                              ),
+                            );
+
                           },
+
                           child: const Text("Add Doc"),
                         ),
                       ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Handle Delete
+                          onPressed: ()async {
+                            final String id = caseItem['userId'][0]['userId'];
+          await deleteSubcase(
+          context: context,
+          id: id,
+          cnrNumber: cnrNumber,
+          );
+
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,

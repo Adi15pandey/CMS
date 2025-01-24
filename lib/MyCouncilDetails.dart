@@ -6,6 +6,7 @@ import 'package:cms/MyCouncilDetailModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyCouncilDetails extends StatefulWidget {
   final String SendCnrNo;
@@ -18,12 +19,45 @@ class MyCouncilDetails extends StatefulWidget {
 
 class _MyCouncilDetailsState extends State<MyCouncilDetails> {
   late Future<List<CaseDetails>> futureCaseDetails;
+  String?token;
+  bool _isLoading= true;
 
   @override
   void initState() {
     super.initState();
-    fetchCases();
+    _initializeData();
+
+
   }
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      fetchCases(); // Fetch cases if the token is valid
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+
+
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
+  }
+
 
   @override
 
@@ -348,15 +382,6 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Case History Table Heading
-                              // Text(
-                              //   'Case History',
-                              //   style: TextStyle(
-                              //     fontSize: 18,
-                              //     fontWeight: FontWeight.bold,
-                              //     color: Colors.blue,
-                              //   ),
-                              // ),
                               Divider(),
                               //     const SizedBox(height: 16),
 
@@ -500,14 +525,16 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
   }
   Future<CaseResponse> fetchCases() async {
     String apiUrl = "${GlobalService.baseUrl}/api/cnr/get-singlecnr/${widget.SendCnrNo}";
-    const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjU2OTNhZmU0ZTAzNmFkNDdjNWUzZCIsImlhdCI6MTczNDkzMDk0MywiZXhwIjoxNzM1MDE3MzQzfQ.3VkdiTezQb2ks65okPNHJMeT-5gGCbZssi4JxB7Hte4';
+    // const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjU2OTNhZmU0ZTAzNmFkNDdjNWUzZCIsImlhdCI6MTczNDkzMDk0MywiZXhwIjoxNzM1MDE3MzQzfQ.3VkdiTezQb2ks65okPNHJMeT-5gGCbZssi4JxB7Hte4';
 
     final response = await http.get(
       Uri.parse(apiUrl),
       headers: {
+        'token': '$token',
 
-        'token' :
-       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
+
+        //  'token' :
+       // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
         // 'Authorization': AppConstants.token,//'Bearer $token', // Add the token here
         'Content-Type': 'application/json',
       },
