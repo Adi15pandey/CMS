@@ -1,4 +1,5 @@
 import 'package:cms/Add_cases.dart';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -80,7 +81,7 @@ class _CaseresearcherState extends State<Caseresearcher> {
     String filterText = '',
   }) async {
     final url = Uri.parse(
-        'http://192.168.0.111:4001/api/keyword/get-new-keyword-cnr-country'
+        '${GlobalService.baseUrl}/api/keyword/get-new-keyword-cnr-country'
             '?pageLimit=10&currentPage=1&filterText=$filterText'
     );
 
@@ -105,7 +106,7 @@ class _CaseresearcherState extends State<Caseresearcher> {
   }
   Future<void> deleteKeyword(String keywordId) async {
     final url = Uri.parse(
-        'http://192.168.0.111:4001/api/keyword/delete-keyword/$keywordId');
+        '${GlobalService.baseUrl}/api/keyword/delete-keyword/$keywordId');
 
     final response = await http.delete(
       url,

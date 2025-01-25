@@ -37,7 +37,8 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
-      _addNewDocumentCard(); // Fetch cases if the token is valid
+      _addNewDocumentCard();
+      _submitDocuments();// Fetch cases if the token is valid
     } else {
       setState(() {
         _isLoading = false;
@@ -98,7 +99,6 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
       }
     });
   }
-
   Future<void> _submitDocuments() async {
     try {
       for (var card in _documentCards) {
@@ -114,13 +114,12 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
         );
 
         // Add headers
-        request.headers['token'] =
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw';
+        request.headers['token'] = '$token';
 
         // Add fields
         request.fields.addAll({
           'cnrNumber': widget.cnrNumber,
-          'id': '6763ff589814613a7510fbb0', // Replace with dynamic ID if needed
+          'id': 'widget.id', // Replace with dynamic ID if needed
           'fileNames': card.documentName,
         });
 

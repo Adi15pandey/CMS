@@ -1,3 +1,4 @@
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -67,7 +68,7 @@ class _ViewDetailState extends State<ViewDetail> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://192.168.0.111:4001/api/cnr/get-singlesubcnr/${widget.cnrNumber}'),
+            '${GlobalService.baseUrl}/api/cnr/get-singlesubcnr/${widget.cnrNumber}'),
         headers: {
       'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzY5NDIyOSwiZXhwIjoxNzM3NzgwNjI5fQ.61uspeeYspKI9Kr6VGE-sThMoOCOmbx89B1C5S4M2wE',
        // Use Bearer token

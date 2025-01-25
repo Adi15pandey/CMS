@@ -3,6 +3,7 @@ import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddDocumentsScreen extends StatefulWidget {
   @override
@@ -76,13 +77,51 @@ class _AddDocumentsScreenState extends State<AddDocumentsScreen> {
     );
   }
 
+  String?token;
+  bool  _isLoading=true;
+  @override
+  void initState() {
+    super.initState();
+    _initializeData();
+    submitData();
+
+  }
+  Future<void> _initializeData() async {
+    await _fetchToken(); // Fetch the token first
+    if (token != null && token!.isNotEmpty) {
+      submitData();// Fetch cases if the token is valid
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No token found. Please log in."),
+      ));
+    }
+  }
+  Future<void> _fetchToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Ensure we fetch the latest data
+    await prefs.reload();
+    final savedToken = prefs.getString('auth_token');
+    if (savedToken != null && savedToken.isNotEmpty) {
+      setState(() {
+        token = savedToken;
+      });
+      print('Token fetched successfully: $token');
+    } else {
+      print('Token not found');
+    }
+  }
+
   void submitData() async {
     try {
       final url = Uri.parse('${GlobalService.baseUrl}/api/document/add-document');
       var request = http.MultipartRequest('POST', url);
 
       // Add headers
-      request.headers['token'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw';
+      request.headers['token'] ='$token';
+      // request.headers['token'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw';
 
       // Add fields
       request.fields['cnrNumber'] = cnrController.text;

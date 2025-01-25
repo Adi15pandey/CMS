@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
@@ -92,7 +93,7 @@ class _SubcaseDetailsState extends State<SubcaseDetails> {
       return;
     }
 
-    final uri = Uri.parse("http://192.168.0.111:4001/api/document/add-more-document");
+    final uri = Uri.parse("${GlobalService.baseUrl}/api/document/add-more-document");
     final request = http.MultipartRequest('POST', uri)
       ..headers['token']= '$token'
       // ..headers['token'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzc4MTA5NCwiZXhwIjoxNzM3ODY3NDk0fQ.bbjGwrw-IuQtb8F3AHCTB-lcwGOvhMUy9hdKBpKaqpA'

@@ -1,6 +1,7 @@
 import 'package:cms/(subdisposedcases)viewDetail.dart';
 import 'package:cms/AddDocsdisposed.dart';
 import 'package:cms/Deletesubcases.dart';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,7 +16,7 @@ class SubDisposedCases extends StatefulWidget {
 
 class _SubDisposedCasesState extends State<SubDisposedCases> {
   final String apiUrl =
-      'http://192.168.0.111:4001/api/cnr/get-disposed-sub-cnr?pageNo=1&pageLimit=10&filterText=&nextHearing=0&petitioner=0&respondent=0';
+      '${GlobalService.baseUrl}/api/cnr/get-disposed-sub-cnr?pageNo=1&pageLimit=10&filterText=&nextHearing=0&petitioner=0&respondent=0';
   // final String token =
   //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzY5NDIyOSwiZXhwIjoxNzM3NzgwNjI5fQ.61uspeeYspKI9Kr6VGE-sThMoOCOmbx89B1C5S4M2wE';
 

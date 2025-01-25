@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -78,13 +79,13 @@ class _AddDocsdisposedState extends State<AddDocsdisposed> {
 
     // Add headers
     var headers = {
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzY5NDIyOSwiZXhwIjoxNzM3NzgwNjI5fQ.61uspeeYspKI9Kr6VGE-sThMoOCOmbx89B1C5S4M2wE',
+      'token': '$token',
     };
 
     // Prepare the request
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.0.111:4001/api/document/add-sub-document'),
+      Uri.parse('${GlobalService.baseUrl}/api/document/add-sub-document'),
     );
 
     // Add fields to the request

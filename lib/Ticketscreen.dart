@@ -89,7 +89,7 @@ class _TicketscreenState extends State<Ticketscreen> {
 
   Future<void> handleAccept(String taskId) async {
     var headers = {
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw',
+      'token': '$token',
     };
 
     var request = http.Request('PUT', Uri.parse('http://192.168.1.20:4001/api/task/accept-completed-task/$taskId'));

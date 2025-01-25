@@ -146,9 +146,9 @@ class _MyCouncilState extends State<MyCouncil> {
     // print(AppConstants.token);
   }
   Future<void> _initializeData() async {
-    await _fetchToken(); // Fetch the token first
+    await _fetchToken();
+    // Fetch the token first
     if (token != null && token!.isNotEmpty) {
-      futureCaseDetails = fetchCaseDetails();
       futureCaseDetails = fetchCaseDetails();
       _searchController.addListener(_onSearchChanged);
 // Fetch cases if the token is valid
@@ -675,7 +675,7 @@ class _MyCouncilState extends State<MyCouncil> {
       final response = await http.delete(
         url,
         headers: {
-      'token':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
+          'token': '$token',
 
 
           // 'Authorization': AppConstants.token,//'Bearer $token',

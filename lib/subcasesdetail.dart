@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
@@ -58,7 +59,7 @@ class _subcasesDetailsScreenState extends State<subcasesDetailsScreen> {
 
 
   Future<void> fetchCaseData() async {
-    final url = 'http://192.168.0.111:4001/api/cnr/get-singlesubcnr/${widget.cnrNumber}';
+    final url = '${GlobalService.baseUrl}/api/cnr/get-singlesubcnr/${widget.cnrNumber}';
     final headers = {
       'token': '$token',
       // 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzY5NDIyOSwiZXhwIjoxNzM3NzgwNjI5fQ.61uspeeYspKI9Kr6VGE-sThMoOCOmbx89B1C5S4M2wE',

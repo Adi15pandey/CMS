@@ -1,3 +1,4 @@
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,7 +34,7 @@ Future<void> deleteSubcase({
   try {
     final response = await http.delete(
       Uri.parse(
-          'http://192.168.0.111:4001/api/cnr/delete-sub-case/$cnrNumber/$id'),
+          '${GlobalService.baseUrl}/api/cnr/delete-sub-case/$cnrNumber/$id'),
       headers: {
         'token': '$token',
         'Content-Type': 'application/json',

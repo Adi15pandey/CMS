@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -86,7 +87,7 @@ class _AddDocumentsState extends State<AddDocuments> {
     // Prepare the request
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.0.111:4001/api/document/add-sub-document'),
+      Uri.parse('${GlobalService.baseUrl}/api/document/add-sub-document'),
     );
 
     // Add fields to the request

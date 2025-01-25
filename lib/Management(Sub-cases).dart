@@ -1,3 +1,4 @@
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/SubcaseDetail.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -12,7 +13,7 @@ class SubcasesManagement extends StatefulWidget {
 }
 
 class _SubcasesManagementState extends State<SubcasesManagement> {
-  final String baseUrl = "http://192.168.0.111:4001/api/document/get-sub-document";
+  final String baseUrl = "${GlobalService.baseUrl}/api/document/get-sub-document";
   List<dynamic> subcases = [];
   bool isLoading = true;
   String errorMessage = "";
