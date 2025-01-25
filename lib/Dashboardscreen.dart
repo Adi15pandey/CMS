@@ -3,8 +3,10 @@ import 'package:cms/Add_User.dart';
 import 'package:cms/Add_cases.dart';
 import 'package:cms/Archieve.dart';
 import 'package:cms/Calender.dart';
+import 'package:cms/CaseResearcher.dart';
 import 'package:cms/Case_repository.dart';
 import 'package:cms/Disposed_cases.dart';
+import 'package:cms/Management(Sub-cases).dart';
 import 'package:cms/Management_screen.dart';
 import 'package:cms/Setting.dart';
 import 'package:cms/Subcases_CASERepositorty.dart';
@@ -96,8 +98,10 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                     },
                   ),
                   ListTile(
-                    title: const Text('Case Reminder'),
+                    title: const Text('Case Researcher'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Caseresearcher()));
+
 
                     },
                   ),
@@ -134,6 +138,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ListTile(
                     title: const Text('Management'),
                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesManagement()));
+
+
                     },
                   ),
 

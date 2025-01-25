@@ -25,7 +25,7 @@ class _AddDirectoryState extends State<AddDirectory> {
   }
 
   Future<void> _initializeData() async {
-    await _fetchToken(); // Fetch the token first
+    await _fetchToken();
     if (token != null && token!.isNotEmpty) {
       fetchUsers(); // Fetch cases if the token is valid
     } else {
@@ -174,7 +174,6 @@ class _AddDirectoryState extends State<AddDirectory> {
                       icon: const Icon(Icons.delete, color: Colors.red),
                       tooltip: 'Delete User',
                       onPressed: () {
-                        // Call deleteUser function
                         deleteUser(user['_id']);
                       },
                     ),

@@ -51,71 +51,7 @@ class _UsersNotificationState extends State<UsersNotification> {
     });
   }
 
-  // Function to handle submission of data
-  // Future<void> submitData() async {
-  //   // Prepare the jointUser list
-  //   List<Map<String, dynamic>> jointUser = [];
-  //   for (var user in userFields) {
-  //     jointUser.add({
-  //       "name": user["name"] ?? "",  // Name of the user
-  //       "email": user["email"] ?? "",  // Email of the user
-  //       "mobile": user["mobile"] ?? "",  // Mobile number of the user
-  //       "dayBeforeNotification": int.tryParse(user["dayBeforeNotification"] ?? "0") ?? 0,  // Notification days before (ensure it's an int)
-  //     });
-  //   }
-  //
-  //   // Payload data
-  //   Map<String, dynamic> payload = {
-  //     "cnrNumber": widget.sendcnr,  // CNR number from the widget
-  //     "externalUserId": widget.userId,  // External user ID from the widget
-  //     "externalUserName": widget.userName,  // External user name from the widget
-  //     "jointUser": jointUser,  // Joint users data
-  //   };
-  //   print(payload);
-  //
-  //   // API URL
-  //   String apiUrl = "http://192.168.0.107:4001/api/cnr/addnew-singlecnr";
-  //
-  //   // Send POST request
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(apiUrl),
-  //       headers: {
-  //         'token': AppConstants.token,  // Authorization token
-  //         'Content-Type': 'application/json',  // Content type is JSON
-  //       },
-  //       body: json.encode(payload),  // Convert payload to JSON string
-  //     );
-  //
-  //     // Handle the response
-  //     if (response.statusCode == 200) {
-  //       // Successfully added CNR
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text('CNR added successfully!')),
-  //       );
-  //     } else {
-  //       // Try to parse the API's response body to show the message
-  //       try {
-  //         final responseBody = json.decode(response.body);
-  //         String errorMessage = responseBody['message'] ?? 'Failed to add CNR.';
-  //
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(content: Text(' $errorMessage')),
-  //         );
-  //       } catch (e) {
-  //         // In case the response body is not a valid JSON or doesn't contain the expected fields
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(content: Text('Failed to add CNR: ${response.statusCode}')),
-  //         );
-  //       }
-  //     }
-  //   } catch (error) {
-  //     // Handle network or other errors
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error: $error')),
-  //     );
-  //   }
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +60,7 @@ class _UsersNotificationState extends State<UsersNotification> {
       appBar: AppBar(
         title: Text(
           'Notification Setting',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.blue),
         ),
       ),
       body: SingleChildScrollView(
