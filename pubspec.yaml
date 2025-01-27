@@ -50,6 +50,8 @@ dev_dependencies:
   excel: ^2.0.2
   permission_handler: any
   file_saver: any
+  fl_chart: ^0.40.0
+  pie_chart: ^5.4.0
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

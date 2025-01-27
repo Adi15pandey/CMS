@@ -113,6 +113,8 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        backgroundColor: Colors.blueAccent, // Custom color for the app bar
+        elevation: 0, // Optional: remove shadow
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -121,39 +123,74 @@ class _SettingState extends State<Setting> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Settings',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            // const Text(
+            //   'Settings',
+            //   style: TextStyle(
+            //     fontSize: 24,  // Increased font size for the header
+            //     fontWeight: FontWeight.bold,
+            //     color: Colors.blueAccent,  // Custom color for header
+            //   ),
+            // ),
             const SizedBox(height: 16),
+            // Section with the notification settings
             Expanded(
               child: ListView(
                 children: notificationSettings.keys.map((key) {
-                  return SwitchListTile(
-                    title: Text(key),
-                    value: notificationSettings[key]!,
-                    onChanged: (value) {
-                      toggleNotification(key, value);
-                    },
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: SwitchListTile(
+                        title: Text(
+                          key,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                        value: notificationSettings[key]!,
+                        onChanged: (value) {
+                          toggleNotification(key, value);
+                        },
+                        secondary: const Icon(Icons.notifications),
+                      ),
+                    ),
                   );
                 }).toList(),
               ),
             ),
             const SizedBox(height: 16),
-            const Center(
-              child: Text('Default same day at 6 AM'),
+            const Text(
+              'Default: Same day at 6 AM',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,  // Italicize for emphasis
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 32),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   // Add save functionality if needed
                   debugPrint('Settings saved');
                 },
-                child: const Text('Save'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  backgroundColor: Colors.blueAccent, // Custom button color
+                  elevation: 5, // Add elevation to make button stand out
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],

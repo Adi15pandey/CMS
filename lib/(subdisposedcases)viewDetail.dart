@@ -40,7 +40,9 @@ class _ViewDetailState extends State<ViewDetail> {
         _isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("No token found. Please log in."),
+        content:
+
+        Text("No token found. Please log in."),
       ));
     }
   }
@@ -70,7 +72,7 @@ class _ViewDetailState extends State<ViewDetail> {
         Uri.parse(
             '${GlobalService.baseUrl}/api/cnr/get-singlesubcnr/${widget.cnrNumber}'),
         headers: {
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzY5NDIyOSwiZXhwIjoxNzM3NzgwNjI5fQ.61uspeeYspKI9Kr6VGE-sThMoOCOmbx89B1C5S4M2wE',
+          'token': '$token',
        // Use Bearer token
           'Content-Type': 'application/json',
         },
