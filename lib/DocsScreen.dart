@@ -65,7 +65,6 @@ class _DocsPageState extends State<DocsPage> {
   Future<void> _fetchDocsData(int page, int limit) async {
     var headers = {
       'token': '$token',
-      // 'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM1MDc4MiwiZXhwIjoxNzM3NDM3MTgyfQ.AtVUVaH1pxPufFMyn2AY24Z1NDaKAYw6j47R0kevI8c',
     };
 
     var request = http.Request('GET', Uri.parse('${GlobalService.baseUrl}/api/document/get-document?currentPage=$page&pageLimit=$limit'));
@@ -104,15 +103,6 @@ class _DocsPageState extends State<DocsPage> {
     print("Add Document button clicked");
 
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _fetchDocsData(1, 10); // Default page 1, limit 10
-  //   _searchController.addListener(() {
-  //     _filterByCnrNumber(_searchController.text);  // Filter data as the user types
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -182,11 +172,14 @@ class _DocsPageState extends State<DocsPage> {
                             IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {
-                                // Accessing the first document and fetching 'uploadedBy' and 'url' from it
+                                // Accessing the first document in the list and fetching 'uploadedBy' and 'url' from it
                                 String uploadedBy = doc['documents'][0]['uploadedBy'] ?? 'Unknown'; // Provide default value if uploadedBy is null
-                                String url = doc['documents'][0]['url'] ?? '';
-                                print(url);// Provide default value if url is null
+                                String url = doc['documents'][0]['url'] ?? ''; // Provide default value if url is null
+                                String userId = doc['userId']; // Fetching the userId from the document
 
+                                print(url); // Print URL to check
+
+                                // Navigating to the next screen and passing all necessary data
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -194,10 +187,12 @@ class _DocsPageState extends State<DocsPage> {
                                       cnrNumber: doc['cnrNumber'],
                                       uploadedBy: uploadedBy, // Pass uploadedBy to the next screen
                                       url: url, // Pass the URL to the next screen
+                                      userId: userId, // Pass userId to the next screen
                                     ),
                                   ),
                                 );
                               },
+
                             )
 
 

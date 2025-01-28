@@ -1,217 +1,5 @@
-// import 'package:cms/Add_Directory.dart';
-// import 'package:cms/Add_User.dart';
-// import 'package:cms/Add_cases.dart';
-// import 'package:cms/Archieve.dart';
-// import 'package:cms/Calender.dart';
-// import 'package:cms/CaseResearcher.dart';
-// import 'package:cms/Case_repository.dart';
-// import 'package:cms/Disposed_cases.dart';
-// import 'package:cms/Management(Sub-cases).dart';
-// import 'package:cms/Management_screen.dart';
-// import 'package:cms/Setting.dart';
-// import 'package:cms/Subcases_CASERepositorty.dart';
-// import 'package:cms/Tracked_cases.dart';
-// import 'package:cms/subdisposedcases.dart';
-// import 'package:flutter/material.dart';
-//
-// class Dashboardscreen extends StatefulWidget {
-//   const Dashboardscreen({super.key});
-//
-//   @override
-//   State<Dashboardscreen> createState() => _DashboardscreenState();
-// }
-//
-// class _DashboardscreenState extends State<Dashboardscreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Dashboard'),
-//       ),
-//       drawer: Drawer(
-//         child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               // Drawer header
-//               DrawerHeader(
-//                 decoration: const BoxDecoration(
-//                   color: Colors.black,
-//                 ),
-//                 child: Center(
-//                   child: Image.asset(
-//                     'assets/images/logo-cms-whire.png',
-//                     height: 200,
-//                     fit: BoxFit.contain,
-//                   ),
-//                 ),
-//               ),
-//
-//
-//
-//
-//
-//
-//               ListTile(
-//                 leading: const Icon(Icons.dashboard),
-//                 title: const Text('Dashboard'),
-//                 onTap: () {
-//
-//                 },
-//               ),
-//               ExpansionTile(
-//                 leading: const Icon(Icons.gavel),
-//                 title: const Text('Litigation'),
-//                 children: [
-//                   ListTile(
-//                     title: const Text('Case Repository'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => MyCouncil()));
-//
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Disposed Cases'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => DisposedCases()));
-//
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Tracked Cases'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => Trackedcases()));
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Add Cases'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => CnrSearchScreen()));
-//
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Case Researcher'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => Caseresearcher()));
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Management'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => ManagementScreen()));
-//
-//
-//                     },
-//                   ),
-//                 ],
-//               ),
-//               ExpansionTile(
-//                 leading: const Icon(Icons.cases),
-//                 title: const Text('Sub-Cases'),
-//                 children: [
-//                   ListTile(
-//                     title: const Text('Case Repository'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesCaserepository()));
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Disposed Cases'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => SubDisposedCases()));
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('Management'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesManagement()));
-//
-//
-//                     },
-//                   ),
-//
-//                 ],
-//               ),
-//               ExpansionTile(
-//                 leading: const Icon(Icons.people),
-//                 title: const Text('Users'),
-//                 children: [
-//                   ListTile(
-//                     title: const Text('Add User'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => AddAdvocateDialog()));
-//
-//
-//                     },
-//                   ),
-//                   ListTile(
-//                     title: const Text('User Directory'),
-//                     onTap: () {
-//                       Navigator.push(context, MaterialPageRoute(builder: (context) => AddDirectory()));
-//
-//
-//
-//
-//                     },
-//                   ),
-//                 ],
-//               ),
-//               ListTile(
-//                 leading: const Icon(Icons.archive),
-//                 title: const Text('Archive'),
-//                 onTap: () {
-//                   Navigator.push(context, MaterialPageRoute(builder: (context) => Archieve()));
-//
-//
-//
-//                 },
-//               ),
-//               ListTile(
-//                 leading: const Icon(Icons.calendar_today),
-//                 title: const Text('Calendar'),
-//                 onTap: () {
-//                   Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarPage()));
-//
-//
-//                 },
-//               ),
-//               const SizedBox(height: 10),
-//               // Add a spacer for aesthetics or padding
-//               const Divider(),
-//               ListTile(
-//                 leading: const Icon(Icons.settings),
-//                 title: const Text('Setting'),
-//                 onTap: () {
-//                   Navigator.push(context, MaterialPageRoute(builder: (context) => Setting()));
-//
-//
-//                   // Handle navigation
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       body: const Center(
-//         child: Text('Dashboard Content Goes Here'),
-//       ),
-//     );
-//   }
-// }
+
+import 'package:cms/Logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -259,37 +47,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
 
   }
-  // Future<void> _initializeData() async {
-  //   await _fetchToken(); // Fetch the token first
-  //   if (token != null && token!.isNotEmpty) {
-  //     fetchCasesData();// Fetch cases if the token is valid
-  //   } else {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //       content: Text("No token found. Please log in."),
-  //     ));
-  //   }
-  // }
-  // Future<void> _fetchToken() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   // Ensure we fetch the latest data
-  //
-  //   final savedToken = prefs.getString('auth_token');
-  //   if (savedToken != null && savedToken.isNotEmpty) {
-  //     setState(() {
-  //       newtoken = savedToken;
-  //     });
-  //     print('Token fetched successfully: $newtoken');
-  //   } else {
-  //     print('Token not found');
-  //   }
-  // }
-
-
-
-
 
   Future<void> fetchCasesData() async {
     print("833333bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
@@ -310,7 +67,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       print('My api token: $newtoken');
 
 
-      // Perform multiple API requests using Future.wait to parallelize them
+
       final responses = await Future.wait([
         http.get(
           Uri.parse('http://192.168.1.20:4001/api/cnr/get-cnr?currentPage=1&pageLimit=100000000'),
@@ -321,17 +78,15 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           headers: {'token': '$token'},
         ),
       ]);
-
-      // Decode the response body after checking the status code
       if (responses[0].statusCode == 200 && responses[1].statusCode == 200) {
         // Decode the response bodies
         final activeData = json.decode(responses[0].body)['data'] ?? [];
         final disposedData = json.decode(responses[1].body)['data'] ?? [];
 
-        // Combine data
+
         final finalData = [...activeData, ...disposedData];
 
-        // Counting active and disposed cases
+
         setState(() {
           activeCases = activeData.length;
           disposedCases = disposedData.length;
@@ -380,18 +135,16 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             children: [
               DrawerHeader(
                 decoration: const BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 child: Center(
                   child: Image.asset(
-                    'assets/images/logo-cms-whire.png',
+                    'assets/images/thumbnail_CMS  RECQARZ.2.jpg',
                     height: 200,
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
-
-
               ListTile(
                 leading: const Icon(Icons.dashboard),
                 title: const Text('Dashboard'),
@@ -543,6 +296,16 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   // Handle navigation
                 },
               ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Logout()));
+
+
+                  // Handle navigation
+                },
+              ),
             ],
           ),
         ),
@@ -647,6 +410,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       'Disposed Cases': (disposedCases / total) * 100,
     };
   }
+
 
   // Build Legend Item
 }

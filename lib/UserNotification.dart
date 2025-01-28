@@ -159,7 +159,7 @@ class _UsersNotificationState extends State<UsersNotification> {
                 onPressed: addUserFields,
                 child: Text(
                   'Add More Fields',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.blue),
                 ),
               ),
 

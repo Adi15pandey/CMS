@@ -50,7 +50,7 @@ dev_dependencies:
   excel: ^2.0.2
   permission_handler: any
   file_saver: any
-  fl_chart: ^0.40.0
+  fl_chart: ^0.63.0
   pie_chart: ^5.4.0
 
 
@@ -76,6 +76,7 @@ flutter:
     - assets/images/logo-cms-whire.png
     - assets/images/thumbnail_CMS  RECQARZ.2.jpg
     - assets/images/CMS  RECQARZ (5).png
+    - assets/images/Untitled-4 2 (1).png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

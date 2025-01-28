@@ -10,11 +10,13 @@ class EditDocumentPage extends StatefulWidget {
   final String cnrNumber;
   final String uploadedBy;
   final String url;
+  final String userId;
 
   EditDocumentPage({
     required this.cnrNumber,
     required this.uploadedBy,
     required this.url,
+    required this.userId,
   });
 
   @override
@@ -119,7 +121,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
         // Add fields
         request.fields.addAll({
           'cnrNumber': widget.cnrNumber,
-          'id': 'widget.id', // Replace with dynamic ID if needed
+          'id': widget.userId, // Pass the userId from widget
           'fileNames': card.documentName,
         });
 

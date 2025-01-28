@@ -78,11 +78,22 @@ class _OtpVerificationState extends State<OtpVerification> {
     }
   }
 
-// Method to retrieve the saved token from SharedPreferences
+  Future<void> saveToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', token);
+    print("Token saved: $token");
+  }
+
   Future<String> _getSavedToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token') ?? ''; // Returns an empty string if token is not found
+    String token = prefs.getString('auth_token') ?? '';
+    print("Token fetched: $token");
+    return token;
   }
+
+
+// Method to retrieve the saved token from SharedPreferences
+
 
 
   String _getOtp(List<TextEditingController> controllers) {
@@ -91,11 +102,6 @@ class _OtpVerificationState extends State<OtpVerification> {
         : '';
   }
 
-  Future<void> saveToken(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('auth_token', token); // Save with the exact key.
-    print('Token saved: $token');
-  }
 
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));

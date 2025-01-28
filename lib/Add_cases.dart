@@ -507,18 +507,12 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchUsers();
-  //   //   print(widget.selectedFile);
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Advocate',style: TextStyle(color: Colors.white),),
+        title: Text('Select Advocate',style: TextStyle(color: Colors.blue),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

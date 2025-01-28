@@ -1,4 +1,5 @@
 import 'package:cms/GlobalServiceurl.dart';
+import 'package:cms/SignupApp.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -107,6 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 5),
                 GestureDetector(
                   onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpApp()));
+
                     // Navigate to the registration page
                   },
                   child: const Text(

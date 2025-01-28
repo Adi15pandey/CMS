@@ -29,7 +29,7 @@ class _MyCouncilState extends State<MyCouncil> {
   bool _showCheckboxes = false;
   bool _selectAll = false;
   String?token;
-  bool  _isLoading =true;// To track if "Select All" is clicked
+  bool  _isLoading =true;
 
 
 
@@ -147,11 +147,9 @@ class _MyCouncilState extends State<MyCouncil> {
   }
   Future<void> _initializeData() async {
     await _fetchToken();
-    // Fetch the token first
     if (token != null && token!.isNotEmpty) {
       futureCaseDetails = fetchCaseDetails();
       _searchController.addListener(_onSearchChanged);
-// Fetch cases if the token is valid
     } else {
       setState(() {
         _isLoading = false;
@@ -214,7 +212,8 @@ class _MyCouncilState extends State<MyCouncil> {
     return Scaffold(
         // backgroundColor: GlobalAppColor.BackgroundScreenCode,
         appBar: AppBar(
-          title: Text('Case Repository', style: TextStyle(color: Colors.white)),
+          title: Text('Case Repository', style: TextStyle(color: Colors.black)),
+          backgroundColor: Colors.blue,
           centerTitle: true,
         ),
         body: Column(
@@ -230,7 +229,7 @@ class _MyCouncilState extends State<MyCouncil> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(color: Colors.blue),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -280,19 +279,6 @@ class _MyCouncilState extends State<MyCouncil> {
                   ),
                 ),
               ),
-            // // Button to export selected cases
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: Align(
-            //     alignment: Alignment.topRight,
-            //     child: ElevatedButton(
-            //       onPressed: _exportToExcel,
-            //       child: Text('Export'),
-            //     ),
-            //   ),
-            // ),
-
-            // Case Details List
             Expanded(
               child: FutureBuilder<List<CaseDetails>>(
                 future: futureCaseDetails,
@@ -397,7 +383,6 @@ class _MyCouncilState extends State<MyCouncil> {
                                     ),
                                   ),
 
-                                  // Last Hearing (Decision Date)
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     child: Row(
@@ -534,6 +519,8 @@ class _MyCouncilState extends State<MyCouncil> {
 
                                   // View Details and Delete Buttons
                                   Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: ElevatedButton(
@@ -550,12 +537,6 @@ class _MyCouncilState extends State<MyCouncil> {
                                                 SendNextHearingDate: lastHearingDate
 
                                             )));
-
-                                            // Get.to(() => MyCouncilDetails(
-                                            //     SendCnrNo: caseDetails.cnrNumber,
-                                            //     SendNextHearingDate: lastHearingDate
-                                            //
-                                            // ));
                                           },
                                           child: const Text(
                                             "View Detail",
@@ -610,10 +591,17 @@ class _MyCouncilState extends State<MyCouncil> {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     onPressed: _exportToExcel,
-                    child: Text('Download'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green, // Sets the background color to green
+                    ),
+                    child: Text(
+                      'Download',
+                      style: TextStyle(color: Colors.white), // Optional: set text color to white
+                    ),
                   ),
                 ),
               ),
+
           ],
         )
     );
