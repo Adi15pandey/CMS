@@ -107,9 +107,8 @@ class _ViewDetailState extends State<ViewDetail> {
   }
 
 
-  final bool isLoading = false; // Example loading state
-  final String errorMessage = ""; // Example error message state
-  // final Map<String, dynamic>? caseData = {};
+  final bool isLoading = false;
+  final String errorMessage = "";
 
 
   @override

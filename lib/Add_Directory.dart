@@ -32,9 +32,9 @@ class _AddDirectoryState extends State<AddDirectory> {
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("No token found. Please log in."),
-      ));
+      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //   content: Text("No token found. Please log in."),
+      // ));
     }
   }
 
@@ -79,8 +79,6 @@ class _AddDirectoryState extends State<AddDirectory> {
       print('Error: $e');
     }
   }
-
-  // Function to delete the user (modify based on actual delete API)
   Future<void> deleteUser(String userId) async {
     var headers = {
       'token': '$token',
@@ -94,7 +92,7 @@ class _AddDirectoryState extends State<AddDirectory> {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         print('User deleted successfully');
-        fetchUsers(); // Refresh the list after deletion
+        fetchUsers();
       } else {
         print('Failed to delete user: ${response.reasonPhrase}');
       }
@@ -130,7 +128,6 @@ class _AddDirectoryState extends State<AddDirectory> {
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  // User Avatar or Placeholder Icon
                   CircleAvatar(
                     backgroundColor: Colors.blueAccent,
                     radius: 30,
@@ -187,9 +184,4 @@ class _AddDirectoryState extends State<AddDirectory> {
   }
 }
 
-  void main() {
-  runApp(const MaterialApp(
-    home: AddDirectory(),
-  ));
-}
 

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/MyCouncilDetailModel.dart';
 import 'package:flutter/material.dart';
@@ -65,10 +63,10 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Details',style: TextStyle(color: Colors.white),),
+        title: const Text('Details',style: TextStyle(color: Colors.black),),
       ),
       body: FutureBuilder<CaseResponse>(
-        future: fetchCases(), // Pass the token here
+        future: fetchCases(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

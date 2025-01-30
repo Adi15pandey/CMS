@@ -1,4 +1,5 @@
 
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/Logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -70,11 +71,11 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
       final responses = await Future.wait([
         http.get(
-          Uri.parse('http://192.168.1.20:4001/api/cnr/get-cnr?currentPage=1&pageLimit=100000000'),
+          Uri.parse('${GlobalService.baseUrl}/api/cnr/get-cnr?currentPage=1&pageLimit=100000000'),
           headers: {'token': '$token'},
         ),
         http.get(
-          Uri.parse('http://192.168.1.20:4001/api/cnr/get-disposed-cnr?currentPage=1&pageLimit=100000000'),
+          Uri.parse('${GlobalService.baseUrl}/api/cnr/get-disposed-cnr?currentPage=1&pageLimit=100000000'),
           headers: {'token': '$token'},
         ),
       ]);
@@ -127,7 +128,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        // title: const Text('Dashboard'),
       ),
       drawer: Drawer(
         child: SingleChildScrollView(

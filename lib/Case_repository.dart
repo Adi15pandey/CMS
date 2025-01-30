@@ -212,8 +212,8 @@ class _MyCouncilState extends State<MyCouncil> {
     return Scaffold(
         // backgroundColor: GlobalAppColor.BackgroundScreenCode,
         appBar: AppBar(
-          title: Text('Case Repository', style: TextStyle(color: Colors.black)),
-          backgroundColor: Colors.blue,
+          title: Text('Case Repository', style: TextStyle(color: Colors.white)),
+          backgroundColor: Color.fromRGBO(0, 74, 173, 1),
           centerTitle: true,
         ),
         body: Column(
@@ -224,12 +224,13 @@ class _MyCouncilState extends State<MyCouncil> {
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Search by CNR No',
+
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0), // Circular border
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
-                    borderSide: BorderSide(color: Colors.blue),
+                    borderSide: BorderSide(color:Color.fromRGBO(0, 74, 173, 1)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -244,20 +245,32 @@ class _MyCouncilState extends State<MyCouncil> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20,top: 10),
+              padding: const EdgeInsets.only(right: 15, top: 10),
               child: Align(
                 alignment: Alignment.topRight,
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
                   onPressed: () {
                     setState(() {
                       _showCheckboxes = !_showCheckboxes; // Toggle checkbox visibility
                     });
                   },
-                  child: Text(_showCheckboxes ? 'Export' : 'Export'),
+                  icon: Icon(Icons.file_download, color: Colors.white), // Add an icon
+                  label: Text(
+                    'Export',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF004AAD), // Set background color
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2), // Optional: Rounded corners
+                    ),
+                  ),
                 ),
               ),
             ),
-            // Conditionally show the "Export" button when checkboxes are visible
+
+
             if (_showCheckboxes)
               Padding(
                 padding: const EdgeInsets.only(left: 20, top: 10),
@@ -275,10 +288,21 @@ class _MyCouncilState extends State<MyCouncil> {
                         }
                       });
                     },
-                    child: Text(_selectAll ? 'Deselect All' : 'Select All'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF004AAD), // Background color
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3), // Optional: Rounded corners
+                      ),
+                    ),
+                    child: Text(
+                      _selectAll ? 'Deselect All' : 'Select All',
+                      style: TextStyle(color: Colors.white), // Text color
+                    ),
                   ),
                 ),
               ),
+
             Expanded(
               child: FutureBuilder<List<CaseDetails>>(
                 future: futureCaseDetails,
@@ -313,7 +337,6 @@ class _MyCouncilState extends State<MyCouncil> {
                             }
                           }
                         }
-                        // Extract the last hearing date from caseHistory array
                         String lastDate = "Not Available";
                         if (caseDetails.caseHistory != null && caseDetails.caseHistory.isNotEmpty) {
                           final lastCaseHistory = caseDetails.caseHistory.last;
@@ -340,7 +363,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                 borderRadius: BorderRadius.circular(12.0),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
+                                    color: Color.fromRGBO(189, 217, 255, 1),
                                     spreadRadius: 2,
                                     blurRadius: 5,
                                     offset: Offset(0, 3),
@@ -363,7 +386,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black,
+                                               color:Color.fromRGBO(0, 74, 173, 1),
                                             ),
                                           ),
                                         ),
@@ -395,7 +418,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black,
+                                              color:Color.fromRGBO(0, 74, 173, 1),
                                             ),
                                           ),
                                         ),
@@ -428,7 +451,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black,
+                                              color:Color.fromRGBO(0, 74, 173, 1),
                                             ),
                                           ),
                                         ),
@@ -462,7 +485,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black,
+                                              color:Color.fromRGBO(0, 74, 173, 1),
                                             ),
                                           ),
                                         ),
@@ -495,7 +518,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.black,
+                                              color:Color.fromRGBO(0, 74, 173, 1),
                                             ),
                                           ),
                                         ),
@@ -525,7 +548,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                       Expanded(
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.black,
+                                            backgroundColor: Color.fromRGBO(0, 111, 253, 1),
                                             padding: const EdgeInsets.symmetric(vertical: 12.0),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8.0),
@@ -542,6 +565,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             "View Detail",
                                             style: TextStyle(
                                               color: Colors.white,
+                                              backgroundColor: Color.fromRGBO(0, 111, 253, 1),
                                               fontSize: 16,
                                             ),
                                           ),
@@ -551,7 +575,8 @@ class _MyCouncilState extends State<MyCouncil> {
                                       Expanded(
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red,
+                                            backgroundColor: Color.fromRGBO(253, 101, 0, 1),
+
                                             padding: const EdgeInsets.symmetric(vertical: 12.0),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8.0),
@@ -564,6 +589,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             "Delete",
                                             style: TextStyle(
                                               color: Colors.white,
+                                              backgroundColor: Color.fromRGBO(253, 101, 0, 1),
                                               fontSize: 16,
                                             ),
                                           ),

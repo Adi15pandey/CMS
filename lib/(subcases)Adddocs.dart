@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -71,7 +69,6 @@ class _AddDocumentsState extends State<AddDocuments> {
 
 
   Future<void> _submitData() async {
-    // Check for empty fields or missing file
     if (_fileNameController.text.isEmpty || _selectedFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please fill all fields and select a file!')),
@@ -79,7 +76,6 @@ class _AddDocumentsState extends State<AddDocuments> {
       return;
     }
 
-    // Add headers
     var headers = {
       'token': '$token',
     };
@@ -96,8 +92,6 @@ class _AddDocumentsState extends State<AddDocuments> {
       'mainUserId': widget.id,
       'fileNames': _fileNameController.text,
     });
-
-    // Debug log for fields
     print('Request Fields:');
     request.fields.forEach((key, value) => print('$key: $value'));
 
@@ -116,15 +110,10 @@ class _AddDocumentsState extends State<AddDocuments> {
       return;
     }
 
-    // Add headers to the request
     request.headers.addAll(headers);
     print('Request Headers: $headers');
-
-    // Debug: Send request
     try {
       http.StreamedResponse response = await request.send();
-
-      // Debug status and response body
       if (response.statusCode == 200) {
         print('Response Status: ${response.statusCode}');
         print('Response Body: ${await response.stream.bytesToString()}');

@@ -40,7 +40,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
       _addNewDocumentCard();
-      _submitDocuments();// Fetch cases if the token is valid
+      // _submitDocuments();// Fetch cases if the token is valid
     } else {
       setState(() {
         _isLoading = false;
@@ -109,7 +109,6 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
           continue;
         }
 
-        // Create a multipart request
         var request = http.MultipartRequest(
           'POST',
           Uri.parse('${GlobalService.baseUrl}/api/document/add-more-document'),

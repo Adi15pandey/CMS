@@ -246,7 +246,7 @@ class _DisposedCasesState extends State<DisposedCases> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Disposed Cases"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
       ),
       body: Column(
         children: [
@@ -274,27 +274,27 @@ class _DisposedCasesState extends State<DisposedCases> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Row(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _showCheckboxes = !_showCheckboxes; // Toggle checkbox visibility
-                      if (_showCheckboxes) {
-                        _selectedCases = List<bool>.filled(_filteredCases.length, false);
-                        _selectAll = false;
-                      }
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    _showCheckboxes ? "Done" : "Export",
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     setState(() {
+                //       _showCheckboxes = !_showCheckboxes; // Toggle checkbox visibility
+                //       if (_showCheckboxes) {
+                //         _selectedCases = List<bool>.filled(_filteredCases.length, false);
+                //         _selectAll = false;
+                //       }
+                //     });
+                //   },
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: Colors.green,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //   ),
+                //   // child: Text(
+                //   //   _showCheckboxes ? "Done" : "Export",
+                //   //   style: const TextStyle(color: Colors.white, fontSize: 16),
+                //   // ),
+                // ),
                 const SizedBox(width: 10),
                 if (_showCheckboxes)
                   Row(
@@ -421,7 +421,7 @@ class _DisposedCasesState extends State<DisposedCases> {
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black,
+                                      backgroundColor: Color.fromRGBO(0, 111, 253, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                         BorderRadius.circular(8),
@@ -441,7 +441,7 @@ class _DisposedCasesState extends State<DisposedCases> {
                                       _deleteCase(index);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: Color.fromRGBO(253, 101, 0, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                         BorderRadius.circular(8),
@@ -504,7 +504,8 @@ class _DisposedCasesState extends State<DisposedCases> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Colors.black,
+              color:Color.fromRGBO(0, 74, 173, 1),
+
             ),
           ),
         ),
