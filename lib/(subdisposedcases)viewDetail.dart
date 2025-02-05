@@ -119,6 +119,8 @@ class _ViewDetailState extends State<ViewDetail> {
           "Case Details",
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        iconTheme: const IconThemeData(
+            color: Colors.white),
         backgroundColor: Colors.blue[800],
       ),
       body: isLoading

@@ -148,6 +148,8 @@ class _AddDocumentsState extends State<AddDocuments> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Documents"),
+        iconTheme: const IconThemeData(
+            color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

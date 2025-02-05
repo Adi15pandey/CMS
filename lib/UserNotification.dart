@@ -59,7 +59,7 @@ class _UsersNotificationState extends State<UsersNotification> {
 
       appBar: AppBar(
         title: Text(
-          'Notification Setting',
+          '',
           style: TextStyle(color: Colors.blue),
         ),
       ),
@@ -77,17 +77,31 @@ class _UsersNotificationState extends State<UsersNotification> {
                   elevation: 4, // Adds shadow for a card effect
                   margin: const EdgeInsets.only(bottom: 16.0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Rounded corners
+                    borderRadius: BorderRadius.circular(12),
+                    // Rounded corners
                   ),
+                // margin: EdgeInsets.all(16), // Add margin around the card
+                color: Colors.white, // Card color (optional)
+                child: Container(
+                decoration: BoxDecoration(
+                border: Border.all(
+                color: Color.fromRGBO(189, 217, 255, 1), // Border color
+                width: 2, // Border width
+                ),
+                borderRadius: BorderRadius.circular(12), // Rounded corners
+                ),
+
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Display the user number (e.g., User 1, User 2, etc.)
-                        Text(
-                          'User ${index + 1}', // Display "User 1", "User 2", etc.
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                        Center(
+                          child: Text(
+                            'User ${index + 1}', // Display "User 1", "User 2", etc.
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
                         ),
                         SizedBox(height: 10),
 
@@ -148,13 +162,14 @@ class _UsersNotificationState extends State<UsersNotification> {
                       ],
                     ),
                   ),
+                )
                 );
               }).toList(),
 
               // Add More Fields Button
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black, // Set the background color to black
+                  backgroundColor: Colors.white, // Set the background color to black
                 ),
                 onPressed: addUserFields,
                 child: Text(
@@ -168,7 +183,8 @@ class _UsersNotificationState extends State<UsersNotification> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Set the background color to black
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,// Set the background color to black
                   ),
                   onPressed: submitData, // Handle submission when clicked
                   child: Text('Submit'),

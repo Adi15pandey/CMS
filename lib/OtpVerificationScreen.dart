@@ -95,22 +95,27 @@ class _OtpVerificationState extends State<OtpVerification> {
 // Method to retrieve the saved token from SharedPreferences
 
 
-
   String _getOtp(List<TextEditingController> controllers) {
-    return controllers.map((c) => c.text).join().trim().length == 6
+    return controllers
+        .map((c) => c.text)
+        .join()
+        .trim()
+        .length == 6
         ? controllers.map((c) => c.text).join()
         : '';
   }
 
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)));
   }
 
   // import 'package:flutter/material.dart';
 
   Widget _buildOtpFields(List<TextEditingController> controllers) {
-    List<FocusNode> focusNodes = List.generate(controllers.length, (index) => FocusNode());
+    List<FocusNode> focusNodes = List.generate(
+        controllers.length, (index) => FocusNode());
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,9 +143,11 @@ class _OtpVerificationState extends State<OtpVerification> {
             ),
             onChanged: (value) {
               if (value.isNotEmpty && index < controllers.length - 1) {
-                FocusScope.of(focusNodes[index].context!).requestFocus(focusNodes[index + 1]);
+                FocusScope.of(focusNodes[index].context!).requestFocus(
+                    focusNodes[index + 1]);
               } else if (value.isEmpty && index > 0) {
-                FocusScope.of(focusNodes[index].context!).requestFocus(focusNodes[index - 1]);
+                FocusScope.of(focusNodes[index].context!).requestFocus(
+                    focusNodes[index - 1]);
               }
             },
           ),
@@ -152,31 +159,70 @@ class _OtpVerificationState extends State<OtpVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("OTP Verification"),
-        backgroundColor: Colors.blue,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(  // Wrap the entire body inside a scroll view
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Title
+              Center(
+                child: Text(
+                  "Enter Confirmation Code",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 10),
+
+              // Message displaying email & phone number
+              Center(
+                child: Text(
+                  "A 6-digit code was sent to:",
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                ),
+              ),
+              SizedBox(height: 5),
+
+              // Display Email
+              Center(
+                child: Text(
+                  widget.email,
+                  style: TextStyle(fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ),
+
+              // Display Mobile Number
+              // Center(
+              //   child: Text(
+              //     widget.,,
+              //     style: TextStyle(fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.black),
+              //   ),
+              // ),
+              SizedBox(height: 20),
+
+              // Email OTP Section
               Text(
-                "Enter the OTP sent to your email:",
+                "Email OTP",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               _buildOtpFields(_emailOtpControllers),
               SizedBox(height: 20),
+
+              // SMS OTP Section
               Text(
-                "Enter the OTP sent to your mobile:",
+                "SMS OTP",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               _buildOtpFields(_mobileOtpControllers),
               SizedBox(height: 30),
+
+              // Verify OTP Button
               Center(
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _verifyOtp,
@@ -196,6 +242,8 @@ class _OtpVerificationState extends State<OtpVerification> {
                 ),
               ),
               SizedBox(height: 20),
+
+              // Resend OTP
               Center(
                 child: TextButton(
                   onPressed: () {

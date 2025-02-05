@@ -6,7 +6,8 @@ import 'Dashboardscreen.dart'; // Import your dashboard screen
 class OtpVerificationSignup extends StatefulWidget {
   final String email;
 
-  const OtpVerificationSignup({super.key, required this.email});
+
+  const OtpVerificationSignup({super.key, required this.email,});
 
   @override
   State<OtpVerificationSignup> createState() => _OtpVerificationSignupState();
@@ -30,26 +31,40 @@ class _OtpVerificationSignupState extends State<OtpVerificationSignup> {
     });
 
     try {
-      final response = await http.post(
-        Uri.parse("http://192.168.0.187:4002/api/auth/register"),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "email": widget.email,
-          "emailOtp": _emailOtpController.text.trim(),
-          "mobileOtp": _mobileOtpController.text.trim(),
-        }),
+      var headers = {
+        'Content-Type': 'application/json',
+      };
+
+      var request = http.Request(
+        'POST',
+        Uri.parse('http://192.168.1.20:4001/api/auth/register'),
       );
 
-      final responseData = json.decode(response.body);
+      request.body = json.encode({
+        "email": widget.email, // Use dynamic email from the widget
+        "mobileOtp": _mobileOtpController.text.trim(),
+        "emailOtp": _emailOtpController.text.trim(),
+      });
 
-      if (response.statusCode == 200 && responseData['success'] == true) {
-        // OTP Verified, navigate to dashboard
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Dashboardscreen()),
-        );
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String responseBody = await response.stream.bytesToString();
+        Map<String, dynamic> responseData = json.decode(responseBody);
+
+        if (responseData['success'] == true) {
+          // OTP Verified, navigate to dashboard
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Dashboardscreen()),
+          );
+        } else {
+          setState(() => _errorMessage = responseData['message'] ?? "Invalid OTP.");
+        }
       } else {
-        setState(() => _errorMessage = responseData['message'] ?? "Invalid OTP.");
+        setState(() => _errorMessage = response.reasonPhrase ?? "Server error.");
       }
     } catch (e) {
       setState(() => _errorMessage = "An error occurred. Please try again.");
@@ -57,6 +72,7 @@ class _OtpVerificationSignupState extends State<OtpVerificationSignup> {
       setState(() => _isLoading = false);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

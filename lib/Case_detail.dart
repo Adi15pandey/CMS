@@ -37,7 +37,8 @@ class _CaseDetailsScreenState extends State<CaseDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Case Details"),
+        title: const Text("Case Details"),iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: caseData,

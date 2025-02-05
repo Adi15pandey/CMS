@@ -17,76 +17,80 @@ class _ManagementScreenState extends State<ManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Management'),
+        backgroundColor: const Color.fromRGBO(0, 74, 173, 1), // Blue header
+        title: const Text(
+          'Management',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(
+            color: Colors.white), // Back button color
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // 2 cards per row
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-          ),
+        child: Column(
           children: [
-            _buildCard(
-              context,
-              icon: Icons.document_scanner,
-              title: 'Docs',
-              color: Colors.blueAccent,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DocsPage()),
-                );
-              },
-            ),
-            _buildCard(
-              context,
-              icon: Icons.check_box,
-              title: 'Tasks',
-              color: Colors.green,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Taskscreen()),
-                );
-              },
-            ),
-            _buildCard(
-              context,
-              icon: Icons.warning,
-              title: 'Expired Tasks',
-              color: Colors.orange,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ExpiredTask()),
-                );
-              },
-            ),
-            _buildCard(
-              context,
-              icon: Icons.subdirectory_arrow_right,
-              title: 'Sub Tasks',
-              color: Colors.purple,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SubTask()),
-                );
-              },
-            ),
-            _buildCard(
-              context,
-              icon: Icons.support,
-              title: 'Ticket',
-              color: Colors.red,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Ticketscreen()),
-                );
-              },
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildCard(
+                    context,
+                    imagePath: 'assets/images/contract_1358533 1.png', // PNG Image for Docs
+                    title: 'DOCS',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DocsPage()),
+                      );
+                    },
+                  ),
+
+                  _buildCard(
+                    context,
+                    imagePath: 'assets/images/list_3208615 1.png', // PNG Image for Docs
+                    // Tasks Icon
+                    title: 'TASKS',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Taskscreen()),
+                      );
+                    },
+                  ),
+                  _buildCard(
+                    context,
+                    icon: Icons.warning_amber, // Expired Tasks Icon
+                    title: 'EXPIRED TASKS',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ExpiredTask()),
+                      );
+                    },
+                  ),
+                  _buildCard(
+                    context,
+                    icon: Icons.subtitles, // Sub Tasks Icon
+                    title: 'SUB TASKS',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SubTask()),
+                      );
+                    },
+                  ),
+                  _buildCard(
+                    context,
+                    imagePath: 'assets/images/ticket_13416591 1.png', // Tickets Icon
+                    title: 'TICKETS',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Ticketscreen()),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -94,34 +98,39 @@ class _ManagementScreenState extends State<ManagementScreen> {
     );
   }
 
-  Widget _buildCard(
-      BuildContext context, {
-        required IconData icon,
-        required String title,
-        required Color color,
-        required VoidCallback onTap,
-      }) {
+  Widget _buildCard(BuildContext context, {
+    String? imagePath, // Optional image path
+    IconData? icon, // Optional icon
+    required String title,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        elevation: 4.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
-            color: color.withOpacity(0.1),
+        elevation: 3.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          side: const BorderSide(
+            color: Color.fromRGBO(189, 217, 255, 1), // Light Blue Border
+            width: 2.0,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 16.0),
+          child: Row(
             children: [
-              Icon(icon, size: 48.0, color: color),
-              const SizedBox(height: 8.0),
+              if (imagePath != null)
+                Image.asset(imagePath, width: 40, height: 40) // PNG Image
+              else
+                if (icon != null)
+                  Icon(icon, size: 40, color: Colors.black), // Black Icon
+              const SizedBox(width: 30),
               Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                style: const TextStyle(
                   fontSize: 16.0,
-                  color: color,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black, // Text in Black
                 ),
               ),
             ],

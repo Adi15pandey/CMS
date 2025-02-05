@@ -83,7 +83,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
         }
       } else {
         setState(() {
-          _error = "Failed to fetch data. Please try again later.";
+          // _error = "Failed to fetch data. Please try again later.";
         });
       }
     } catch (e) {
@@ -110,9 +110,10 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
         title: Text(
-          'Search case by CNR number',
-          style: TextStyle(color: Colors.blue),
+          'Add Cases',
+          style: TextStyle(color: Colors.white,),
         ),
       ),
       body: SingleChildScrollView(
@@ -128,14 +129,23 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
                       controller: _cnrController,
                       decoration: InputDecoration(
                         labelText: 'Enter CNR Number',
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12), // Curved border
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(24, 73, 214, 1), // Border color set to rgba(24, 73, 214, 1)
+                            width: 1.5, // Border width (optional)
+                          ),
+                        ),
                       ),
                     ),
+
+
                   ),
                   SizedBox(width: 16), // Space between TextField and Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black, // Set the background color to black
+                      backgroundColor: Colors.blue, // Set the background color to blue[900]
+                      foregroundColor: Colors.white, // Set the text color to white
                     ),
                     onPressed: () {
                       if (_cnrController.text.isNotEmpty) {
@@ -144,22 +154,40 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
                     },
                     child: Text('Search'),
                   ),
+
                 ],
               ),
-              SizedBox(height: 16), // Space between Search Row and Upload Button
+              SizedBox(height: 30), // Space between Search Row and Upload Button
 
               // Upload Document Button
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Set background color
-                ),
-                onPressed: () {
+              GestureDetector(
+                onTap: () {
                   _pickDocument();
                 },
-                icon: Icon(Icons.upload_file), // Icon for upload
-                label: Text('Upload Doc'),
-              ),
-              SizedBox(height: 20), // Space before loading indicator or data
+                child: Container(
+                  width: double.infinity,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Background color
+                    border: Border.all(color: Colors.blue, width: 1.5, style: BorderStyle.solid), // Dashed border
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.upload_file, size: 50, color: Colors.blue),
+                      SizedBox(height: 10),
+                      Text(
+                        'Upload docs',
+                        style: TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+,
+
+              SizedBox(height: 20),
 
               // Loading Indicator
               if (_isLoading)
@@ -179,13 +207,14 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
               if (_cnrData != null)
                 buildInfoSection(),
 
-              SizedBox(height: 20), // Space before Add New CNR button
+              SizedBox(height: 20),
 
               // Add New CNR Button
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green, // Set button color
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,// Set button color
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                   onPressed: () {
@@ -204,7 +233,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
     );
   }
 
-// Function to display the dialog box
+
   void _showAddCnrDialog() {
     final TextEditingController _newCnrController = TextEditingController();
 
@@ -219,7 +248,11 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
             // keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: "Enter 16-digit CNR Number",
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color.fromRGBO(189, 217, 255, 1), // Border color
+                ),
+              ),
             ),
           ),
           actions: [
@@ -227,11 +260,18 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text("Cancel"),
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                  color: Color.fromRGBO(253, 101, 0, 1), // Cancel button color
+                ),
+              ),
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(0, 111, 253, 1), // Submit (Save Changes) button color
+              ),
               onPressed: () {
-
                 if (_newCnrController.text.length == 16) {
                   Navigator.push(
                     context,
@@ -270,11 +310,11 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
                   ));
                 }
               },
-              child: Text("Submit"),
-            )
-
+              child: Text("Submit",style: TextStyle(color: Colors.white),),
+            ),
           ],
         );
+
       },
     );
   }
@@ -512,7 +552,10 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Advocate',style: TextStyle(color: Colors.blue),),
+        title: Text('Add cases',style: TextStyle(color: Colors.white), ),
+        iconTheme: const IconThemeData(
+            color: Colors.white),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1) ,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -525,52 +568,69 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                 style: TextStyle(color: Colors.red),
               ),
             if (_users.isNotEmpty) ...[
-              Card(
-                elevation: 4, // Adds a shadow for a card effect
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), // Rounded corners
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Select Advocate:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Container(
-                        height: 200,
-                        child: ListView.builder(
-                          itemCount: _users.length,
-                          itemBuilder: (context, index) {
-                            return RadioListTile<int>(
-                              value: index,
-                              groupValue: _selectedUserIndex,
-                              title: Text(_users[index]['name'] ?? 'Unknown'),
-                              onChanged: (int? value) {
-                                setState(() {
-                                  _selectedUserIndex = value;
-                                });
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            Center(
+            child: Card(
+            elevation: 4, // Adds a shadow for a card effect
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // Rounded corners
+            ),
+            margin: EdgeInsets.all(16), // Add margin around the card
+            color: Colors.white, // Card color (optional)
+            child: Container(
+            decoration: BoxDecoration(
+            border: Border.all(
+            color: Color.fromRGBO(189, 217, 255, 1), // Border color
+            width: 2, // Border width
+            ),
+            borderRadius: BorderRadius.circular(12), // Rounded corners
+            ),
+            child: Padding(
+            padding: const EdgeInsets.all(16.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    Center(
+    child: Text(
+    'Select Advocate:',
+    style: TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    // color: Color.fromRGBO(r, g, b, opacity)
+    ),
+    ),
+    ),
+    SizedBox(height: 8),
+    Container(
+    height: 200,
+    child: ListView.builder(
+    itemCount: _users.length,
+    itemBuilder: (context, index) {
+    return RadioListTile<int>(
+    value: index,
+    groupValue: _selectedUserIndex,
+    title: Text(_users[index]['name'] ?? 'Unknown'),
+    onChanged: (int? value) {
+    setState(() {
+    _selectedUserIndex = value;
+    });
+    },
+    );
+    },
+    ),
+    ),
+    ],
+    ),
+    ),
+    ),
+    ),
+    ),
+    ],
             SizedBox(height: 16),
             ElevatedButton(
 
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white
               ),
               onPressed: () {
                 if(widget.sendScreentype == "uploadfile"){
@@ -603,7 +663,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                   );
                 }
               },
-              child: Text('Add'),
+              child: Text('Add',),
             ),
           ],
         ),

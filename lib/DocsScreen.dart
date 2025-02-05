@@ -86,7 +86,11 @@ class _DocsPageState extends State<DocsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Documents')),
+      appBar: AppBar(
+        title: const Text('Documents'),
+          backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+          color: Colors.white),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -107,11 +111,21 @@ class _DocsPageState extends State<DocsPage> {
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddDocumentsScreen()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddDocumentsScreen()),
+                    );
                   },
-                  child: Text('Add Docs'),
-                  style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(0, 111, 253, 1), // Blue background
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  ),
+                  child: Text(
+                    'Add Docs',
+                    style: TextStyle(color: Colors.white), // White text
+                  ),
                 ),
+
               ],
             ),
             SizedBox(height: 20),
@@ -128,7 +142,13 @@ class _DocsPageState extends State<DocsPage> {
 
                   return Card(
                     elevation: 5,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(
+                        color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
+                        width: 2, // Border width
+                      ),
+                    ),
                     margin: EdgeInsets.symmetric(vertical: 8),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
@@ -137,13 +157,30 @@ class _DocsPageState extends State<DocsPage> {
                         children: [
                           Text(
                             "CNR Number: ${doc['cnrNumber']}",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Color.fromRGBO(0, 74, 173, 1), // Text color
+                            ),
                           ),
                           SizedBox(height: 6),
-                          Text("No. of Documents: ${doc['noOfDocument']}"),
+                          Text(
+                            "No. of Documents: ${doc['noOfDocument']}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(117, 117, 117, 1), // Gray color
+                            ),
+                          ),
                           SizedBox(height: 6),
-                          Text("Respondent & Petitioner: $combinedRespondent"),
+                          Text(
+                            "Respondent & Petitioner: $combinedRespondent",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(117, 117, 117, 1), // Gray color
+                            ),
+                          ),
                           SizedBox(height: 10),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -174,6 +211,7 @@ class _DocsPageState extends State<DocsPage> {
                       ),
                     ),
                   );
+
                 },
               ),
             ),

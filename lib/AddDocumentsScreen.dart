@@ -18,8 +18,9 @@ class _AddDocumentsScreenState extends State<AddDocumentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Documents'),
-        backgroundColor: Colors.teal,
+        title: const Text(' Add Documents'),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

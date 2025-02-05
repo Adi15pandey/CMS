@@ -140,8 +140,8 @@ class _MyCouncilState extends State<MyCouncil> {
   void initState() {
     super.initState();
     _initializeData();
-    // futureCaseDetails = fetchCaseDetails();
-    // _searchController.addListener(_onSearchChanged);
+     futureCaseDetails = fetchCaseDetails();
+     _searchController.addListener(_onSearchChanged);
 
     // print(AppConstants.token);
   }
@@ -215,6 +215,8 @@ class _MyCouncilState extends State<MyCouncil> {
           title: Text('Case Repository', style: TextStyle(color: Colors.white)),
           backgroundColor: Color.fromRGBO(0, 74, 173, 1),
           centerTitle: true,
+          iconTheme: const IconThemeData(
+              color: Colors.white),
         ),
         body: Column(
           children: [
@@ -260,10 +262,10 @@ class _MyCouncilState extends State<MyCouncil> {
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF004AAD), // Set background color
+                     backgroundColor: Color(0xFF004AAD),
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2), // Optional: Rounded corners
+                      borderRadius: BorderRadius.circular(2),
                     ),
                   ),
                 ),
@@ -279,7 +281,6 @@ class _MyCouncilState extends State<MyCouncil> {
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        // Toggle "Select All" functionality
                         _selectAll = !_selectAll;
                         if (_selectAll) {
                           _selectedCaseDetails = List.from(_filteredCaseDetails); // Select all
@@ -338,12 +339,15 @@ class _MyCouncilState extends State<MyCouncil> {
                           }
                         }
                         String lastDate = "Not Available";
+
                         if (caseDetails.caseHistory != null && caseDetails.caseHistory.isNotEmpty) {
                           final lastCaseHistory = caseDetails.caseHistory.last;
-                          if (lastCaseHistory.isNotEmpty && lastCaseHistory[1] != null) {
-                            lastDate = lastCaseHistory[1]; // Get the date from the last caseHistory entry
+
+                          if (lastCaseHistory.isNotEmpty && lastCaseHistory.length > 1 && lastCaseHistory[1] != null) {
+                            lastDate = lastCaseHistory[1];
                           }
                         }
+
 
                         return Column(
                           children: [
@@ -458,8 +462,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                         Expanded(
                                           flex: 3,
                                           child: Text(
-                                            lastHearingDate
-                                            ,
+                                            lastHearingDate,
                                             textAlign: TextAlign.end,
                                             style: TextStyle(
                                               fontSize: 16,
@@ -539,8 +542,6 @@ class _MyCouncilState extends State<MyCouncil> {
                                   ),
 
                                   const SizedBox(height: 16.0),
-
-                                  // View Details and Delete Buttons
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -555,12 +556,17 @@ class _MyCouncilState extends State<MyCouncil> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyCouncilDetails(
-                                                SendCnrNo: caseDetails.cnrNumber,
-                                                SendNextHearingDate: lastHearingDate
-
-                                            )));
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => MyCouncilDetails(
+                                                  SendCnrNo: caseDetails.cnrNumber ?? "N/A",
+                                                  SendNextHearingDate: lastHearingDate ?? "N/A",
+                                                ),
+                                              ),
+                                            );
                                           },
+
                                           child: const Text(
                                             "View Detail",
                                             style: TextStyle(
@@ -653,17 +659,13 @@ class _MyCouncilState extends State<MyCouncil> {
     return 'Not Available';
   }
 
-  // Fetch the case details from the API
-  Future<List<CaseDetails>> fetchCaseDetails() async {
 
-    // const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NjU2OTNhZmU0ZTAzNmFkNDdjNWUzZCIsImlhdCI6MTczNDkzMDk0MywiZXhwIjoxNzM1MDE3MzQzfQ.3VkdiTezQb2ks65okPNHJMeT-5gGCbZssi4JxB7Hte4';
+
+  Future<List<CaseDetails>> fetchCaseDetails() async {
     final response = await http.get(
-      Uri.parse('${GlobalService.baseUrl}/api/cnr/get-cnr'),
+      Uri.parse('${GlobalService.baseUrl}/api/cnr/get-cnr?pageNo=1&pageLimit=100&filterText=&nextHearing=0&petitioner=0&respondent=0'),
       headers: {
         'token': '$token',
-
-        //  'token':
-       // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI',
         'Content-Type': 'application/json',
       },
     );
@@ -672,11 +674,20 @@ class _MyCouncilState extends State<MyCouncil> {
     print('Response body: ${response.body}');
 
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
-      List<dynamic> caseDetailsList = jsonData['data'];
-      return caseDetailsList.map((item) => CaseDetails.fromJson(item)).toList();
+      try {
+        final jsonData = jsonDecode(response.body);
+
+        if (jsonData is Map<String, dynamic> && jsonData['data'] is List) {
+          List<dynamic> caseDetailsList = jsonData['data'];
+          return caseDetailsList.map((item) => CaseDetails.fromJson(item)).toList();
+        } else {
+          throw Exception("Invalid data format: Expected a list in 'data' key");
+        }
+      } catch (e) {
+        throw Exception("Error parsing JSON: $e");
+      }
     } else {
-      throw Exception('Failed to load case details');
+      throw Exception('Failed to load case details. Status code: ${response.statusCode}');
     }
   }
 

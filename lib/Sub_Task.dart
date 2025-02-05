@@ -134,7 +134,9 @@ class _SubTaskState extends State<SubTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sub Tasks'),
+        title: const Text('Sub Task'),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -179,15 +181,75 @@ class _SubTaskState extends State<SubTask> {
             return Card(
               elevation: 2,
               margin: const EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                title: Text(task['title'] ?? 'No Title'),
-                subtitle: Text(task['description'] ?? 'No Description'),
-                trailing: Text(task['status'] ?? 'Unknown'),
-                onTap: () {
-                  // Optionally show more details
-                  showTaskDetails(task);
-                },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                side: const BorderSide(
+                  color: Color.fromRGBO(189, 217, 255, 1), // Light Blue Border
+                  width: 2.0,
+                ),
               ),
+              child: ListTile(
+                title: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "CNR Number: ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(0, 74, 173, 1), // CNR Number color
+                        ),
+                      ),
+                      TextSpan(
+                        text: "${task['cnrNumber'] ?? 'N/A'}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(117, 117, 117, 1), // CNR value color
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Title with bold text
+                    SizedBox(height: 8), // Add space above
+                    Text(
+                      task['title'] ?? 'No Title',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 4), // Add space below title
+
+                    // Description Text
+                    Text(
+                      task['description'] ?? 'No Description',
+                      style: TextStyle(color: Colors.black87),
+                    ),
+                    SizedBox(height: 8), // Add space between description and status/duedate
+
+                    // Status Text with color
+                    Text(
+                      "Status: ${task['status'] ?? 'Unknown'}",
+                      style: TextStyle(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 4), // Add space below status
+
+                    // Due Date with conditional format
+                    Text(
+                      "Due Date: ${task['dueDate'] != null ? task['dueDate'].split('T')[0] : 'No Due Date'}",
+                      style: TextStyle(color: Colors.black87),
+                    ),
+                  ],
+                ),
+                trailing: Icon(Icons.edit, color: Colors.blue),
+                onTap: () {
+                  showTaskDetails(task); // Open the edit form when a task is tapped
+                },
+              )
+
             );
           },
         ),

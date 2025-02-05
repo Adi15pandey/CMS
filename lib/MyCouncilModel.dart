@@ -26,26 +26,29 @@ class CaseDetails {
       id: json['_id'] ?? '',
       cnrNumber: json['cnrNumber'] ?? '',
       userId: (json['userId'] as List? ?? [])
-          .map((e) => User.fromJson(e))
+          .map((e) => e is Map<String, dynamic> ? User.fromJson(e) : User(userId: '', externalUserName: ''))
           .toList(),
-      caseDetail: CaseDetail.fromJson(json['caseDetails'] ?? {}),
+      caseDetail: json['caseDetails'] is Map<String, dynamic>
+          ? CaseDetail.fromJson(json['caseDetails'])
+          : CaseDetail(caseType: '', filingDate: '', registrationNumber: ''),
       caseHistory: (json['caseHistory'] as List? ?? [])
-          .map((e) => List<String>.from(e ?? []))
+          .map((e) => e is List ? e.map((i) => i.toString()).toList() : <String>[])
           .toList(),
       caseStatus: (json['caseStatus'] as List? ?? [])
-          .map((e) => List<String>.from(e ?? []))
+          .map((e) => e is List ? e.map((i) => i.toString()).toList() : <String>[])
           .toList(),
       intrimOrders: (json['intrimOrders'] as List? ?? [])
-          .map((e) => IntrimOrder.fromJson(e ?? {}))
+          .map((e) => e is Map<String, dynamic> ? IntrimOrder.fromJson(e) : IntrimOrder(orderDate: '', s3Url: ''))
           .toList(),
       petitionerAndAdvocate: (json['petitionerAndAdvocate'] as List? ?? [])
-          .map((e) => List<String>.from(e ?? []))
+          .map((e) => e is List ? e.map((i) => i.toString()).toList() : <String>[])
           .toList(),
       respondentAndAdvocate: (json['respondentAndAdvocate'] as List? ?? [])
-          .map((e) => List<String>.from(e ?? []))
+          .map((e) => e is List ? e.map((i) => i.toString()).toList() : <String>[])
           .toList(),
     );
   }
+
 }
 
 class User {

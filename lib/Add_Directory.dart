@@ -108,6 +108,8 @@ class _AddDirectoryState extends State<AddDirectory> {
         title: const Text('Add Directory'),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
+        iconTheme: const IconThemeData(
+            color: Colors.white),
       ),
       body: users.isEmpty
           ? const Center(
@@ -123,11 +125,13 @@ class _AddDirectoryState extends State<AddDirectory> {
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
+              side: BorderSide(color: Color.fromRGBO(189, 217, 255, 1), width: 2), // Border color
             ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
+                  // Profile Circle
                   CircleAvatar(
                     backgroundColor: Colors.blueAccent,
                     radius: 30,
@@ -151,6 +155,7 @@ class _AddDirectoryState extends State<AddDirectory> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(0, 74, 173, 1), // User Name Color
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -165,19 +170,32 @@ class _AddDirectoryState extends State<AddDirectory> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Delete Button
+                  // Delete Button (only if no assigned cases)
                   if (user['noOfAssigncases'] == 0)
-                    IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      tooltip: 'Delete User',
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(253, 101, 0, 1), // Button BG Color
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                       onPressed: () {
                         deleteUser(user['_id']);
                       },
+                      child: const Text(
+                        'Delete',
+                        style: TextStyle(
+                          color: Colors.white, // Foreground color
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                 ],
               ),
             ),
           );
+
         },
       ),
     );

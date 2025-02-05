@@ -17,7 +17,6 @@ class _ExpiredTaskState extends State<ExpiredTask> {
   List<Map<String, dynamic>> highPriorityTasks = [];
   bool isLoading = true;
 
-  // Add bool variables to track the expansion state of each section
   bool isLowPriorityExpanded = false;
   bool isMediumPriorityExpanded = false;
   bool isHighPriorityExpanded = false;
@@ -80,7 +79,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
         var data = json.decode(responseBody);
 
         setState(() {
-          // Group tasks by priority
+
           lowPriorityTasks = List<Map<String, dynamic>>.from(data['lowTasks']);
           mediumPriorityTasks = List<Map<String, dynamic>>.from(data['mediumTasks']);
           highPriorityTasks = List<Map<String, dynamic>>.from(data['highTasks']);
@@ -108,7 +107,6 @@ class _ExpiredTaskState extends State<ExpiredTask> {
     TextEditingController priorityController =
     TextEditingController(text: task['priority']);
 
-    // Show dialog with form for editing task
     await showDialog(
       context: context,
       builder: (context) {
@@ -144,8 +142,6 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                 task['title'] = titleController.text;
                 task['description'] = descriptionController.text;
                 task['priority'] = priorityController.text;
-
-                // Send the updated task data to the server
                 bool success = await _sendUpdatedTaskToServer(task);
 
                 if (success) {
@@ -168,12 +164,12 @@ class _ExpiredTaskState extends State<ExpiredTask> {
   Future<bool> _sendUpdatedTaskToServer(Map<String, dynamic> task) async {
     var headers = {
       'Content-Type': 'application/json',
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw'
+      'token': '$token',
     };
 
     var request = http.Request(
       'PUT', // Use PUT method for updating data
-      Uri.parse('http://192.168.0.108:4001/api/task/edit-expire-task/${task['id']}'), // Dynamic ID
+      Uri.parse('${GlobalService.baseUrl}/api/task/edit-expire-task/${task['id']}'), // Dynamic ID
     );
 
     request.headers.addAll(headers);
@@ -205,7 +201,9 @@ class _ExpiredTaskState extends State<ExpiredTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Expired Tasks'),
+        title: const Text('Expired Task'),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -272,15 +270,139 @@ class _ExpiredTaskState extends State<ExpiredTask> {
             return Card(
               elevation: 2,
               margin: const EdgeInsets.symmetric(vertical: 8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                side: const BorderSide(
+                  color: Color.fromRGBO(189, 217, 255, 1), // Light Blue Border
+                  width: 2.0,
+                ),
+              ),
               child: ListTile(
-                title: Text(task['title'] ?? 'No Title'),
-                subtitle: Text(task['description'] ?? 'No Description'),
-                trailing: Text(task['status'] ?? 'Unknown'),
+                title: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0), // Adds space below title
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "CNR Number: ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color
+                            fontSize: 16,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "${task['cnrNumber'] ?? 'N/A'}",
+                          style: TextStyle(
+                            color: Color.fromRGBO(117, 117, 117, 1), // Grey color
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 8), // Space before Task Title
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Task Title: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(0, 74, 173, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "${task['title'] ?? 'No Title'}",
+                            style: TextStyle(
+                              color: Color.fromRGBO(117, 117, 117, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8), // Space before Description
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Description: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(0, 74, 173, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "${task['description'] ?? 'No Description'}",
+                            style: TextStyle(
+                              color: Color.fromRGBO(117, 117, 117, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8), // Space before Status
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Status: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(0, 74, 173, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "${task['status'] ?? 'Unknown'}",
+                            style: TextStyle(
+                              color: Colors.redAccent,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8), // Space before Due Date
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Due Date: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(0, 74, 173, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "${task['dueDate'] != null ? task['dueDate'].split('T')[0] : 'No Due Date'}",
+                            style: TextStyle(
+                              color: Color.fromRGBO(117, 117, 117, 1),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: Icon(Icons.edit, color: Colors.blue),
                 onTap: () {
-                  // Open the edit form when a task is tapped
-                  _editTask(task);
+                  _editTask(task); // Open the edit form when a task is tapped
                 },
               ),
+
+
+
             );
           },
         ),

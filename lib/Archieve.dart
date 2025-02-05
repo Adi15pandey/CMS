@@ -74,7 +74,7 @@ class _ArchieveState extends State<Archieve> {
           throw Exception(data['message']);
         }
       } else {
-        throw Exception('Failed to load data');
+        // throw Exception('Failed to load data');
       }
     } catch (e) {
       setState(() {
@@ -105,7 +105,10 @@ class _ArchieveState extends State<Archieve> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Archived Cases'),
+        title: Text('Archive Cases', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -120,6 +123,13 @@ class _ArchieveState extends State<Archieve> {
 
           return Card(
             margin: const EdgeInsets.all(8.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(
+                color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
+                width: 2, // Border width
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -128,27 +138,55 @@ class _ArchieveState extends State<Archieve> {
                   Text(
                     'CNR Number: $cnrNumber',
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+                        fontWeight: FontWeight.bold, fontSize: 16, color: Color.fromRGBO(0, 74, 173, 1),),
                   ),
                   const SizedBox(height: 8),
-                  Text('Status: $status'),
+                  Text('Status: $status', style: const TextStyle(
+                     fontSize: 16, color: Color.fromRGBO(117, 117, 117, 1),),),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
                         onPressed: () => handleRestore(item['_id']),
-                        child: const Text('Restore'),
-                      ),
-                      ElevatedButton(
-                        onPressed: hasOrders
-                            ? null
-                            : () => handleDelete(item['_id']),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.green, // Button color
+                          foregroundColor: Colors.white, // Text color
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 4,
                         ),
-                        child: const Text('Delete'),
+                        child: const Text(
+                          'Restore',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
+
+                      ElevatedButton(
+                        onPressed: hasOrders ? null : () => handleDelete(item['_id']),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: hasOrders ? Colors.grey : Colors.red, // Disable color if hasOrders is true
+                          foregroundColor: Colors.white, // Text color
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: hasOrders ? 0 : 4, // Remove shadow when disabled
+                        ),
+                        child: const Text(
+                          'Delete',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+
                     ],
                   ),
                 ],

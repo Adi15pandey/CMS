@@ -103,7 +103,8 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Subcases Repository"),
+        title: const Text("Subcases Repository"),iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

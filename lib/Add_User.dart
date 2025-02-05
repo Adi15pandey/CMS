@@ -127,7 +127,9 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
           child: Text(
             'Cancel',
             style: TextStyle(
-              color: Colors.grey.shade600,
+
+              color: Color.fromRGBO(253, 101, 0, 1),
+
               fontSize: 16,
             ),
           ),
@@ -153,7 +155,7 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
           child: Text(
-            'Save Changes',
+            'Save',
             style: TextStyle(fontSize: 16),
           ),
         ),

@@ -52,6 +52,7 @@ dev_dependencies:
   file_saver: any
   fl_chart: ^0.63.0
   pie_chart: ^5.4.0
+  font_awesome_flutter: ^10.6.0
 
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -77,6 +78,9 @@ flutter:
     - assets/images/thumbnail_CMS  RECQARZ.2.jpg
     - assets/images/CMS  RECQARZ (5).png
     - assets/images/Untitled-4 2 (1).png
+    - assets/images/contract_1358533 1.png
+    - assets/images/list_3208615 1.png
+    - assets/images/ticket_13416591 1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

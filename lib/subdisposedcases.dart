@@ -117,6 +117,8 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Disposed Cases'),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -136,50 +138,112 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'CNR Number: ${caseItem["cnrNumber"]}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                  // CNR Number
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'CNR Number: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color for label
+                          ),
+                        ),
+                        TextSpan(
+                          text: '${caseItem["cnrNumber"]}',
+                          style: TextStyle(
+                            // fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color.fromRGBO(117, 117, 117, 1), // Gray color for value
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Last Hearing: ${caseHistory.isNotEmpty ? caseHistory[0][1] : "N/A"}',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Final Hearing: ${caseHistory.isNotEmpty ? caseHistory[0][2] : "N/A"}',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  const SizedBox(height: 8),
+
+                  // Last Hearing
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Last Hearing: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Color.fromRGBO(0, 74, 173, 1),
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${caseHistory.isNotEmpty && caseHistory[0].isNotEmpty ? caseHistory[0][0] : "N/A"}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color.fromRGBO(117, 117, 117, 1),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Final Hearing: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Color.fromRGBO(0, 74, 173, 1),
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${caseHistory.isNotEmpty && caseHistory[0].length > 1 ? caseHistory[0][1] : "N/A"}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color.fromRGBO(117, 117, 117, 1),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+,
+
+                  // Petitioner
                   Text(
                     'Petitioner: $petitioner',
                     style: const TextStyle(fontSize: 14),
                   ),
                   const SizedBox(height: 8),
+
+                  // Respondent
                   Text(
                     'Respondent: $respondent',
                     style: const TextStyle(fontSize: 14),
                   ),
                   const SizedBox(height: 16),
+
+                  // Buttons Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          // Get the first userId from the caseItem
                           final String id = caseItem['userId'][0]['userId'];
-                          final String cnrNumber = caseItem['cnrNumber']; // Assuming caseItem contains cnrNumber
+                          final String cnrNumber = caseItem['cnrNumber'];
 
-                          // Navigate to the AddDocsdisposed screen with id and cnrNumber
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => AddDocsdisposed(
-                                id: id, // Pass the userId
-                                cnrNumber: cnrNumber, // Pass the cnrNumber
+                                id: id,
+                                cnrNumber: cnrNumber,
                               ),
                             ),
                           );
@@ -190,32 +254,12 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                         child: const Text('Add docs'),
                       ),
 
-                      // Expanded(
-                      //   child: ElevatedButton(
-                      //     onPressed: ()async {
-                      //       final String id = caseItem['userId'][0]['userId'];
-                      //       final String cnrNumber = caseItem['cnrNumber'];
-                      //
-                      //       await deleteSubcase(
-                      //         context: context,
-                      //         id: id,
-                      //         cnrNumber: cnrNumber,
-                      //       );
-                      //
-                      //     },
-                      //     style: ElevatedButton.styleFrom(
-                      //       backgroundColor: Colors.red,
-                      //     ),
-                      //     child: const Text("Delete"),
-                      //   ),
-                      // ),
-
                       ElevatedButton(
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ViewDetail(
-                              cnrNumber: caseItem["cnrNumber"], // Pass the CNR Number here
+                              cnrNumber: caseItem["cnrNumber"],
                             ),
                           ),
                         ),
@@ -224,11 +268,11 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                         ),
                         child: const Text('Details'),
                       ),
-
                     ],
                   ),
                 ],
               ),
+
             ),
           );
         },

@@ -96,7 +96,13 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Subcases Management"),
+        backgroundColor: const Color.fromRGBO(0, 74, 173, 1), // Blue header
+        title: const Text(
+           'Subcases Management',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(
+            color: Colors.white), // Back button color
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -110,29 +116,97 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
           final subcase = subcases[index];
           return Card(
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(
+                color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
+                width: 2, // Border width
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Display CNR Number
-                  Text(
-                    "CNR Number: ${subcase["cnrNumber"] ?? "Unknown"}",
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "CNR Number: ",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${subcase["cnrNumber"] ?? "Unknown"}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(117, 117, 117, 1), // Value color
+                          ),
+                          overflow: TextOverflow.ellipsis, // Truncate if too long
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 5),
+
                   // Display Number of Documents
-                  Text(
-                    "No. of Documents: ${subcase["documentCount"] ?? "N/A"}",
-                    style: const TextStyle(fontSize: 14),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "No. of Documents: ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${subcase["documentCount"] ?? "N/A"}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(117, 117, 117, 1),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 5),
+
                   // Display Respondent & Petitioner
-                  Text(
-                    "Respondent & Petitioner: ${subcase["respondent"] ?? "No respondent"} & ${subcase["petitioner"] ?? "No petitioner"}",
-                    style: const TextStyle(fontSize: 14),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Respondent & Petitioner: ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${subcase["respondent"] ?? "No respondent"} & ${subcase["petitioner"] ?? "No petitioner"}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(117, 117, 117, 1),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
+
                   // Action Button
                   Align(
                     alignment: Alignment.centerRight,
@@ -141,30 +215,32 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                         final cnrNumber = subcase["cnrNumber"];
                         final documents = subcase["documents"] ?? [];
 
-                        // Ensure the documents are being extracted correctly as a List<String>
+                        // Extract uploader's name
                         final uploadedBy = documents.isNotEmpty
                             ? documents[0]["uploadedBy"] ?? "Unknown"
                             : "Unknown";
                         final id = subcase["_id"];
 
-                        // Extracting document names and URLs as List<String>
-                        final documentNames = List<String>.from(documents.map((document) => document["name"] ?? "Unnamed Document"));
-                        final documentUrls = List<String>.from(documents.map((document) => document["url"] ?? ""));
+                        // Extract document names and URLs
+                        final documentNames = List<String>.from(
+                            documents.map((document) => document["name"] ?? "Unnamed Document"));
+                        final documentUrls = List<String>.from(
+                            documents.map((document) => document["url"] ?? ""));
 
                         if (cnrNumber != null && id != null) {
-                          // Display a dialog to manage documents for the CNR
+                          // Show document details dialog
                           showDialog(
                             context: context,
                             builder: (_) => SubcaseDetails(
                               cnrNumber: cnrNumber,
                               uploadedBy: uploadedBy,
                               id: id,
-                              documentUrls: documentUrls, // Passing URLs
-                              documentNames: documentNames, // Passing Names
+                              documentUrls: documentUrls,
+                              documentNames: documentNames,
                             ),
                           );
                         } else {
-                          // Handle missing data
+                          // Show error message
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("CNR number or ID is missing!")),
                           );
@@ -178,6 +254,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                   ),
                 ],
               ),
+
             ),
           );
         },

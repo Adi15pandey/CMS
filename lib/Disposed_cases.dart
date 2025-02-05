@@ -100,7 +100,7 @@ class _DisposedCasesState extends State<DisposedCases> {
     try {
       final response = await http.get(
         Uri.parse(
-            "${GlobalService.baseUrl}/api/cnr/get-disposed-cnr?pageNo=1&pageLimit=10&filterText=&nextHearing=0&petitioner=0&respondent=0"),
+            "${GlobalService.baseUrl}/api/cnr/get-disposed-cnr?pageNo=1&pageLimit=1000000000&filterText=&nextHearing=0&petitioner=0&respondent=0"),
         headers: {
           'token': '$token',
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ class _DisposedCasesState extends State<DisposedCases> {
         if (data['success'] == true) {
           setState(() {
             _cases = data['data'];
-            _filteredCases = _cases; // Show all cases initially
+            _filteredCases = _cases;
             _isLoading = false;
           });
         } else {
@@ -245,8 +245,11 @@ class _DisposedCasesState extends State<DisposedCases> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Disposed Cases"),
+        title: Text('Disposed Cases', style: TextStyle(color: Colors.white)),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+            color: Colors.white),
       ),
       body: Column(
         children: [
@@ -346,6 +349,9 @@ class _DisposedCasesState extends State<DisposedCases> {
                 return Card(
                   margin: const EdgeInsets.all(10),
                   shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Color.fromRGBO(189, 217, 255, 1),
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   elevation: 5,

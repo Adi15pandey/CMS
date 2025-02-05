@@ -1,4 +1,5 @@
 
+import 'package:cms/DigitalIntiative.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/Logout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -239,6 +240,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                     },
                   ),
 
+
                 ],
               ),
               ExpansionTile(
@@ -270,6 +272,16 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 title: const Text('Archive'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => Archieve()));
+
+
+
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.people_alt_outlined),
+                title: const Text('Digital Initiative'),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Digitalintiative()));
 
 
 
@@ -311,7 +323,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           ),
         ),
       ),
-      body: isLoading
+      body:
+      isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
         padding: const EdgeInsets.all(16.0),
@@ -374,7 +387,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   Widget _buildCasePieChart(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 200,
       child: Stack(
         children: [
           PieChart(

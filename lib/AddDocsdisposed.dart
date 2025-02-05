@@ -156,7 +156,8 @@ class _AddDocsdisposedState extends State<AddDocsdisposed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Documents"),
+        title: Text("Add Documents"),iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

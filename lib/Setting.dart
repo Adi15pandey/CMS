@@ -26,6 +26,7 @@ class _SettingState extends State<Setting> {
 
   final String apiUrl = '${GlobalService.baseUrl}/api/auth/get-user-data';
   String?token;
+
   // final String token =
   //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzUyMDc3MiwiZXhwIjoxNzM3NjA3MTcyfQ.8YpCygR2uAjCn-yWPEwXG280Cf2Of3KOA_2xBtuIDCw";
 
@@ -79,9 +80,12 @@ class _SettingState extends State<Setting> {
         final data = json.decode(response.body);
         if (data['success']) {
           setState(() {
-            notificationSettings["Email notifications"] = data['data']['emailSms'];
-            notificationSettings["SMS notifications"] = data['data']['mobileSms'];
-            notificationSettings["WhatsApp notifications"] = data['data']['whatsAppSms'];
+            notificationSettings["Email notifications"] =
+            data['data']['emailSms'];
+            notificationSettings["SMS notifications"] =
+            data['data']['mobileSms'];
+            notificationSettings["WhatsApp notifications"] =
+            data['data']['whatsAppSms'];
             notificationSettings["Day Before notifications"] =
             data['data']['oneDayBeforenotification'];
             notificationSettings["2 Day Before notifications"] =
@@ -105,16 +109,17 @@ class _SettingState extends State<Setting> {
     setState(() {
       notificationSettings[key] = value;
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Colors.blueAccent, // Custom color for the app bar
-        elevation: 0, // Optional: remove shadow
+        title: Text('Settings', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+            color: Colors.white),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -123,14 +128,6 @@ class _SettingState extends State<Setting> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const Text(
-            //   'Settings',
-            //   style: TextStyle(
-            //     fontSize: 24,  // Increased font size for the header
-            //     fontWeight: FontWeight.bold,
-            //     color: Colors.blueAccent,  // Custom color for header
-            //   ),
-            // ),
             const SizedBox(height: 16),
             // Section with the notification settings
             Expanded(
@@ -142,6 +139,9 @@ class _SettingState extends State<Setting> {
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Color.fromRGBO(189, 217, 255, 1),
+                        ),
                       ),
                       child: SwitchListTile(
                         title: Text(
@@ -149,14 +149,19 @@ class _SettingState extends State<Setting> {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black,
+                            color: Color.fromRGBO(0, 74, 173, 1),
                           ),
                         ),
                         value: notificationSettings[key]!,
                         onChanged: (value) {
                           toggleNotification(key, value);
                         },
-                        secondary: const Icon(Icons.notifications),
+                        activeColor: Color.fromRGBO(59, 199, 89, 1),
+                        // Green color when switch is active
+                        inactiveTrackColor: Colors.grey,
+                        // Grey color when switch is inactive
+                        inactiveThumbColor: Colors
+                            .white, // White thumb color when inactive
                       ),
                     ),
                   );
@@ -169,18 +174,18 @@ class _SettingState extends State<Setting> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
-                fontStyle: FontStyle.italic,  // Italicize for emphasis
+                fontStyle: FontStyle.normal, // Italicize for emphasis
               ),
             ),
             const SizedBox(height: 32),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Add save functionality if needed
                   debugPrint('Settings saved');
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 32, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),

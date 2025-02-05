@@ -62,8 +62,10 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Case Repository', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),iconTheme: const IconThemeData(
+          color: Colors.white),
         centerTitle: true,
-        title: const Text('Details',style: TextStyle(color: Colors.black),),
       ),
       body: FutureBuilder<CaseResponse>(
         future: fetchCases(),
@@ -101,48 +103,53 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                 child: Column(
                   children: [
                     // Case Details Card
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Card Heading
-                          Center(
+                Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 19.0),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(0, 74, 173, 1), // Background color
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Center(
                             child: Text(
                               'Case Details',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.green,
+                                color: Colors.white, // White text for contrast
                               ),
                             ),
                           ),
-                          Divider(),
-                          const SizedBox(height: 16),
+                        ),
+                        Divider(),
+                        const SizedBox(height: 16),
 
-                          // Case Type
-                          DetailRow(label: 'Case Type', value: caseData.caseDetails.caseType),
+                        // Case Type
+                        DetailRow(label: 'Case Type', value: caseData.caseDetails.caseType),
 
-                          // Registration Date
-                          DetailRow(label: 'Registration Date', value: caseData.caseDetails.registrationDate),
+                        // Registration Date
+                        DetailRow(label: 'Registration Date', value: caseData.caseDetails.registrationDate),
 
-                          // Filing Number
-                          DetailRow(label: 'Filing No.', value: caseData.caseDetails.filingNumber),
+                        // Filing Number
+                        DetailRow(label: 'Filing No.', value: caseData.caseDetails.filingNumber),
 
-                          // First Hearing Date
-                          DetailRow(label: 'First Hearing Date', value: firstHearingDate),
+                        // First Hearing Date
+                        DetailRow(label: 'First Hearing Date', value: firstHearingDate),
 
-                          // Filing Date
-                          DetailRow(label: 'Filing Date', value: caseData.caseDetails.filingDate),
-
-                          // Court No and Judge
-                          DetailRow(label: 'Court No and Judge', value: courtNoAndJudge),
-
-                          // Registration Number
-                          DetailRow(label: 'Registration No.', value: caseData.caseDetails.registrationNumber),
-
-                          // Case Status
-                          DetailRow(label: 'Case Status', value: caseStatus),
+                        // Filing Date
+                        DetailRow(label: 'Filing Date', value:caseStatus),
 
                           // CNR No
                           DetailRow(label: 'CNR No', value: caseData.caseDetails.cnrNumber),
@@ -152,6 +159,8 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                         ],
                       ),
                     ),
+                ),
+                ),
 
                     Divider(thickness: 3,),
                     SizedBox(height: 3,),
@@ -175,7 +184,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green,
+                                  color: Color.fromRGBO(0, 74, 173, 1),
                                 ),
                               ),
                             ),
@@ -232,7 +241,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                             Expanded(
                                               flex: 2,
                                               child: Text(
-                                                item.value.isNotEmpty ? item.value[0] : 'Name not available', // Advocate name
+                                                item.value.isNotEmpty ? item.value[0] : 'Name not available',
                                                 style: TextStyle(fontSize: 12),
                                               ),
                                             ),
@@ -274,7 +283,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green,
+                                  color: Color.fromRGBO(0, 74, 173, 1),
                                 ),
                               ),
                             ),
@@ -324,7 +333,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                             Expanded(
                                               flex: 1,
                                               child: Text(
-                                                'Petitioner', // Hardcoded as Party Type
+                                                'Petitioner',
                                                 style: TextStyle(fontSize: 12),
                                               ),
                                             ),
@@ -360,7 +369,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                        color: Color.fromRGBO(0, 74, 173, 1),
                       ),
                     ),
                     SizedBox(height: 10,),
@@ -427,7 +436,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.green,
+                                    color: Color.fromRGBO(0, 74, 173, 1),
                                   ),
                                 ),
                               ),
@@ -581,7 +590,7 @@ class DetailRow extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.black,
+                color: Color.fromRGBO(0, 74, 173, 1),
               ),
             ),
           ),

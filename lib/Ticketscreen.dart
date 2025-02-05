@@ -25,7 +25,8 @@ class _TicketscreenState extends State<Ticketscreen> {
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
-      fetchRequestedTasks();// Fetch cases if the token is valid
+      fetchRequestedTasks();
+      handleReject("");// Fetch cases if the token is valid
     } else {
       setState(() {
         isLoading = false;
@@ -92,7 +93,7 @@ class _TicketscreenState extends State<Ticketscreen> {
       'token': '$token',
     };
 
-    var request = http.Request('PUT', Uri.parse('http://192.168.1.20:4001/api/task/accept-completed-task/$taskId'));
+    var request = http.Request('PUT', Uri.parse('${GlobalService.baseUrl}/api/task/accept-completed-task/$taskId'));
     request.headers.addAll(headers);
 
     try {
@@ -118,10 +119,10 @@ class _TicketscreenState extends State<Ticketscreen> {
 
   Future<void> handleReject(String taskId) async {
     var headers = {
-      'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw',
+      'token': '$token',
     };
 
-    var request = http.Request('PUT', Uri.parse('http://192.168.1.20:4001/api/task/reject-task/$taskId'));
+    var request = http.Request('PUT', Uri.parse('${GlobalService.baseUrl}/api/task/reject-task/$taskId'));
     request.headers.addAll(headers);
 
     try {

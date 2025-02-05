@@ -93,7 +93,8 @@ class _TrackedcasesState extends State<Trackedcases> {
       appBar: AppBar(
         title: Text("Tracked Cases",style: TextStyle(
             color: Colors.white),),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),iconTheme: const IconThemeData(
+          color: Colors.white),
         actions: [
           // Filter Icon Button
           IconButton(

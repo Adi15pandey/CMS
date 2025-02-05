@@ -94,7 +94,8 @@ class _subcasesDetailsScreenState extends State<subcasesDetailsScreen> {
           "Case Details",
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.blue[800],
+        backgroundColor: Colors.blue[800],iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
