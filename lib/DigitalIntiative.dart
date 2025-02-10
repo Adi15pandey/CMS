@@ -122,7 +122,7 @@ class _DigitalintiativeState extends State<Digitalintiative> {
 
 
   void showVisibilityDetails(dynamic item) {
-    String id = item['_id'] ?? '';  // Extract 'id' from item
+    String id = item['_id'] ?? '';
     if (id.isNotEmpty) {
       Navigator.push(
         context,

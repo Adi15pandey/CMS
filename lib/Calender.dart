@@ -81,7 +81,8 @@ class _CalendarPageState extends State<CalendarPage> {
       final response = await http.get(
         Uri.parse(apiUrl),
         headers: {
-          'token': '$token'        },
+          'token': '$token'
+        },
       );
 
       if (response.statusCode == 200) {

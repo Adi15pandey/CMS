@@ -121,6 +121,7 @@ class _AddDocumentsState extends State<AddDocuments> {
           SnackBar(content: Text('Document uploaded successfully!')),
         );
       } else {
+        print(Colors.red);
         String responseString = await response.stream.bytesToString();
         print('Response Status: ${response.statusCode}');
         print('Response Reason: ${response.reasonPhrase}');

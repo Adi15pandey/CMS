@@ -1,3 +1,5 @@
+import 'package:cms/GlobalServiceurl.dart';
+import 'package:cms/Login.dart';
 import 'package:cms/OtpVerificationSignup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +25,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _pincodeController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _districtController= TextEditingController();
+  final TextEditingController _addressController= TextEditingController();
+
 
   @override
   void dispose() {
@@ -33,6 +38,8 @@ class _SignUpPageState extends State<SignUpPage> {
     _confirmPasswordController.dispose();
     _pincodeController.dispose();
     _stateController.dispose();
+    _districtController.dispose();
+    _addressController.dispose();
     super.dispose();
   }
 
@@ -49,43 +56,62 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
+    if (_emailController.text.trim().isEmpty || _mobileController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Email and Mobile number are required!"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
 
     try {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request(
-        'POST',
-        Uri.parse('http://192.168.1.20:4001/api/auth/temp-register'),
+
+      var requestBody = {
+        "name": _fullNameController.text.trim(),
+        "email": _emailController.text.trim(),
+        "mobile": _mobileController.text.trim(),
+        "password": _passwordController.text.trim(),
+        "confirmPassword": _confirmPasswordController.text.trim(),
+        "role": selectedRole ?? "individual" ,
+        "state": _stateController.text.trim(),
+        "pinCode": _pincodeController.text.trim(),
+        "district": _districtController.text.trim(),
+        "address": _addressController.text.trim(),
+        "bankAddress": "",
+        "bankName": "",
+        "companyAddress": "",
+        "companyName": "",
+        "userDegisnation": ""
+      };
+
+      print("Sending request to: ${GlobalService.baseUrl}/api/auth/temp-register");
+      print("Request Body: ${jsonEncode(requestBody)}");
+
+      var response = await http.post(
+        Uri.parse('${GlobalService.baseUrl}/api/auth/temp-register'),
+        headers: headers,
+        body: jsonEncode(requestBody),
       );
 
-      request.body = json.encode({
-        "full_name": _fullNameController.text,
-        "email": _emailController.text,
-        "mobile": _mobileController.text,
-        "password": _passwordController.text,
-        "confirmPassword": _confirmPasswordController.text,
-        "role": selectedRole,
-        "state": _stateController.text,
-        "pinCode": _pincodeController.text,
-      });
+      print("Response Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
 
-      request.headers.addAll(headers);
+      final responseData = jsonDecode(response.body);
 
-      http.StreamedResponse response = await request.send();
-      String responseBody = await response.stream.bytesToString();
-      final responseData = jsonDecode(responseBody);
-
-      if (response.statusCode == 200 && responseData['success']) {
+      if (response.statusCode == 201 && responseData['success']) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                OtpVerificationSignup(
-                  email: _emailController.text,
-
-                ),
+            builder: (context) => OtpVerificationSignup(
+              email: _emailController.text,
+            ),
           ),
         );
       } else {
@@ -97,6 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
     } catch (error) {
+      print("Error: $error");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Something went wrong! Please try again."),
@@ -109,6 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -139,8 +167,19 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text("Already have an account? Log in",
-                      style: TextStyle(color: Colors.blueAccent)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    },
+                    child: Text(
+                      "Already have an account? Log in",
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
+                  ),
+
                   SizedBox(height: 20),
 
                   buildInputField(
@@ -160,11 +199,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   buildInputField(
                       Icons.location_city, "State", _stateController),
                   buildInputField(Icons.pin, "Pincode", _pincodeController),
+                  buildInputField(Icons.offline_bolt, "District",_districtController),
+                  buildInputField(Icons.ice_skating, "Address",_addressController),
 
                   buildPasswordField(
                       Icons.lock, "Password", _passwordController),
                   buildPasswordField(Icons.lock_outline, "Confirm Password",
                       _confirmPasswordController),
+
 
                   SizedBox(height: 20),
 

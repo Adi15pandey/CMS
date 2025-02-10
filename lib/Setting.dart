@@ -208,7 +208,7 @@ class _SettingState extends State<Setting> {
                     "mobileSms": "true"
                   };
 
-                  saveSettings(userSettings); // Pass the required map here
+                  saveSettings(userSettings);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -217,6 +217,7 @@ class _SettingState extends State<Setting> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
                   elevation: 5,
                 ),
                 icon: Icon(Icons.save),

@@ -44,10 +44,9 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: [
           Image.asset(
-            "assets/images/thumbnail_CMS  RECQARZ.2.jpg",
+            "assets/images/CMS  RECQARZ (5).png",
             height: 150,
-            width: 150,
-            // color: Colors.blue,
+            width: 200,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 10),

@@ -73,7 +73,6 @@ class _ViewDetailState extends State<ViewDetail> {
             '${GlobalService.baseUrl}/api/cnr/get-singlesubcnr/${widget.cnrNumber}'),
         headers: {
           'token': '$token',
-       // Use Bearer token
           'Content-Type': 'application/json',
         },
       );
@@ -163,7 +162,6 @@ class _ViewDetailState extends State<ViewDetail> {
 
             const Divider(height: 20, thickness: 1),
 
-            // Case Status Section (Table)
             buildSectionTitle('Case Status'),
             buildCaseStatus(),
 

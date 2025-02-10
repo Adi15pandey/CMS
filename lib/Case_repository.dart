@@ -188,7 +188,6 @@ class _MyCouncilState extends State<MyCouncil> {
     _filterCaseDetails(_searchController.text);
   }
 
-  // Function to filter case details by CNR number or petitioner
   void _filterCaseDetails(String query) {
     final lowerQuery = query.toLowerCase(); // Convert query to lowercase for case-insensitive search
 
@@ -200,7 +199,6 @@ class _MyCouncilState extends State<MyCouncil> {
           final cnrLower = caseDetails.cnrNumber.toLowerCase();
           final petitionerLower = _extractPetitionerOrRespondent(caseDetails.petitionerAndAdvocate).toLowerCase();
 
-          // Return true if either the CNR number or petitioner contains the search query
           return cnrLower.contains(lowerQuery) || petitionerLower.contains(lowerQuery);
         }).toList();
       }

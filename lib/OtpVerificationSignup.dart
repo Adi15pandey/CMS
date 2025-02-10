@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cms/GlobalServiceurl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'Dashboardscreen.dart'; // Import your dashboard screen
@@ -31,31 +32,31 @@ class _OtpVerificationSignupState extends State<OtpVerificationSignup> {
     });
 
     try {
-      var headers = {
-        'Content-Type': 'application/json',
-      };
+      var url = Uri.parse('${GlobalService.baseUrl}/api/auth/register');
+      var headers = {'Content-Type': 'application/json'};
 
-      var request = http.Request(
-        'POST',
-        Uri.parse('http://192.168.1.20:4001/api/auth/register'),
-      );
-
-      request.body = json.encode({
-        "email": widget.email, // Use dynamic email from the widget
+      var requestBody = {
+        "email": widget.email.trim(),
         "mobileOtp": _mobileOtpController.text.trim(),
         "emailOtp": _emailOtpController.text.trim(),
-      });
+      };
 
-      request.headers.addAll(headers);
+      print("🔹 Sending request to: $url");
+      print("🔹 Request Body: ${jsonEncode(requestBody)}");
 
-      http.StreamedResponse response = await request.send();
+      var response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode(requestBody),
+      );
 
-      if (response.statusCode == 200) {
-        String responseBody = await response.stream.bytesToString();
-        Map<String, dynamic> responseData = json.decode(responseBody);
+      print("🔹 Response Code: ${response.statusCode}");
+      print("🔹 Response Body: ${response.body}");
+
+      if (response.statusCode == 201) {
+        Map<String, dynamic> responseData = json.decode(response.body);
 
         if (responseData['success'] == true) {
-          // OTP Verified, navigate to dashboard
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => Dashboardscreen()),
@@ -64,9 +65,10 @@ class _OtpVerificationSignupState extends State<OtpVerificationSignup> {
           setState(() => _errorMessage = responseData['message'] ?? "Invalid OTP.");
         }
       } else {
-        setState(() => _errorMessage = response.reasonPhrase ?? "Server error.");
+        setState(() => _errorMessage = "Server error: ${response.body}");
       }
     } catch (e) {
+      print("🔴 Error: $e");
       setState(() => _errorMessage = "An error occurred. Please try again.");
     } finally {
       setState(() => _isLoading = false);
