@@ -91,7 +91,7 @@ class _subcasesDetailsScreenState extends State<subcasesDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Case Details",
+          "Case Detail",
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.blue[800],iconTheme: const IconThemeData(

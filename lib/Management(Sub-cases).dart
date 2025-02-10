@@ -15,9 +15,11 @@ class SubcasesManagement extends StatefulWidget {
 class _SubcasesManagementState extends State<SubcasesManagement> {
   final String baseUrl = "${GlobalService.baseUrl}/api/document/get-sub-document";
   List<dynamic> subcases = [];
+  List<dynamic> filteredSubcases = [];
   bool isLoading = true;
   String errorMessage = "";
   String? token;
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -70,6 +72,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
         if (data["success"] == true) {
           setState(() {
             subcases = data["data"] ?? [];
+            filteredSubcases = subcases;
             isLoading = false;
           });
         } else {
@@ -91,6 +94,14 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
       });
     }
   }
+  void _filterSubcases(String query) {
+    setState(() {
+      filteredSubcases = subcases.where((subcase) {
+        final cnrNumber = subcase["cnrNumber"]?.toString().toLowerCase() ?? "";
+        return cnrNumber.contains(query.toLowerCase());
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +115,8 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
         iconTheme: const IconThemeData(
             color: Colors.white), // Back button color
       ),
-      body: isLoading
+      body:
+      isLoading
           ? const Center(child: CircularProgressIndicator())
           : errorMessage.isNotEmpty
           ? Center(child: Text(errorMessage))
@@ -169,13 +181,14 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                       ),
                       Expanded(
                         child: Text(
-                          "${subcase["documentCount"] ?? "N/A"}",
+                          "${subcase['noOfDocument'] ?? 'N/A'}",
                           style: TextStyle(
                             fontSize: 14,
                             color: Color.fromRGBO(117, 117, 117, 1),
                           ),
                           overflow: TextOverflow.ellipsis,
-                        ),
+                        )
+
                       ),
                     ],
                   ),
@@ -195,7 +208,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                       ),
                       Expanded(
                         child: Text(
-                          "${subcase["respondent"] ?? "No respondent"} & ${subcase["petitioner"] ?? "No petitioner"}",
+                          "${subcase["respondent"] ?? "No respondent"} vs ${subcase["petitioner"] ?? "No petitioner"}",
                           style: TextStyle(
                             fontSize: 14,
                             color: Color.fromRGBO(117, 117, 117, 1),

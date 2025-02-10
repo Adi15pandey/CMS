@@ -17,10 +17,13 @@ class _ManagementScreenState extends State<ManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 74, 173, 1), // Blue header
+        backgroundColor: const Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,// Blue header
         title: const Text(
           'Management',
+
           style: TextStyle(color: Colors.white),
+
         ),
         iconTheme: const IconThemeData(
             color: Colors.white), // Back button color

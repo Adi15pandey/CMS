@@ -79,14 +79,14 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
           _cases = data['data'];
         });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to fetch data: ${response.body}')),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Failed to fetch data: ${response.body}')),
+        // );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred: $e')),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('An error occurred: $e')),
+      // );
     } finally {
       setState(() {
         _isLoading = false;
@@ -116,9 +116,11 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Disposed Cases'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
-          color: Colors.white),
+        title: Text('Disposed Cases', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+            color: Colors.white),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -128,8 +130,12 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
           final caseItem = _cases[index];
           final caseDetails = caseItem["caseDetails"] ?? {};
           final caseHistory = caseItem["caseHistory"] ?? [];
-          final petitioner = caseItem["petitionerAndAdvocate"]?[0] ?? "N/A";
-          final respondent = caseItem["respondentAndAdvocate"]?[0] ?? "N/A";
+          final petitionerList = caseItem["petitionerAndAdvocate"] as List<dynamic>? ?? [];
+          final petitioner = petitionerList.isNotEmpty ? petitionerList[0].toString() : "N/A";
+
+          final respondentList = caseItem["respondentAndAdvocate"] as List<dynamic>? ?? [];
+          final respondent = respondentList.isNotEmpty ? respondentList[0].toString() : "N/A";
+
 
           return Card(
             margin: const EdgeInsets.all(8.0),
@@ -215,19 +221,51 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                   )
 ,
 
-                  // Petitioner
-                  Text(
-                    'Petitioner: $petitioner',
-                    style: const TextStyle(fontSize: 14),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Petitioner: ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color for "Petitioner:"
+                            fontWeight: FontWeight.bold, // Optional: make it bold
+                          ),
+                        ),
+                        TextSpan(
+                          text: petitioner,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(117, 117, 117, 1), // Grey color for petitioner's name
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 8),
-
-                  // Respondent
-                  Text(
-                    'Respondent: $respondent',
-                    style: const TextStyle(fontSize: 14),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Respondent: ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(0, 74, 173, 1),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: respondent,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(117, 117, 117, 1),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
+
 
                   // Buttons Row
                   Row(
@@ -249,7 +287,8 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
+                          backgroundColor:Color.fromRGBO(0, 74, 173, 1),
+                          foregroundColor: Colors.white,
                         ),
                         child: const Text('Add docs'),
                       ),
@@ -265,6 +304,8 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+
                         ),
                         child: const Text('Details'),
                       ),

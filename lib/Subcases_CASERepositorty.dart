@@ -94,17 +94,25 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(content: Text(message)),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Subcases Repository"),iconTheme: const IconThemeData(
-          color: Colors.white),
+        backgroundColor: const Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,// Blue header
+        title: const Text(
+          'Subcases Repository',
+
+          style: TextStyle(color: Colors.white),
+
+        ),
+        iconTheme: const IconThemeData(
+            color: Colors.white), // Back button color
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

@@ -338,8 +338,7 @@ class _MyCouncilState extends State<MyCouncil> {
                             }
                           }
                         }
-                        String lastDate = "Not Available";
-
+                         String lastDate = "Not Available";
                         if (caseDetails.caseHistory != null && caseDetails.caseHistory.isNotEmpty) {
                           final lastCaseHistory = caseDetails.caseHistory.last;
 

@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
 
 class GlobalService{
 
-  static final baseUrl = "http://192.168.68.140:4002";
+  static final baseUrl = "http://192.168.1.10:4001";
 }
 

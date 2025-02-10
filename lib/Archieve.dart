@@ -74,7 +74,6 @@ class _ArchieveState extends State<Archieve> {
           throw Exception(data['message']);
         }
       } else {
-        // throw Exception('Failed to load data');
       }
     } catch (e) {
       setState(() {
@@ -88,7 +87,6 @@ class _ArchieveState extends State<Archieve> {
   }
 
   void handleRestore(String id) {
-    // Implement restore functionality here
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Restore action triggered for ID: $id'),
     ));
@@ -138,11 +136,11 @@ class _ArchieveState extends State<Archieve> {
                   Text(
                     'CNR Number: $cnrNumber',
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16, color: Color.fromRGBO(0, 74, 173, 1),),
+                      fontWeight: FontWeight.bold, fontSize: 16, color: Color.fromRGBO(0, 74, 173, 1),),
                   ),
                   const SizedBox(height: 8),
                   Text('Status: $status', style: const TextStyle(
-                     fontSize: 16, color: Color.fromRGBO(117, 117, 117, 1),),),
+                    fontSize: 16, color: Color.fromRGBO(117, 117, 117, 1),),),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

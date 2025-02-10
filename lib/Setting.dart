@@ -23,24 +23,20 @@ class _SettingState extends State<Setting> {
     "4 Day Before notifications": false,
   };
 
-
   final String apiUrl = '${GlobalService.baseUrl}/api/auth/get-user-data';
-  String?token;
-
-  // final String token =
-  //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzUyMDc3MiwiZXhwIjoxNzM3NjA3MTcyfQ.8YpCygR2uAjCn-yWPEwXG280Cf2Of3KOA_2xBtuIDCw";
+  final String saveUrl = '${GlobalService.baseUrl}/api/auth/update-user-data';
+  String? token;
 
   @override
   void initState() {
     super.initState();
     _initializeData();
-    fetchSettings();
   }
 
   Future<void> _initializeData() async {
-    await _fetchToken(); // Fetch the token first
+    await _fetchToken();
     if (token != null && token!.isNotEmpty) {
-      fetchSettings(); // Fetch cases if the token is valid
+      fetchSettings();
     } else {
       setState(() {
         isLoading = false;
@@ -51,19 +47,14 @@ class _SettingState extends State<Setting> {
     }
   }
 
-  // Fetch token from SharedPreferences
   Future<void> _fetchToken() async {
     final prefs = await SharedPreferences.getInstance();
-    // Ensure we fetch the latest data
     await prefs.reload();
     final savedToken = prefs.getString('auth_token');
     if (savedToken != null && savedToken.isNotEmpty) {
       setState(() {
         token = savedToken;
       });
-      print('Token fetched successfully: $token');
-    } else {
-      print('Token not found');
     }
   }
 
@@ -71,9 +62,7 @@ class _SettingState extends State<Setting> {
     try {
       final response = await http.get(
         Uri.parse(apiUrl),
-        headers: {
-          'token': '$token',
-        },
+        headers: {'token': '$token'},
       );
 
       if (response.statusCode == 200) {
@@ -97,19 +86,56 @@ class _SettingState extends State<Setting> {
             isLoading = false;
           });
         }
-      } else {
-        throw Exception("Failed to fetch settings");
       }
     } catch (e) {
       debugPrint("Error fetching settings: $e");
     }
   }
 
-  void toggleNotification(String key, bool value) {
+  Future<void> saveSettings(Map<String, dynamic> settings) async {
     setState(() {
-      notificationSettings[key] = value;
+      isLoading = true;
+    });
+
+    var headers = {
+      'token': '$token',
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      final response = await http.put(
+        Uri.parse(saveUrl),
+        headers: headers,
+        body: json.encode(settings), // Dynamic settings payload
+      );
+
+      final responseBody = jsonDecode(response.body);
+      debugPrint("Response Code: ${response.statusCode}");
+      debugPrint("Response Body: $responseBody");
+
+      if (response.statusCode == 200 && responseBody['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Settings updated successfully!")),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(
+              "Failed to update settings: ${responseBody['message'] ??
+                  'Unknown error'}")),
+        );
+      }
+    } catch (e) {
+      debugPrint("Error saving settings: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Network error. Please try again.")),
+      );
+    }
+
+    setState(() {
+      isLoading = false;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,8 +144,7 @@ class _SettingState extends State<Setting> {
         title: Text('Settings', style: TextStyle(color: Colors.white)),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
         centerTitle: true,
-        iconTheme: const IconThemeData(
-            color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -128,8 +153,6 @@ class _SettingState extends State<Setting> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16),
-            // Section with the notification settings
             Expanded(
               child: ListView(
                 children: notificationSettings.keys.map((key) {
@@ -140,48 +163,52 @@ class _SettingState extends State<Setting> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                         side: BorderSide(
-                          color: Color.fromRGBO(189, 217, 255, 1),
-                        ),
+                            color: Color.fromRGBO(189, 217, 255, 1)),
                       ),
                       child: SwitchListTile(
-                        title: Text(
-                          key,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                        title: ListTile(
+                          leading: Icon(
+                            Icons.notifications, // Icon for notifications
                             color: Color.fromRGBO(0, 74, 173, 1),
+                          ),
+                          title: Text(
+                            key,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(0, 74, 173, 1),
+                            ),
                           ),
                         ),
                         value: notificationSettings[key]!,
                         onChanged: (value) {
-                          toggleNotification(key, value);
+                          setState(() {
+                            notificationSettings[key] = value;
+                          });
                         },
                         activeColor: Color.fromRGBO(59, 199, 89, 1),
-                        // Green color when switch is active
                         inactiveTrackColor: Colors.grey,
-                        // Grey color when switch is inactive
-                        inactiveThumbColor: Colors
-                            .white, // White thumb color when inactive
+                        inactiveThumbColor: Colors.white,
                       ),
                     ),
                   );
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'Default: Same day at 6 AM',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                fontStyle: FontStyle.normal, // Italicize for emphasis
-              ),
-            ),
-            const SizedBox(height: 32),
             Center(
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
                 onPressed: () {
-                  debugPrint('Settings saved');
+                  Map<String, dynamic> userSettings = {
+                    "fourDayBeforenotification": "true",
+                    "threeDayBeforenotification": "true",
+                    "twoDayBeforenotification": "true",
+                    "oneDayBeforenotification": "true",
+                    "whatsAppSms": "true",
+                    "emailSms": "true",
+                    "mobileSms": "true"
+                  };
+
+                  saveSettings(userSettings); // Pass the required map here
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
@@ -189,10 +216,11 @@ class _SettingState extends State<Setting> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  backgroundColor: Colors.blueAccent, // Custom button color
-                  elevation: 5, // Add elevation to make button stand out
+                  backgroundColor: Colors.blueAccent,
+                  elevation: 5,
                 ),
-                child: const Text(
+                icon: Icon(Icons.save),
+                label: const Text(
                   'Save',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
@@ -200,7 +228,6 @@ class _SettingState extends State<Setting> {
             ),
           ],
         ),
-      ),
-    );
+      ),    );
   }
 }

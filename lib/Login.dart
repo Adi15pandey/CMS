@@ -1,3 +1,4 @@
+import 'package:cms/Forget_password.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/SignupApp.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'OtpVerificationScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -84,6 +86,9 @@ class _LoginPageState extends State<LoginPage> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+
+
                 // Handle forgot password
               },
               child: const Text(
@@ -181,6 +186,10 @@ class _LoginPageState extends State<LoginPage> {
         style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );
+  }
+  Future<String> getUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userName') ?? 'Guest'; // Default to 'Guest' if not found
   }
 
   Future<void> _login() async {

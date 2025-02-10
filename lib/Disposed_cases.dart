@@ -244,7 +244,7 @@ class _DisposedCasesState extends State<DisposedCases> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:AppBar(
         title: Text('Disposed Cases', style: TextStyle(color: Colors.white)),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
         centerTitle: true,

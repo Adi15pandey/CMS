@@ -105,11 +105,10 @@ class _AddDirectoryState extends State<AddDirectory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Directory'),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        title: Text('Add Directory',style: TextStyle(color: Colors.white), ),
         iconTheme: const IconThemeData(
             color: Colors.white),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1) ,
       ),
       body: users.isEmpty
           ? const Center(

@@ -110,11 +110,11 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Add Cases', style: TextStyle(color: Colors.white)),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),
-        title: Text(
-          'Add Cases',
-          style: TextStyle(color: Colors.white,),
-        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+            color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -552,7 +552,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add cases',style: TextStyle(color: Colors.white), ),
+        title: Text('',style: TextStyle(color: Colors.white), ),
         iconTheme: const IconThemeData(
             color: Colors.white),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1) ,

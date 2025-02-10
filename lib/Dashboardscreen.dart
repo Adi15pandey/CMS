@@ -2,6 +2,7 @@
 import 'package:cms/DigitalIntiative.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/Logout.dart';
+import 'package:cms/View_report.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -43,7 +44,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   @override
   void initState() {
     super.initState();
-    //_fetchToken();
     fetchCasesData();
 
 
@@ -129,196 +129,81 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text('Dashboard'),
+        title: Text(
+            '', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-      drawer: Drawer(
+      drawer:Drawer(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // Drawer Header with Logo
               DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
+                decoration: const BoxDecoration(color: Colors.white),
                 child: Center(
                   child: Image.asset(
-                    'assets/images/thumbnail_CMS  RECQARZ.2.jpg',
+                    'assets/images/CMS  RECQARZ (5).png',
                     height: 200,
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
+
+              // Dashboard
               ListTile(
-                leading: const Icon(Icons.dashboard),
-                title: const Text('Dashboard'),
-                onTap: () {
-
-                },
+                leading: const Icon(Icons.dashboard, color: Colors.black54),
+                title: const Text('Dashboard', style: TextStyle(fontSize: 16)),
+                onTap: () {},
               ),
+
+              // Litigation Section
               ExpansionTile(
-                leading: const Icon(Icons.gavel),
-                title: const Text('Litigation'),
+                leading: const Icon(Icons.gavel, color: Colors.black54),
+                title: const Text('Litigation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 children: [
-                  ListTile(
-                    title: const Text('Case Repository'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyCouncil()));
-
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Disposed Cases'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DisposedCases()));
-
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Tracked Cases'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Trackedcases()));
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Add Cases'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CnrSearchScreen()));
-
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Case Researcher'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Caseresearcher()));
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Management'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ManagementScreen()));
-
-
-                    },
-                  ),
+                  _buildDrawerSubItem(context, 'Case Repository', MyCouncil()),
+                  _buildDrawerSubItem(context, 'Disposed Cases', DisposedCases()),
+                  _buildDrawerSubItem(context, 'Tracked Cases', Trackedcases()),
+                  _buildDrawerSubItem(context, 'Add Cases', CnrSearchScreen()),
+                  _buildDrawerSubItem(context, 'Case Researcher', Caseresearcher()),
+                  _buildDrawerSubItem(context, 'Management', ManagementScreen()),
                 ],
               ),
+
+              // Sub-Cases Section
               ExpansionTile(
-                leading: const Icon(Icons.cases),
-                title: const Text('Sub-Cases'),
+                leading: const Icon(Icons.cases, color: Colors.black54),
+                title: const Text('Sub-Cases', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 children: [
-                  ListTile(
-                    title: const Text('Case Repository'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesCaserepository()));
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Disposed Cases'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubDisposedCases()));
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Management'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SubcasesManagement()));
-
-
-                    },
-                  ),
-
-
+                  _buildDrawerSubItem(context, 'Case Repository', SubcasesCaserepository()),
+                  _buildDrawerSubItem(context, 'Disposed Cases', SubDisposedCases()),
+                  _buildDrawerSubItem(context, 'Management', SubcasesManagement()),
                 ],
               ),
+
+              // Users Section
               ExpansionTile(
-                leading: const Icon(Icons.people),
-                title: const Text('Users'),
+                leading: const Icon(Icons.people, color: Colors.black54),
+                title: const Text('Users', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 children: [
-                  ListTile(
-                    title: const Text('Add User'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddAdvocateDialog()));
-
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('User Directory'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddDirectory()));
-
-
-
-
-                    },
-                  ),
+                  _buildDrawerSubItem(context, 'Add User', AddAdvocateDialog()),
+                  _buildDrawerSubItem(context, 'User Directory', AddDirectory()),
                 ],
               ),
-              ListTile(
-                leading: const Icon(Icons.archive),
-                title: const Text('Archive'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Archieve()));
 
-
-
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.people_alt_outlined),
-                title: const Text('Digital Initiative'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Digitalintiative()));
-
-
-
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.calendar_today),
-                title: const Text('Calendar'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarPage()));
-
-
-                },
-              ),
-              const SizedBox(height: 10),
-              // Add a spacer for aesthetics or padding
               const Divider(),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Setting'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Setting()));
 
+              _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
+              _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
+              // _buildDrawerItem(context, Icons.bar_chart, 'View Report', ViewReport()),
+              _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
 
-                  // Handle navigation
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Logout()));
+              const Divider(),
 
-
-                  // Handle navigation
-                },
-              ),
+              _buildDrawerItem(context, Icons.settings, 'Settings', Setting()),
+              _buildDrawerItem(context, Icons.logout, 'Logout', Logout()),
             ],
           ),
         ),
@@ -328,56 +213,93 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           ? const Center(child: CircularProgressIndicator())
           : Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Case Analytics',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildCaseCard(
-                    'All Cases', allCases, Icons.folder, Colors.amber),
-                _buildCaseCard(
-                    'Active Cases', activeCases, Icons.local_fire_department_outlined, Colors.red),
-                _buildCaseCard(
-                    'Disposed Cases', disposedCases, Icons.ios_share, Colors.green),
-              ],
-            ),
-            const SizedBox(height: 32),
-            _buildCasePieChart(context),
-
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Case Analytics',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Prevent horizontal overflow
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildCaseCard(
+                        'All Cases', allCases, Icons.folder, Colors.blue),
+                    _buildCaseCard(
+                        'Active Cases', activeCases, Icons.local_fire_department_outlined, Colors.green),
+                    _buildCaseCard(
+                        'Disposed Cases', disposedCases, Icons.ios_share, Color.fromRGBO(
+                        234, 72, 72, 1.0)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+              _buildCasePieChart(context),
+              const SizedBox(height: 30,),
+              _buildCaseStatistics(),
+            ],
+          ),
         ),
       ),
+
+    );
+  }
+  Widget _buildDrawerItem(BuildContext context, IconData icon, String title, Widget page) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.black54),
+      title: Text(title, style: const TextStyle(fontSize: 16)),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      },
+    );
+  }
+
+  Widget _buildDrawerSubItem(BuildContext context, String title, Widget page) {
+    return ListTile(
+      title: Text(title, style: const TextStyle(fontSize: 14)),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      },
     );
   }
 
   Widget _buildCaseCard(String title, int count, IconData icon, Color color) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: Color(0xFF63608e),
+      color: color,  // Use the passed color
       elevation: 4,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.28,
+        height: 155,
         padding: const EdgeInsets.all(16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(icon, color: Colors.white, size: 40),
             const SizedBox(height: 8),
-            Text(
-              '$count',
-              style: const TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+            Flexible(
+              child: Text(
+                '$count',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 4),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 14, color: Colors.black54),
-              textAlign: TextAlign.center,
+            Flexible(
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 14, color: Colors.white70),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
@@ -387,7 +309,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   Widget _buildCasePieChart(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 130,
       child: Stack(
         children: [
           PieChart(
@@ -411,6 +333,188 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       ),
     );
   }
+  Widget _buildCaseStatistics() {
+    int totalCases = activeCases + disposedCases;
+    double activePercentage = (activeCases / totalCases) * 100;
+    double disposedPercentage = (disposedCases / totalCases) * 100;
+
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        side: const BorderSide(
+          color: Color.fromRGBO(189, 217, 255, 1), // Light Blue Border
+          width: 2.0,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Case Statistics",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueAccent,
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Active Cases Progress Bar
+            Text(
+              "Active Cases",
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 16,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.3),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Stack(
+                children: [
+                  AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    width: activePercentage * 2, // Adjusted for proper scaling
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.green, Colors.greenAccent],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Text(
+                          "${activePercentage.toStringAsFixed(1)}%",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Disposed Cases Progress Bar
+            Text(
+              "Disposed Cases",
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 16,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.red.withOpacity(0.3),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Stack(
+                children: [
+                  AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    width: disposedPercentage * 2, // Adjusted for proper scaling
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.red, Colors.redAccent],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Text(
+                          "${disposedPercentage.toStringAsFixed(1)}%",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Additional case statistics text (optional)
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue.withOpacity(0.2),
+                    blurRadius: 6,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    "Total Cases: ${(activeCases + disposedCases)}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Total Active Cases: $activeCases",
+                    style: TextStyle(fontSize: 14, color: Colors.green),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Total Disposed Cases: $disposedCases",
+                    style: TextStyle(fontSize: 14, color: Colors.red),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+
+      ),
+    );
+  }
+
 
   Map<String, double> _buildPieChartData() {
     int total = activeCases + disposedCases;

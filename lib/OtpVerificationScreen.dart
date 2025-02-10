@@ -92,9 +92,6 @@ class _OtpVerificationState extends State<OtpVerification> {
   }
 
 
-// Method to retrieve the saved token from SharedPreferences
-
-
   String _getOtp(List<TextEditingController> controllers) {
     return controllers
         .map((c) => c.text)
@@ -105,11 +102,55 @@ class _OtpVerificationState extends State<OtpVerification> {
         : '';
   }
 
+  bool _isResendingEmailOtp = false;
+  bool _isResendingSmsOtp = false;
 
+  Future<void> _resendEmailOtp() async {
+    setState(() => _isResendingEmailOtp = true);
+
+    try {
+      final response = await http.post(
+        Uri.parse('${GlobalService.baseUrl}/api/auth/resend-login-otp'),
+        body: json.encode({"email": widget.email, "type": "email"}),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      final responseData = json.decode(response.body);
+      _showMessage(responseData['message'] ?? "Email OTP sent successfully.");
+    } catch (e) {
+      _showMessage("Network error: Unable to resend Email OTP.");
+    } finally {
+      setState(() => _isResendingEmailOtp = false);
+    }
+  }
+
+  Future<void> _resendSmsOtp() async {
+    setState(() => _isResendingSmsOtp = true);
+
+    try {
+      final response = await http.post(
+        Uri.parse('${GlobalService.baseUrl}/api/auth/resend-login-otp'),
+        body: json.encode({"email": widget.email, "type": "mobile"}),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      final responseData = json.decode(response.body);
+      _showMessage(responseData['message'] ?? "SMS OTP sent successfully.");
+    } catch (e) {
+      _showMessage("Network error: Unable to resend SMS OTP.");
+    } finally {
+      setState(() => _isResendingSmsOtp = false);
+    }
+  }
+
+
+// Function to show messages (Snackbar)
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)));
+      SnackBar(content: Text(message)),
+    );
   }
+
 
   // import 'package:flutter/material.dart';
 
@@ -174,7 +215,6 @@ class _OtpVerificationState extends State<OtpVerification> {
               ),
               SizedBox(height: 10),
 
-              // Message displaying email & phone number
               Center(
                 child: Text(
                   "A 6-digit code was sent to:",
@@ -193,15 +233,6 @@ class _OtpVerificationState extends State<OtpVerification> {
                 ),
               ),
 
-              // Display Mobile Number
-              // Center(
-              //   child: Text(
-              //     widget.,,
-              //     style: TextStyle(fontSize: 18,
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.black),
-              //   ),
-              // ),
               SizedBox(height: 20),
 
               // Email OTP Section
@@ -211,6 +242,19 @@ class _OtpVerificationState extends State<OtpVerification> {
               ),
               SizedBox(height: 10),
               _buildOtpFields(_emailOtpControllers),
+              SizedBox(height: 8),
+
+              // Resend Email OTP Button (Small)
+              Center(
+                child: TextButton(
+                  onPressed: _isResendingEmailOtp ? null : _resendEmailOtp,
+                  child: _isResendingEmailOtp
+                      ? CircularProgressIndicator(color: Colors.blue)
+                      : Text("Resend Email OTP",
+                      style: TextStyle(fontSize: 14, color: Colors.blue)),
+                ),
+              ),
+
               SizedBox(height: 20),
 
               // SMS OTP Section
@@ -220,6 +264,19 @@ class _OtpVerificationState extends State<OtpVerification> {
               ),
               SizedBox(height: 10),
               _buildOtpFields(_mobileOtpControllers),
+              SizedBox(height: 8),
+
+              // Resend SMS OTP Button (Small)
+              Center(
+                child: TextButton(
+                  onPressed: _isResendingSmsOtp ? null : _resendSmsOtp,
+                  child: _isResendingSmsOtp
+                      ? CircularProgressIndicator(color: Colors.blue)
+                      : Text("Resend SMS OTP",
+                      style: TextStyle(fontSize: 14, color: Colors.blue)),
+                ),
+              ),
+
               SizedBox(height: 30),
 
               // Verify OTP Button
@@ -238,20 +295,6 @@ class _OtpVerificationState extends State<OtpVerification> {
                       : Text(
                     "Verify OTP",
                     style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-
-              // Resend OTP
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    // Handle resend OTP action
-                  },
-                  child: Text(
-                    "Resend OTP",
-                    style: TextStyle(fontSize: 16, color: Colors.blue),
                   ),
                 ),
               ),
