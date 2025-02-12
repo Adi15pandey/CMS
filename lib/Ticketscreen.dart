@@ -22,11 +22,12 @@ class _TicketscreenState extends State<Ticketscreen> {
     _initializeData();
     fetchRequestedTasks();
   }
+
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
       fetchRequestedTasks();
-      handleReject("");// Fetch cases if the token is valid
+      handleReject(""); // Fetch cases if the token is valid
     } else {
       setState(() {
         isLoading = false;
@@ -59,7 +60,8 @@ class _TicketscreenState extends State<Ticketscreen> {
       'token': '$token',
     };
 
-    var request = http.Request('GET', Uri.parse('${GlobalService.baseUrl}/api/task/get-requested-task'));
+    var request = http.Request('GET',
+        Uri.parse('${GlobalService.baseUrl}/api/task/get-requested-task'));
 
     request.headers.addAll(headers);
 
@@ -93,7 +95,8 @@ class _TicketscreenState extends State<Ticketscreen> {
       'token': '$token',
     };
 
-    var request = http.Request('PUT', Uri.parse('${GlobalService.baseUrl}/api/task/accept-completed-task/$taskId'));
+    var request = http.Request('PUT', Uri.parse(
+        '${GlobalService.baseUrl}/api/task/accept-completed-task/$taskId'));
     request.headers.addAll(headers);
 
     try {
@@ -122,7 +125,8 @@ class _TicketscreenState extends State<Ticketscreen> {
       'token': '$token',
     };
 
-    var request = http.Request('PUT', Uri.parse('${GlobalService.baseUrl}/api/task/reject-task/$taskId'));
+    var request = http.Request('PUT',
+        Uri.parse('${GlobalService.baseUrl}/api/task/reject-task/$taskId'));
     request.headers.addAll(headers);
 
     try {
@@ -146,12 +150,14 @@ class _TicketscreenState extends State<Ticketscreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Requested Tasks'),
+      appBar:AppBar(
+        title: const Text('Ticket'),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,
+        centerTitle: true,iconTheme: const IconThemeData(
+          color: Colors.white),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -160,44 +166,199 @@ class _TicketscreenState extends State<Ticketscreen> {
         itemBuilder: (context, index) {
           final task = tasks[index];
           return Card(
-            elevation: 2,
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(
+                color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
+                width: 2, // Border width
+              ),
+            ),
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: ListTile(
-              title: Text(task['title'] ?? 'No Title'),
-              subtitle: Column(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Description: ${task['description'] ?? 'No Description'}'),
-                  Text('Due Date: ${task['dueDate'] ?? 'Unknown'}'),
-                  Text('Priority: ${task['priority'] ?? 'Unknown'}'),
-                  Text('Status: ${task['status'] ?? 'Unknown'}'),
-                  Text('CNR Number: ${task['cnrNumber'] ?? 'Unknown'}'),
+                  // Task Title
+                  // Text(
+                  //   task['title'] ?? 'No Title',
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  const SizedBox(height: 8),
+
+                  // CNR Number & Priority (Row layout)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'CNR Number:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                        ),
+                      ),
+                      const SizedBox(width: 16),  // Added spacing between key and value
+                      Expanded(
+                        child: Text(
+                          task['cnrNumber'] ?? 'Unknown',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF757575), // rgba(117, 117, 117, 1)
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Priority
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Priority:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                        ),
+                      ),
+                      const SizedBox(width: 16),  // Added spacing between key and value
+                      Expanded(
+                        child: Text(
+                          task['priority'] ?? 'Unknown',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF757575), // rgba(117, 117, 117, 1)
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Description
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Description:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                        ),
+                      ),
+                      const SizedBox(width: 16),  // Added spacing between key and value
+                      Expanded(
+                        child: Text(
+                          task['description'] ?? 'No Description',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF757575), // rgba(117, 117, 117, 1)
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Responder
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Responder:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                        ),
+                      ),
+                      const SizedBox(width: 16),  // Added spacing between key and value
+                      Expanded(
+                        child: Text(
+                          task['responder'] ?? 'Unknown',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF757575), // rgba(117, 117, 117, 1)
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Remarks
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Remarks:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                        ),
+                      ),
+                      const SizedBox(width: 16),  // Added spacing between key and value
+                      Expanded(
+                        child: Text(
+                          task['remarks'] ?? 'No Remarks',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF757575), // rgba(117, 117, 117, 1)
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Action Buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          handleAccept(task['_id']);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(0, 111, 253, 1),
+                          foregroundColor: Colors.white// rgba(0, 111, 253, 1) for Accept
+                        ),
+                        child: const Text('Accept'),
+                      ),
+                      const SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () {
+                          handleReject(task['_id']);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(253, 101, 0, 1),
+                            foregroundColor: Colors.white
+                        ),
+                        child: const Text('Reject'),
+                      ),
+                    ],
+                  )
+
                 ],
               ),
-              isThreeLine: true,
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      handleAccept(task['_id']);
-                    },
-                    child: const Text('Accept'),
-                  ),
-                  const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      handleReject(task['_id']);
-                    },
-                    child: const Text('Reject'),
-                  ),
-                ],
-              ),
-              onTap: () {
-                // Handle task tap if needed, e.g., edit task or show details
-              },
             ),
           );
+
+
         },
       ),
     );

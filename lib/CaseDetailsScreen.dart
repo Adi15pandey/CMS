@@ -102,14 +102,12 @@ class _CaseDetailsScreenState extends State<CaseDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Case Details",
-          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+      appBar:AppBar(
+        title: Text('Case Details', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
         iconTheme: const IconThemeData(
             color: Colors.white),
-        backgroundColor: Colors.blue[800],
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())

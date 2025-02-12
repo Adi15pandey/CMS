@@ -113,8 +113,6 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
-
-                    // Navigate to the registration page
                   },
                   child: const Text(
                     "Sign Up",
@@ -188,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
   }
   Future<String> getUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('userName') ?? 'Guest'; // Default to 'Guest' if not found
+    return prefs.getString('userName') ?? 'Guest';
   }
 
   Future<void> _login() async {

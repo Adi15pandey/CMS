@@ -19,9 +19,6 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
   bool _isLoading = false;
   String?token;
 
-  // final String _token =
-      // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzYwNjg4NiwiZXhwIjoxNzM3NjkzMjg2fQ.Xr4rBiMZBW2zPZKWgEuQIf7FZEUR1FT_51S3lHqSYAI';
-
   @override
   void initState() {
     super.initState();
@@ -94,9 +91,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
   }
 
   void _showMessage(String message) {
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(content: Text(message)),
-    // );
+
   }
 
   @override
@@ -131,7 +126,6 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
               ? caseItem['caseHistory'].last[2]
               : "N/A";
 
-          // final addedBy = caseItem['userId']?[0]['externalUserName'] ?? "Unknown";
           final petitioner = caseItem['petitionerAndAdvocate']?[0]?[0] ?? 'N/A';
           final respondent = caseItem['respondentAndAdvocate']?[0]?[0] ?? 'N/A';
 
@@ -143,65 +137,126 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Added By and CNR (First Section)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  // CNR Number Section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Text(
-                      //   "Added By: $addedBy",
-                      //   style: const TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
-                      const SizedBox(height: 4.0),
                       Text(
-                        "CNR: $cnrNumber",
+                        "CNR: ",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1),
+                        ),
+                      ),
+                      Text(
+                        "$cnrNumber",
+                        style: const TextStyle(
+                          color: Color.fromRGBO(117, 117, 117, 1),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8.0),
 
-                  // Last Hearing and Next Hearing (Second Section)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  // Last Hearing and Next Hearing Section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Last Hearing: $lastHearing"),
-                      const SizedBox(height: 4.0),
-                      Text("Next Hearing: $nextHearing"),
+                      Text(
+                        "Last Hearing: ",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                        ),
+                      ),
+                      Text(
+                        "$lastHearing",
+                        style: const TextStyle(
+                          color: Color.fromRGBO(117, 117, 117, 1), // Value color
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Next Hearing: ",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                        ),
+                      ),
+                      Text(
+                        "$nextHearing",
+                        style: const TextStyle(
+                          color: Color.fromRGBO(117, 117, 117, 1), // Value color
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8.0),
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  // Petitioner and Respondent Section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Petitioner: $petitioner",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        "Petitioner: ",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                        ),
                       ),
-                      const SizedBox(height: 4.0),
                       Text(
-                        "Respondent: $respondent",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        "$petitioner",
+                        style: const TextStyle(
+                          color: Color.fromRGBO(117, 117, 117, 1), // Value color
+                        ),
                       ),
+                    ],
+                  ),
+                  const SizedBox(height: 4.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Respondent: ",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                        ),
+                      ),
+                      // Text(
+                      //   "$respondent",
+                      //   style: const TextStyle(
+                      //     color: Color.fromRGBO(117, 117, 117, 1),
+                      //     overflow: TextOverflow.ellipsis,// Value color
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 12.0),
 
-                  // Buttons (Fourth Section)
+                  // Action Buttons Section (Aligned horizontally)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => subcasesDetailsScreen(cnrNumber: cnrNumber)));
-
-                            // Handle Details
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => subcasesDetailsScreen(cnrNumber: cnrNumber),
+                              ),
+                            );
                           },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromRGBO(0, 111, 253, 1),
+                            foregroundColor: Colors.white
+                          ),
                           child: const Text("Details"),
                         ),
                       ),
@@ -219,36 +274,44 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                                 ),
                               ),
                             );
-
                           },
+                          style: ElevatedButton.styleFrom(
 
+                              backgroundColor: const Color.fromRGBO(
+                                  111, 181, 232, 1.0),
+                              foregroundColor: Colors.white// Custom color for "Delete"
+                          ),
                           child: const Text("Add Doc"),
                         ),
                       ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: ()async {
+                          onPressed: () async {
                             final String id = caseItem['userId'][0]['userId'];
-          await deleteSubcase(
-          context: context,
-          id: id,
-          cnrNumber: cnrNumber,
-          );
-
+                            await deleteSubcase(
+                              context: context,
+                              id: id,
+                              cnrNumber: cnrNumber,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
+
+                            backgroundColor: const Color.fromRGBO(253, 101, 0, 1),
+                              foregroundColor: Colors.white// Custom color for "Delete"
                           ),
                           child: const Text("Delete"),
                         ),
                       ),
                     ],
-                  ),
+                  )
+
                 ],
               ),
             ),
           );
+
+
 
 
         },

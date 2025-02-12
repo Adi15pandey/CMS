@@ -100,7 +100,7 @@ class _DisposedCasesState extends State<DisposedCases> {
     try {
       final response = await http.get(
         Uri.parse(
-            "${GlobalService.baseUrl}/api/cnr/get-disposed-cnr?pageNo=1&pageLimit=1000000000&filterText=&nextHearing=0&petitioner=0&respondent=0"),
+            "${GlobalService.baseUrl}/api/cnr/get-disposed-cnr?pageNo=1&pageLimit=10000000000000000&filterText=&nextHearing=0&petitioner=0&respondent=0"),
         headers: {
           'token': '$token',
           "Content-Type": "application/json",
@@ -227,7 +227,7 @@ class _DisposedCasesState extends State<DisposedCases> {
   // Extract petitioner or respondent from their respective data
   String? _extractPetitionerOrRespondent(List<dynamic>? partyData) {
     if (partyData != null && partyData.isNotEmpty) {
-      return partyData[0][0]; // Assume the first element contains the name
+      return partyData[0][0];
     }
     return null;
   }
@@ -498,7 +498,7 @@ class _DisposedCasesState extends State<DisposedCases> {
     );
   }
 
-  // Helper Method to Build Rows
+
   Widget _buildRow(String title, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

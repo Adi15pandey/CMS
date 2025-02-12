@@ -57,7 +57,7 @@ class _MyCouncilState extends State<MyCouncil> {
     for (var caseDetail in _selectedCaseDetails) {
       String lastDate = "Unknown Last Hearing"; // Default value for "Last Hearing Date"
 
-      // Check caseHistory to extract the last hearing date
+
       if (caseDetail.caseHistory != null && caseDetail.caseHistory.isNotEmpty) {
         final lastCaseHistory = caseDetail.caseHistory.last;
         if (lastCaseHistory.isNotEmpty && lastCaseHistory[1] != null) {
@@ -131,7 +131,7 @@ class _MyCouncilState extends State<MyCouncil> {
     }
   }
 
-// Get the Downloads directory path
+
   Future<Directory?> getDownloadsDirectory() async {
     return Directory('/storage/emulated/0/Download');
   }
@@ -189,11 +189,11 @@ class _MyCouncilState extends State<MyCouncil> {
   }
 
   void _filterCaseDetails(String query) {
-    final lowerQuery = query.toLowerCase(); // Convert query to lowercase for case-insensitive search
+    final lowerQuery = query.toLowerCase();
 
     setState(() {
       if (query.isEmpty) {
-        _filteredCaseDetails = _caseDetailsList; // Show all results if query is empty
+        _filteredCaseDetails = _caseDetailsList;
       } else {
         _filteredCaseDetails = _caseDetailsList.where((caseDetails) {
           final cnrLower = caseDetails.cnrNumber.toLowerCase();
@@ -208,7 +208,6 @@ class _MyCouncilState extends State<MyCouncil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: GlobalAppColor.BackgroundScreenCode,
         appBar: AppBar(
           title: Text('Case Repository', style: TextStyle(color: Colors.white)),
           backgroundColor: Color.fromRGBO(0, 74, 173, 1),
@@ -226,7 +225,7 @@ class _MyCouncilState extends State<MyCouncil> {
                   hintText: 'Search by CNR No',
 
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0), // Circular border
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -327,6 +326,7 @@ class _MyCouncilState extends State<MyCouncil> {
                         String firstHearingDate = "Not Available";
                         String lastHearingDate = "Not Available";
 
+
                         for (var status in caseDetails.caseStatus) {
                           if (status.isNotEmpty) {
                             if (status[0] == "First Hearing Date") {
@@ -374,6 +374,38 @@ class _MyCouncilState extends State<MyCouncil> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Text(
+                                            "Advocate Name",  // Label for the advocate's name
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            caseDetails.userId.isNotEmpty ? caseDetails.userId[0].externalUserName : "N/A",
+                                            textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.black54,  // Text color
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
                                   // CNR Number
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -660,7 +692,7 @@ class _MyCouncilState extends State<MyCouncil> {
 
   Future<List<CaseDetails>> fetchCaseDetails() async {
     final response = await http.get(
-      Uri.parse('${GlobalService.baseUrl}/api/cnr/get-cnr?pageNo=1&pageLimit=100&filterText=&nextHearing=0&petitioner=0&respondent=0'),
+      Uri.parse('${GlobalService.baseUrl}/api/cnr/get-cnr?pageNo=1&pageLimit=10000000000000000000000000000000000000000000000000000000000000000000&filterText=&nextHearing=0&petitioner=0&respondent=0'),
       headers: {
         'token': '$token',
         'Content-Type': 'application/json',

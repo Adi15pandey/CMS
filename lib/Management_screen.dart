@@ -26,7 +26,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
 
         ),
         iconTheme: const IconThemeData(
-            color: Colors.white), // Back button color
+            color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,7 +37,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
                 children: [
                   _buildCard(
                     context,
-                    imagePath: 'assets/images/contract_1358533 1.png', // PNG Image for Docs
+                    imagePath: 'assets/images/contract_1358533 1.png',
                     title: 'DOCS',
                     onTap: () {
                       Navigator.push(
@@ -49,7 +49,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
 
                   _buildCard(
                     context,
-                    imagePath: 'assets/images/list_3208615 1.png', // PNG Image for Docs
+                    imagePath: 'assets/images/list_3208615 1.png',
                     // Tasks Icon
                     title: 'TASKS',
                     onTap: () {
@@ -61,7 +61,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
                   ),
                   _buildCard(
                     context,
-                    icon: Icons.warning_amber, // Expired Tasks Icon
+                    icon: Icons.warning_amber,
                     title: 'EXPIRED TASKS',
                     onTap: () {
                       Navigator.push(
@@ -72,7 +72,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
                   ),
                   _buildCard(
                     context,
-                    icon: Icons.subtitles, // Sub Tasks Icon
+                    icon: Icons.subtitles,
                     title: 'SUB TASKS',
                     onTap: () {
                       Navigator.push(
@@ -83,7 +83,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
                   ),
                   _buildCard(
                     context,
-                    imagePath: 'assets/images/ticket_13416591 1.png', // Tickets Icon
+                    imagePath: 'assets/images/ticket_13416591 1.png',
                     title: 'TICKETS',
                     onTap: () {
                       Navigator.push(
@@ -102,8 +102,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
   }
 
   Widget _buildCard(BuildContext context, {
-    String? imagePath, // Optional image path
-    IconData? icon, // Optional icon
+    String? imagePath,
+    IconData? icon,
     required String title,
     required VoidCallback onTap,
   }) {
@@ -114,7 +114,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
           side: const BorderSide(
-            color: Color.fromRGBO(189, 217, 255, 1), // Light Blue Border
+            color: Color.fromRGBO(189, 217, 255, 1),
             width: 2.0,
           ),
         ),
@@ -123,17 +123,17 @@ class _ManagementScreenState extends State<ManagementScreen> {
           child: Row(
             children: [
               if (imagePath != null)
-                Image.asset(imagePath, width: 40, height: 40) // PNG Image
+                Image.asset(imagePath, width: 40, height: 40)
               else
                 if (icon != null)
-                  Icon(icon, size: 40, color: Colors.black), // Black Icon
+                  Icon(icon, size: 40, color: Colors.black),
               const SizedBox(width: 30),
               Text(
                 title,
                 style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black, // Text in Black
+                  color: Colors.black,
                 ),
               ),
             ],

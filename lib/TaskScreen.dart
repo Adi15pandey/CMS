@@ -164,6 +164,7 @@ class _TaskscreenState extends State<Taskscreen> {
         title: const Text('Task'),
         backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
           color: Colors.white),
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -181,7 +182,8 @@ class _TaskscreenState extends State<Taskscreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor:                                              Color.fromRGBO(0, 74, 173, 1), // Blue color
+        backgroundColor:                                              Color.fromRGBO(0, 74, 173, 1),
+        foregroundColor: Colors.white,// Blue color
 
         onPressed: () async {
           final result = await Navigator.push(

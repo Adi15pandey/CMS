@@ -121,7 +121,6 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Search CNR Row
               Row(
                 children: [
                   Expanded(

@@ -135,7 +135,8 @@ class _SubTaskState extends State<SubTask> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sub Task'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,foregroundColor:Colors.white,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
       body: isLoading
@@ -244,9 +245,9 @@ class _SubTaskState extends State<SubTask> {
                     ),
                   ],
                 ),
-                trailing: Icon(Icons.edit, color: Colors.blue),
+                // trailing: Icon(Icons.edit, color: Colors.blue),
                 onTap: () {
-                  showTaskDetails(task); // Open the edit form when a task is tapped
+                  // showTaskDetails(task); // Open the edit form when a task is tapped
                 },
               )
 

@@ -139,7 +139,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Drawer Header with Logo
               DrawerHeader(
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Center(
@@ -155,7 +154,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ListTile(
                 leading: const Icon(Icons.dashboard, color: Colors.black54),
                 title: const Text('Dashboard', style: TextStyle(fontSize: 16)),
-                onTap: () {},
+                onTap: () {
+
+                },
               ),
 
               // Litigation Section
@@ -222,8 +223,10 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
+
+              // Make the horizontal scrollable row inside the same SingleChildScrollView
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Prevent horizontal overflow
+                scrollDirection: Axis.horizontal, // Horizontal scrolling
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -239,11 +242,12 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ),
               const SizedBox(height: 32),
               _buildCasePieChart(context),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 30),
               _buildCaseStatistics(),
             ],
           ),
         ),
+
       ),
 
     );
@@ -405,7 +409,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            // color: Colors.white,
                           ),
                         ),
                       ),
@@ -416,7 +420,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             ),
             const SizedBox(height: 16),
 
-            // Disposed Cases Progress Bar
             Text(
               "Disposed Cases",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
@@ -460,7 +463,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            // color: Colors.white,
                           ),
                         ),
                       ),
@@ -472,40 +475,42 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             const SizedBox(height: 24),
 
             // Additional case statistics text (optional)
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blue.withOpacity(0.2),
-                    blurRadius: 6,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    "Total Cases: ${(activeCases + disposedCases)}",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                // decoration: BoxDecoration(
+                //   color: Colors.white,
+                //   borderRadius: BorderRadius.circular(12),
+                //   boxShadow: [
+                //     BoxShadow(
+                //       color: Colors.blue.withOpacity(0.2),
+                //       blurRadius: 6,
+                //       offset: Offset(0, 2),
+                //     ),
+                //   ],
+                // ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Total Cases: ${(activeCases + disposedCases)}",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Total Active Cases: $activeCases",
-                    style: TextStyle(fontSize: 14, color: Colors.green),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Total Disposed Cases: $disposedCases",
-                    style: TextStyle(fontSize: 14, color: Colors.red),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      "Total Active Cases: $activeCases",
+                      style: TextStyle(fontSize: 14, color: Colors.green),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Total Disposed Cases: $disposedCases",
+                      style: TextStyle(fontSize: 14, color: Colors.red),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

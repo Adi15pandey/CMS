@@ -17,7 +17,10 @@ class _KeywordScreenState extends State<KeywordScreen> {
   List<dynamic> premiumData = [];
   String _selectedOption = 'Keyword';
   String?token;
-  bool _isLoading=true;
+  String? _selectedLocation = 'Add new location';
+  bool _isLoading = true;
+  TextEditingController _panIndiaSearchController = TextEditingController();
+  TextEditingController _keywordSearchController = TextEditingController();
 
   @override
   void initState() {
@@ -29,7 +32,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
     await _fetchToken();
     if (token != null && token!.isNotEmpty) {
       fetchPremiumData();
-      deletePremiumData( "");
+      deletePremiumData("");
     } else {
       setState(() {
         _isLoading = false;
@@ -57,7 +60,6 @@ class _KeywordScreenState extends State<KeywordScreen> {
       url,
       headers: {
         'token': '$token',
-
         "Content-Type": "application/json",
       },
     );
@@ -73,7 +75,8 @@ class _KeywordScreenState extends State<KeywordScreen> {
   }
 
   Future<void> deletePremiumData(String id) async {
-    final url = Uri.parse("${GlobalService.baseUrl}/api/premium/deletelocation/$id");
+    final url = Uri.parse(
+        "${GlobalService.baseUrl}/api/premium/deletelocation/$id");
     final response = await http.delete(
       url,
       headers: {
@@ -97,6 +100,31 @@ class _KeywordScreenState extends State<KeywordScreen> {
       // );
     }
   }
+  List<String> _keywords = [];
+
+  Future<void> fetchKeywords() async {
+    const String apiUrl = "http://192.168.1.10:4001/api/keyword/get-keyword";
+    const String token =
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczOTMzNzU2NCwiZXhwIjoxNzM5NDIzOTY0fQ._fRXckyE4d44YqrkH734U-NU4FKNFZqtn7tf6tszZps";
+
+    try {
+      final response = await http.get(
+        Uri.parse(apiUrl),
+        headers: {'token': token},
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          _keywords = List<String>.from(data["data"].map((item) => item["keyword"]));
+        });
+      } else {
+        print("Failed to load keywords: ${response.body}");
+      }
+    } catch (e) {
+      print("Error fetching keywords: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +139,10 @@ class _KeywordScreenState extends State<KeywordScreen> {
             value: _selectedOption,
             icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
             dropdownColor: Colors.blue,
-            underline: SizedBox(), // Removes default underline
-            style: TextStyle(color: Colors.white), // Ensures text color is white
+            underline: SizedBox(),
+            // Removes default underline
+            style: TextStyle(color: Colors.white),
+            // Ensures text color is white
             items: [
               DropdownMenuItem<String>(
                 value: 'Case Overview',
@@ -150,117 +180,209 @@ class _KeywordScreenState extends State<KeywordScreen> {
           ),
         ],
       ),
-      body: Stack(
+      body: Column(
         children: [
-          premiumData.isEmpty
-              ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-            itemCount: premiumData.length,
-            itemBuilder: (context, index) {
-              var item = premiumData[index];
-              return Card(
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(
-                    color: Color.fromRGBO(189, 217, 255, 1),
-                    width: 2, // Border width
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Country:",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF004AAD),
-                            ),
-                          ),
-                          Text(
-                            "${item['country']}",
-                            style: TextStyle(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "State:",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF004AAD),
-                            ),
-                          ),
-                          Text(
-                            item['state'].isNotEmpty ? item['state'] : 'All State',
-                            style: TextStyle(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "District:",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF004AAD),
-                            ),
-                          ),
-                          Text(
-                            item['district'].isNotEmpty ? item['district'] : 'All District',
-                            style: TextStyle(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Keyword:",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF004AAD),
-                            ),
-                          ),
-                          Text(
-                            "${item['keyword']}",
-                            style: TextStyle(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => deletePremiumData(item["_id"]),
-                          ),
-                        ],
+          // New dropdown box for Add New Location
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Background color
+                    borderRadius: BorderRadius.circular(20), // Rounded shape
+                    border: Border.all(
+                      color: Color(0xFF004AAD), // Border color
+                      width: 2, // Border width
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        spreadRadius: 1,
                       ),
                     ],
                   ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: ['Pan India', 'District','State','Reset'].contains(_selectedLocation)
+                          ? _selectedLocation
+                          : 'Pan India',
+                      icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF004AAD)),
+                      style: const TextStyle(color: Color(0xFF004AAD), fontWeight: FontWeight.bold),
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setState(() {
+                            _selectedLocation = newValue;
+                          });
+                        }
+                      },
+                      items: ['Pan India', 'District','State','Reset']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
                 ),
-              );
-            },
+              ],
+            ),
+          ),
+          if (_selectedLocation == 'Pan India') ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                controller: _panIndiaSearchController,
+                decoration: InputDecoration(
+                  hintText: 'Search Pan India',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              controller: _keywordSearchController,
+              decoration: InputDecoration(
+                hintText: 'Search by Keyword',
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
           ),
 
+          SizedBox(height: 10),
+
+
+          Expanded(
+            child: Stack(
+              children: [
+                premiumData.isEmpty
+                    ? Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                  itemCount: premiumData.length,
+                  itemBuilder: (context, index) {
+                    var item = premiumData[index];
+                    return Card(
+                      margin: EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(
+                          color: Color.fromRGBO(189, 217, 255, 1),
+                          width: 2, // Border width
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Country:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF004AAD),
+                                  ),
+                                ),
+                                Text(
+                                  "${item['country']}",
+                                  style: TextStyle(
+                                    color: Color(0xFF757575),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "State:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF004AAD),
+                                  ),
+                                ),
+                                Text(
+                                  item['state'].isNotEmpty
+                                      ? item['state']
+                                      : 'All State',
+                                  style: TextStyle(
+                                    color: Color(0xFF757575),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "District:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF004AAD),
+                                  ),
+                                ),
+                                Text(
+                                  item['district'].isNotEmpty
+                                      ? item['district']
+                                      : 'All District',
+                                  style: TextStyle(
+                                    color: Color(0xFF757575),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Keyword:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF004AAD),
+                                  ),
+                                ),
+                                Text(
+                                  "${item['keyword']}",
+                                  style: TextStyle(
+                                    color: Color(0xFF757575),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                  onPressed: () =>
+                                      deletePremiumData(item["_id"]),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

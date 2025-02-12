@@ -202,7 +202,8 @@ class _ExpiredTaskState extends State<ExpiredTask> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expired Task'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,
+        centerTitle: true,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
       body: isLoading

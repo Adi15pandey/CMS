@@ -131,7 +131,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
+                color: Color.fromRGBO(189, 217, 255, 1),
                 width: 2, // Border width
               ),
             ),
@@ -140,7 +140,6 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Display CNR Number
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -149,7 +148,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                          color: Color.fromRGBO(0, 74, 173, 1),
                         ),
                       ),
                       Expanded(
@@ -160,7 +159,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(117, 117, 117, 1), // Value color
                           ),
-                          overflow: TextOverflow.ellipsis, // Truncate if too long
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

@@ -21,9 +21,8 @@ class _ArchieveState extends State<Archieve> {
     super.initState();
     _initializeData();
     fetchArchivedData();
-
-
   }
+
   Future<void> _initializeData() async {
     await _fetchToken(); // Fetch the token first
     if (token != null && token!.isNotEmpty) {
@@ -37,9 +36,9 @@ class _ArchieveState extends State<Archieve> {
       ));
     }
   }
+
   Future<void> _fetchToken() async {
     final prefs = await SharedPreferences.getInstance();
-    // Ensure we fetch the latest data
     await prefs.reload();
     final savedToken = prefs.getString('auth_token');
     if (savedToken != null && savedToken.isNotEmpty) {
@@ -73,8 +72,7 @@ class _ArchieveState extends State<Archieve> {
         } else {
           throw Exception(data['message']);
         }
-      } else {
-      }
+      } else {}
     } catch (e) {
       setState(() {
         _isLoading = false;
@@ -93,7 +91,6 @@ class _ArchieveState extends State<Archieve> {
   }
 
   void handleDelete(String id) {
-
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Delete action triggered for ID: $id'),
     ));
@@ -115,16 +112,31 @@ class _ArchieveState extends State<Archieve> {
         itemBuilder: (context, index) {
           final item = _archivedData[index];
           final cnrNumber = item['cnrNumber'] ?? 'N/A';
-          final status = item['status'] ?? 'N/A';
-          final intrimOrders = item['intrimOrders'] ?? [];
-          final hasOrders = intrimOrders.isNotEmpty;
+          final caseStatus = item['caseStatus'] ?? [];
+          final petitioner = item['petitionerAndAdvocate']
+              ?.map((e) => e[0])
+              .join(', ') ?? 'N/A';
+          final respondent = item['respondentAndAdvocate']
+              ?.map((e) => e[0])
+              .join(', ') ?? 'N/A';
+
+          String firstHearingDate = '';
+          String nextHearingDate = '';
+          String caseStage = '';
+
+          if (caseStatus.isNotEmpty) {
+            firstHearingDate = caseStatus[0][1] ?? 'N/A';
+            nextHearingDate = caseStatus[1][1] ?? 'N/A';
+            caseStage = caseStatus[2][1] ?? 'N/A';
+          }
 
           return Card(
             margin: const EdgeInsets.all(8.0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
+                color: Color.fromRGBO(189, 217, 255, 1),
+                // Light blue border color
                 width: 2, // Border width
               ),
             ),
@@ -136,11 +148,29 @@ class _ArchieveState extends State<Archieve> {
                   Text(
                     'CNR Number: $cnrNumber',
                     style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16, color: Color.fromRGBO(0, 74, 173, 1),),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 74, 173, 1),
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  Text('Status: $status', style: const TextStyle(
-                    fontSize: 16, color: Color.fromRGBO(117, 117, 117, 1),),),
+                  Text('First Hearing Date: $firstHearingDate',
+                      style: const TextStyle(fontSize: 16,
+                          color: Color.fromRGBO(117, 117, 117, 1))),
+                  const SizedBox(height: 8),
+                  Text('Next Hearing Date: $nextHearingDate',
+                      style: const TextStyle(fontSize: 16,
+                          color: Color.fromRGBO(117, 117, 117, 1))),
+                  const SizedBox(height: 8),
+                  Text('Case Stage: $caseStage',
+                      style: const TextStyle(fontSize: 16,
+                          color: Color.fromRGBO(117, 117, 117, 1))),
+                  const SizedBox(height: 8),
+                  Text('Petitioner: $petitioner',
+                      style: const TextStyle(fontSize: 16)),
+                  const SizedBox(height: 8),
+                  Text('Respondent: $respondent',
+                      style: const TextStyle(fontSize: 16)),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,9 +178,12 @@ class _ArchieveState extends State<Archieve> {
                       ElevatedButton(
                         onPressed: () => handleRestore(item['_id']),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green, // Button color
-                          foregroundColor: Colors.white, // Text color
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                          backgroundColor: Colors.green,
+                          // Button color
+                          foregroundColor: Colors.white,
+                          // Text color
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 20),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -164,17 +197,19 @@ class _ArchieveState extends State<Archieve> {
                           ),
                         ),
                       ),
-
                       ElevatedButton(
-                        onPressed: hasOrders ? null : () => handleDelete(item['_id']),
+                        onPressed: () => handleDelete(item['_id']),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: hasOrders ? Colors.grey : Colors.red, // Disable color if hasOrders is true
-                          foregroundColor: Colors.white, // Text color
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                          backgroundColor: Colors.red,
+                          // Button color
+                          foregroundColor: Colors.white,
+                          // Text color
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 20),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          elevation: hasOrders ? 0 : 4, // Remove shadow when disabled
+                          elevation: 4,
                         ),
                         child: const Text(
                           'Delete',
@@ -184,7 +219,6 @@ class _ArchieveState extends State<Archieve> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ],

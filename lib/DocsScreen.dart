@@ -88,7 +88,8 @@ class _DocsPageState extends State<DocsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Documents'),
-          backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+          backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,
+        centerTitle: true,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
       body: Padding(

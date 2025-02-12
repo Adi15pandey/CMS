@@ -235,8 +235,8 @@ class _CalendarPageState extends State<CalendarPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: Color.fromRGBO(189, 217, 255, 1), // Light blue border color
-                      width: 2, // Border width
+                      color: Color.fromRGBO(189, 217, 255, 1),
+                      width: 2,
                     ),
                   ),
                   child: ListTile(
@@ -256,7 +256,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         style: TextStyle(
                           fontSize: 14,
                           color: Color.fromRGBO(117, 117, 117, 1),
-                          height: 1.5, // Improve line spacing
+                          height: 1.5,
                         ),
                       ),
                     ),
