@@ -51,10 +51,9 @@ class _OtpVerificationState extends State<OtpVerification> {
       if (response.statusCode == 200 && responseData['success'] == true) {
         String token = responseData['token'];
 
-        // Save the token
         await saveToken(token);
 
-        // Retrieve the token to check if it's saved correctly
+
         String savedToken = await _getSavedToken();
         print("Saved Token: $savedToken");
 
@@ -152,8 +151,6 @@ class _OtpVerificationState extends State<OtpVerification> {
   }
 
 
-  // import 'package:flutter/material.dart';
-
   Widget _buildOtpFields(List<TextEditingController> controllers) {
     List<FocusNode> focusNodes = List.generate(
         controllers.length, (index) => FocusNode());
@@ -200,92 +197,125 @@ class _OtpVerificationState extends State<OtpVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title
-              Center(
-                child: Text(
+      body: Center( // Center the entire form
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Title
+                Text(
                   "Enter Confirmation Code",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueAccent,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              SizedBox(height: 10),
+                SizedBox(height: 20),
 
-              Center(
-                child: Text(
+                Text(
                   "A 6-digit code was sent to:",
                   style: TextStyle(fontSize: 16, color: Colors.black54),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              SizedBox(height: 5),
+                SizedBox(height: 10),
 
-              // Display Email
-              Center(
-                child: Text(
+                // Display Email
+                Text(
                   widget.email,
-                  style: TextStyle(fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
+                SizedBox(height: 30),
 
-              SizedBox(height: 20),
-
-              // Email OTP Section
-              Text(
-                "Email OTP",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              _buildOtpFields(_emailOtpControllers),
-              SizedBox(height: 8),
-
-              // Resend Email OTP Button (Small)
-              Center(
-                child: TextButton(
-                  onPressed: _isResendingEmailOtp ? null : _resendEmailOtp,
-                  child: _isResendingEmailOtp
-                      ? CircularProgressIndicator(color: Colors.blue)
-                      : Text("Resend Email OTP",
-                      style: TextStyle(fontSize: 14, color: Colors.blue)),
+                // Email OTP Section
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Email OTP",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
+                SizedBox(height: 10),
+                _buildOtpFields(_emailOtpControllers),
+                SizedBox(height: 12),
 
-              SizedBox(height: 20),
-
-              // SMS OTP Section
-              Text(
-                "SMS OTP",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              _buildOtpFields(_mobileOtpControllers),
-              SizedBox(height: 8),
-
-              // Resend SMS OTP Button (Small)
-              Center(
-                child: TextButton(
-                  onPressed: _isResendingSmsOtp ? null : _resendSmsOtp,
-                  child: _isResendingSmsOtp
-                      ? CircularProgressIndicator(color: Colors.blue)
-                      : Text("Resend SMS OTP",
-                      style: TextStyle(fontSize: 14, color: Colors.blue)),
+                // Resend Email OTP Button
+                _isResendingEmailOtp
+                    ? Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: CircularProgressIndicator(color: Colors.blue),
+                )
+                    : Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: TextButton(
+                    onPressed: _resendEmailOtp,
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(8),
+                      //   side: BorderSide(color: Colors.blue),
+                      // ),
+                    ),
+                    child: Text(
+                      "Resend Email OTP",
+                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 30),
 
-              SizedBox(height: 30),
+                // SMS OTP Section
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "SMS OTP",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 10),
+                _buildOtpFields(_mobileOtpControllers),
+                SizedBox(height: 12),
 
-              // Verify OTP Button
-              Center(
-                child: ElevatedButton(
+                // Resend SMS OTP Button
+                _isResendingSmsOtp
+                    ? Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: CircularProgressIndicator(color: Colors.blue),
+                )
+                    : Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: TextButton(
+                    onPressed: _resendSmsOtp,
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(8),
+                      //   side: BorderSide(color: Colors.blue),
+                      // ),
+                    ),
+                    child: Text(
+                      "Resend SMS OTP",
+                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 40),
+
+                // Verify OTP Button
+                ElevatedButton(
                   onPressed: _isLoading ? null : _verifyOtp,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -293,15 +323,16 @@ class _OtpVerificationState extends State<OtpVerification> {
                   child: _isLoading
                       ? CircularProgressIndicator(color: Colors.white)
                       : Text(
-                    "Verify OTP",
+                    "Continue",
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
 }

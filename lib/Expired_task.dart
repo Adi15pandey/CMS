@@ -41,8 +41,6 @@ class _ExpiredTaskState extends State<ExpiredTask> {
       ));
     }
   }
-
-  // Fetch token from SharedPreferences
   Future<void> _fetchToken() async {
     final prefs = await SharedPreferences.getInstance();
     // Ensure we fetch the latest data
@@ -60,9 +58,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
 
   Future<void> fetchExpiredTasks() async {
     var headers = {
-      'token': '$token',
-      // 'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczNzM2NTg2MywiZXhwIjoxNzM3NDUyMjYzfQ.tB2EW3kKVYhqrBtAZGmh9S5AMODKyHiOwUu_sA5MvCw'
-    };
+      'token': '$token',};
 
     var request = http.Request(
       'GET',
@@ -99,64 +95,224 @@ class _ExpiredTaskState extends State<ExpiredTask> {
     }
   }
 
-  Future<void> _editTask(Map<String, dynamic> task) async {
-    TextEditingController titleController =
-    TextEditingController(text: task['title']);
-    TextEditingController descriptionController =
-    TextEditingController(text: task['description']);
-    TextEditingController priorityController =
-    TextEditingController(text: task['priority']);
+  void _editTask(BuildContext context, Map<String, dynamic> task) {
+    TextEditingController cnrController = TextEditingController(text: task['cnrNumber'] ?? '');
+    TextEditingController titleController = TextEditingController(text: task['title'] ?? '');
+    TextEditingController descriptionController = TextEditingController(text: task['description'] ?? '');
+    TextEditingController dueDateController = TextEditingController(text: task['dueDate']?.split('T')[0] ?? '');
+    TextEditingController emailController = TextEditingController(
+      text: task['emails'] != null ? task['emails'].join(', ') : '',
+    );
 
-    await showDialog(
+    String selectedPriority = task['priority'] ?? 'medium';
+    String selectedStatus = task['status'] ?? 'inProgress';
+
+    showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Edit Task'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: const InputDecoration(labelText: 'Title'),
-              ),
-              TextField(
-                controller: descriptionController,
-                decoration: const InputDecoration(labelText: 'Description'),
-              ),
-              TextField(
-                controller: priorityController,
-                decoration: const InputDecoration(labelText: 'Priority'),
-              ),
-            ],
+          title: const Text(
+            "Edit Task",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color.fromRGBO(0, 74, 173, 1),
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildLabel("CNR Number"),
+                _buildInputField(cnrController),
+                _buildLabel("Task Title"),
+                _buildInputField(titleController),
+                _buildLabel("Task Description"),
+                _buildInputField(descriptionController, maxLines: 3),
+                _buildLabel("Due Date"),
+                _buildInputField(dueDateController),
+                _buildLabel("Email (comma-separated)"),
+                _buildInputField(emailController),
+                _buildLabel("Priority"),
+                _buildDropdown(
+                  value: selectedPriority,
+                  items: {
+                    "high": "High Priority",
+                    "medium": "Medium Priority",
+                    "low": "Low Priority"
+                  },
+                  onChanged: (value) => selectedPriority = value!,
+                ),
+                _buildLabel("Status"),
+                _buildDropdown(
+                  value: selectedStatus,
+                  items: {
+                    "inProgress": "In Process",
+                    "completed": "Completed",
+                    "pending": "Pending"
+                  },
+                  onChanged: (value) => selectedStatus = value!,
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context),
+              style: TextButton.styleFrom(foregroundColor: Colors.grey[700]),
+              child: const Text("Cancel"),
             ),
-            TextButton(
-              onPressed: () async {
-                // Update the task with new values
-                task['title'] = titleController.text;
-                task['description'] = descriptionController.text;
-                task['priority'] = priorityController.text;
-                bool success = await _sendUpdatedTaskToServer(task);
+            ElevatedButton(
+              onPressed: () {
+                List<String> emails = emailController.text.isNotEmpty
+                    ? emailController.text.split(',').map((e) => e.trim()).toList()
+                    : [];
 
-                if (success) {
-                  setState(() {
-                    // Update the task in the list after successful edit
-                  });
-                }
+                _saveTask(
+                  task['_id'], // Task ID
+                  task,
+                  cnrController.text,
+                  titleController.text,
+                  descriptionController.text,
+                  dueDateController.text,
+                  emails,
+                  selectedPriority,
+                  selectedStatus,
+                );
 
                 Navigator.pop(context);
               },
-              child: const Text('Save'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              ),
+              child: const Text("Save"),
             ),
           ],
         );
       },
+    );
+  }
+  Future<void> _saveTask(
+      String taskId,
+      Map<String, dynamic> originalTask,
+      String cnrNumber,
+      String title,
+      String description,
+      String dueDate,
+      List<String> emails,
+      String priority,
+      String status,
+      ) async {
+    // Prepare the updated task data
+    Map<String, dynamic> updatedTask = {
+      '_id': taskId, // Ensure the task ID remains unchanged
+      'cnrNumber': cnrNumber,
+      'title': title,
+      'description': description,
+      'dueDate': dueDate,
+      'emails': emails,
+      'priority': priority,
+      'status': status,
+    };
+
+    try {
+      // Assuming you're sending this updated task to an API endpoint
+      var url = Uri.parse('${GlobalService.baseUrl}/api/task/edit-expire-task/$taskId'); // Replace with your actual endpoint
+      var response = await http.put(
+        url,
+        headers: {
+          'token': '$token',
+          'Content-Type': 'application/json'},
+        body: jsonEncode(updatedTask),
+      );
+
+      // Check for successful response
+      if (response.statusCode == 200) {
+        print("Task updated successfully!");
+        // Update the UI with the new task data, if needed
+        setState(() {
+          // Example: You can replace the original task with the updated task here
+          originalTask['title'] = title;
+          originalTask['description'] = description;
+          originalTask['priority'] = priority;
+          originalTask['status'] = status;
+        });
+      } else {
+        print("Failed to update task: ${response.body}");
+        // Show an error message to the user
+        _showErrorDialog("Failed to update task. Please try again.");
+      }
+    } catch (error) {
+      print("Error: $error");
+      _showErrorDialog("An error occurred while updating the task.");
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Error"),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 5),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color.fromRGBO(0, 74, 173, 1)),
+      ),
+    );
+  }
+
+  Widget _buildInputField(TextEditingController controller, {int maxLines = 1}) {
+    return TextField(
+      controller: controller,
+      maxLines: maxLines,
+      decoration: _inputDecoration(),
+    );
+  }
+
+  Widget _buildDropdown({
+    required String value,
+    required Map<String, String> items,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return DropdownButtonFormField<String>(
+      value: items.containsKey(value) ? value : items.keys.first,
+      decoration: _inputDecoration(),
+      items: items.entries
+          .map((entry) => DropdownMenuItem<String>(
+        value: entry.key,
+        child: Text(entry.value),
+      ))
+          .toList(),
+      onChanged: onChanged,
+    );
+
+  }
+
+  InputDecoration _inputDecoration() {
+    return InputDecoration(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1))),
+      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey[400]!)),
     );
   }
 
@@ -398,7 +554,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                 ),
                 trailing: Icon(Icons.edit, color: Colors.blue),
                 onTap: () {
-                  _editTask(task); // Open the edit form when a task is tapped
+                  _editTask(context,task); // Open the edit form when a task is tapped
                 },
               ),
 

@@ -57,10 +57,9 @@ class _CalendarPageState extends State<CalendarPage> {
 
 
 
-  /// ✅ Fix: Parse date without time component
+
   DateTime _parseDateWithOrdinalSuffix(String dateStr) {
     try {
-      // Remove "st", "nd", "rd", "th" from date string
       dateStr = dateStr.replaceAllMapped(RegExp(r'(\d+)(st|nd|rd|th)'), (match) {
         return match.group(1)!;
       });
@@ -75,7 +74,7 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   Future<void> fetchData() async {
-    final apiUrl = '${GlobalService.baseUrl}/api/cnr/get-cnr?pageLimit=1000000';
+    final apiUrl = '${GlobalService.baseUrl}/api/cnr/get-cnr?pageLimit=1000000000';
 
     try {
       final response = await http.get(

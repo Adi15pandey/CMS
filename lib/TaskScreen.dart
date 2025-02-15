@@ -584,7 +584,7 @@ class _TaskscreenState extends State<Taskscreen> {
                               children: [
                                 if (task['attachments'] != null && task['attachments'].isNotEmpty)
                                   IconButton(
-                                    icon: const Icon(Icons.attach_file,color: Colors.green,),
+                                    icon: const Icon(Icons.download_outlined,color: Colors.red,),
                                     onPressed: () {
                                       String url = task['attachments'][0]['url'];
                                       final Uri _url = Uri.parse(url);
@@ -706,7 +706,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ElevatedButton(
                 onPressed: _pickFile,
                 child: const Text("Select File"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(0, 74, 173, 1), // Background color
+                  foregroundColor: Colors.white, // Text color
+                ),
               ),
+
               const SizedBox(height: 16),
               const Text("Priority",
                   style: TextStyle(fontWeight: FontWeight.bold)),

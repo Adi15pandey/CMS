@@ -18,65 +18,99 @@ class _AddDocumentsScreenState extends State<AddDocumentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(' Add Documents'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
-          color: Colors.white),
+        title: const Text('Add Documents'),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        foregroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: cnrController,
-              decoration: InputDecoration(
-                labelText: 'CNR Number',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: documents.length,
-                itemBuilder: (context, index) {
-                  return documents[index];
-                },
-              ),
-            ),
-            SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  documents.add(DocumentField());
-                });
-              },
-              child: Text(
-                '+ Add Another Document',
-                style: TextStyle(color: Colors.teal),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: submitData,
-                  child: Text('Submit'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                  ),
-                ),
-              ],
-            )
+            _buildCnrField(),
+            const SizedBox(height: 16),
+            _buildDocumentList(),
+            const SizedBox(height: 20),
+            _buildAddDocumentButton(),
+            const SizedBox(height: 30),
+            _buildActionButtons(),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildCnrField() {
+    return TextField(
+      controller: cnrController,
+      decoration: InputDecoration(
+        labelText: 'CNR Number',
+        filled: true,
+        fillColor: Colors.grey[200],
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      ),
+    );
+  }
+
+  Widget _buildDocumentList() {
+    return documents.isEmpty
+        ? Center(
+      child: Text(
+        "No documents added yet.",
+        style: TextStyle(fontSize: 16, color: Colors.black54),
+      ),
+    )
+        : ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: documents.length,
+      itemBuilder: (context, index) {
+        return documents[index];
+      },
+    );
+  }
+
+  Widget _buildAddDocumentButton() {
+    return Center(
+      child: TextButton.icon(
+        onPressed: () {
+          setState(() {
+            documents.add(DocumentField());
+          });
+        },
+        icon: Icon(Icons.add, color: Color.fromRGBO(0, 74, 173, 1),),
+        label: Text(
+          "Add Another Document",
+          style: TextStyle(color: Color.fromRGBO(0, 74, 173, 1), fontSize: 16),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text("Cancel", style: TextStyle(fontSize: 16)),
+        ),
+        ElevatedButton(
+          onPressed: submitData,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          ),
+          child: Text("Submit", style: TextStyle(fontSize: 16, color: Colors.white)),
+        ),
+      ],
+    );
+  }
+
 
   String?token;
   bool  _isLoading=true;
@@ -191,13 +225,19 @@ class _DocumentFieldState extends State<DocumentField> {
           SizedBox(width: 8),
           ElevatedButton.icon(
             onPressed: pickFile,
-            icon: Icon(Icons.upload_file),
-            label: Text(widget.file == null ? 'Choose File' : 'Change File'),
+            icon: Icon(Icons.upload_file, color: Colors.white),
+            label: Text(widget.file == null ? 'Choose File' : 'Upload File', style: TextStyle(color: Colors.white)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromRGBO(0, 74, 173, 1), // Background color
+
+            ),
           ),
+
         ],
       ),
     );
   }
+
 
   void pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();

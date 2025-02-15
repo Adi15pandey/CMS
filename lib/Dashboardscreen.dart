@@ -1,4 +1,5 @@
 
+import 'package:cms/Case_status.dart';
 import 'package:cms/DigitalIntiative.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/Logout.dart';
@@ -158,8 +159,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
                 },
               ),
-
-              // Litigation Section
               ExpansionTile(
                 leading: const Icon(Icons.gavel, color: Colors.black54),
                 title: const Text('Litigation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
@@ -198,13 +197,15 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
               _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
               _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
+              _buildDrawerItem(context, Icons.people_alt_outlined, 'Case Status', CaseStatus()),
+
               // _buildDrawerItem(context, Icons.bar_chart, 'View Report', ViewReport()),
               _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
 
               const Divider(),
 
               _buildDrawerItem(context, Icons.settings, 'Settings', Setting()),
-              _buildDrawerItem(context, Icons.logout, 'Logout', Logout()),
+              _buildDrawerItem(context, Icons.logout, 'Logout', LogoutScreen()),
             ],
           ),
         ),

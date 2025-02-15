@@ -13,7 +13,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
   String?   selectedRole;
-  List<String> roles = ["Company", "Individual", "Advocate", "Bank"];
+  List<String> roles = ["Company", "individual", "Advocate", "Bank"];
 
   bool showCompanyFields = false;
   bool _isLoading = false;
@@ -141,143 +141,94 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.deepPurple, Colors.black],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 10),
-                  Text(
-                    "Create an account",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: Text(
-                      "Already have an account? Log in",
-                      style: TextStyle(color: Colors.blueAccent),
-                    ),
-                  ),
-
-                  SizedBox(height: 20),
-
-                  buildInputField(
-                      Icons.person, "Full Name", _fullNameController),
-                  buildInputField(
-                      Icons.email, "Email Address", _emailController),
-                  buildInputField(
-                      Icons.phone, "Mobile Number", _mobileController),
-                  buildDropdownField(Icons.work, "Select Role"),
-
-                  if (showCompanyFields) ...[
-                    buildInputField(Icons.business, "Company Name"),
-                    buildInputField(Icons.badge, "Designation"),
-                    buildInputField(Icons.location_city, "Company Address"),
-                  ],
-
-                  buildInputField(
-                      Icons.location_city, "State", _stateController),
-                  buildInputField(Icons.pin, "Pincode", _pincodeController),
-                  buildInputField(Icons.offline_bolt, "District",_districtController),
-                  buildInputField(Icons.ice_skating, "Address",_addressController),
-
-                  buildPasswordField(
-                      Icons.lock, "Password", _passwordController),
-                  buildPasswordField(Icons.lock_outline, "Confirm Password",
-                      _confirmPasswordController),
-
-
-                  SizedBox(height: 20),
-
-                  _isLoading
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: sendOTP,
-                    child: Text(
-                      "Next",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
-                ],
+      appBar: AppBar(
+        title: Text('Create an Account', style: TextStyle(color: Colors.white)),
+        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+            color: Colors.white),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Sign Up", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                child: Text("Already have an account? Log in", style: TextStyle(color: Colors.blue)),
               ),
-            ),
+              SizedBox(height: 20),
+
+              buildInputField("Full Name", _fullNameController),
+              buildInputField("Email Address", _emailController),
+              buildInputField("Mobile Number", _mobileController),
+              buildDropdownField("Select Role"),
+
+              if (showCompanyFields) ...[
+                buildInputField("Company Name"),
+                buildInputField("Designation"),
+                buildInputField("Company Address"),
+              ],
+
+              buildInputField("State", _stateController),
+              buildInputField("Pincode", _pincodeController),
+              buildInputField("District", _districtController),
+              buildInputField("Address", _addressController),
+
+              buildPasswordField("Password", _passwordController),
+              buildPasswordField("Confirm Password", _confirmPasswordController),
+
+              SizedBox(height: 20),
+
+              _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: sendOTP,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Text("Next", style: TextStyle(fontSize: 16, color: Colors.white)),
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget buildInputField(IconData icon, String hint,
-      [TextEditingController? controller]) {
+  Widget buildInputField(String hint, [TextEditingController? controller]) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: TextFormField(
         controller: controller,
-        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.white),
-          hintText: hint,
-          hintStyle: TextStyle(color: Colors.white70),
-          filled: true,
-          fillColor: Colors.white.withOpacity(0.2),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          labelText: hint,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ),
         validator: (value) => value!.isEmpty ? "$hint is required" : null,
       ),
     );
   }
 
-  Widget buildDropdownField(IconData icon, String hint) {
+  Widget buildDropdownField(String hint) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: DropdownButtonFormField<String>(
-        style: TextStyle(color: Colors.white),
-        dropdownColor: Colors.black,
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.white),
-          filled: true,
-          fillColor: Colors.white.withOpacity(0.2),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          labelText: hint,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ),
         value: selectedRole,
-        items: roles
-            .map((role) =>
-            DropdownMenuItem(
-              value: role,
-              child: Text(role, style: TextStyle(color: Colors.white)),
-            ))
-            .toList(),
+        items: roles.map((role) => DropdownMenuItem(value: role, child: Text(role))).toList(),
         onChanged: (value) {
           setState(() {
             selectedRole = value;
@@ -289,26 +240,19 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget buildPasswordField(IconData icon, String hint,
-      TextEditingController controller) {
+  Widget buildPasswordField(String hint, TextEditingController controller) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: TextFormField(
         controller: controller,
         obscureText: true,
-        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.white),
-          hintText: hint,
-          hintStyle: TextStyle(color: Colors.white70),
-          filled: true,
-          fillColor: Colors.white.withOpacity(0.2),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          labelText: hint,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
     );
   }
+
 
 }

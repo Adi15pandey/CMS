@@ -87,7 +87,7 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          color: Colors.blueAccent,
+          color: Color.fromRGBO(0, 74, 173, 1),
         ),
       ),
       content: Padding(
@@ -103,15 +103,15 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
                 hintText: 'Enter the advocate\'s name',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.blueAccent),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1),),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.blueAccent),
+                  borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1),),
                 ),
                 prefixIcon: Icon(
                   Icons.person,
-                  color: Colors.blueAccent,
+                  color: Color.fromRGBO(0, 74, 173, 1),
                 ),
               ),
               textInputAction: TextInputAction.done,
@@ -141,14 +141,13 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
               addExternalUser(name); // Add the user
               Navigator.of(context).pop(); // Close the dialog after saving
             } else {
-              // Show a Snackbar or a message to inform the user to fill in the name
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Name is required')),
               );
             }
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Colors.blueAccent, // Text color
+            foregroundColor: Colors.white, backgroundColor: Color.fromRGBO(0, 74, 173, 1), // Text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
