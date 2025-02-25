@@ -16,8 +16,6 @@ class _KeywordScreenState extends State<KeywordScreen> {
   String? token;
   String? _selectedLocation = 'Add new location';
   bool _isLoading = true;
-  TextEditingController _panIndiaSearchController = TextEditingController();
-  TextEditingController _keywordSearchController = TextEditingController();
 
   @override
   void initState() {
@@ -33,6 +31,8 @@ class _KeywordScreenState extends State<KeywordScreen> {
       fetchKeywords();
       saveLocation();
       fetchStates();
+      saveState();
+
     } else {
       setState(() {
         _isLoading = false;
@@ -102,14 +102,12 @@ class _KeywordScreenState extends State<KeywordScreen> {
   }
 
   List<String> _keywords = [];
-  String? district;
+  String?districtCourt;
   String? _selectedState;
 
 
   Future<void> fetchKeywords() async {
     final String apiUrl = "${GlobalService.baseUrl}/api/keyword/get-keyword";
-    // const String token =
-    //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczOTUxMDg3MywiZXhwIjoxNzM5NTk3MjczfQ.T48R9Rp77sarYCh308ycRshO6Uo8wtRBcgVJSB6u5KE";
 
     try {
       final response = await http.get(
@@ -119,7 +117,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print(data); // Print the response to check its structure
+        print(data);
 
         setState(() {
           // Assuming the response has a "data" key containing a list of items with a "keyword" key
@@ -136,7 +134,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
   List<String> states = [];
 
   Future<void> fetchStates() async {
-    final url = 'http://192.168.1.10:4001/api/state/get-state'; // Your API URL
+    final url = '${GlobalService.baseUrl}/api/state/get-state';
     try {
       final response = await http.get(
         Uri.parse(url),
@@ -147,8 +145,8 @@ class _KeywordScreenState extends State<KeywordScreen> {
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body); // Parse the response body
-        print('Response Data: $data'); // Debug: Print the full response to check its structure
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        print('Response Data: $data');
 
         if (data['data'] != null) {
           setState(() {
@@ -256,7 +254,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
-                      value: ['Pan India', 'District', 'State', 'Reset']
+                      value: ['Add New Location','Pan India', 'District', 'State', 'Reset']
                               .contains(_selectedLocation)
                           ? _selectedLocation
                           : 'Add New Location',
@@ -295,7 +293,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: DropdownButtonFormField<String>(
-                value: district,
+                value: districtCourt,
                 hint: Text('Type of Court'),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -303,13 +301,13 @@ class _KeywordScreenState extends State<KeywordScreen> {
                 ),
                 items: [
                   DropdownMenuItem<String>(
-                    value: 'districtCourt',
+                    value: 'district',
                     child: Text('District Court'),
                   ),
                 ],
                 onChanged: (value) {
                   setState(() {
-                    district = value; // Update the selected value
+                    districtCourt = value;
                   });
                 },
               ),
@@ -317,7 +315,6 @@ class _KeywordScreenState extends State<KeywordScreen> {
 
             SizedBox(height: 10),
 
-            // Second Row: Keyword Dropdown and Save Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -354,7 +351,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
-                        saveLocation(); // Call the API function when the button is pressed
+                        saveLocation();
                       },
                       child: Text('Save'),
                     ),
@@ -364,7 +361,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
             ),
           ],
           if (_selectedLocation == 'State') ...[
-            // Select State Dropdown
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: DropdownButtonFormField<String>(
@@ -381,8 +378,8 @@ class _KeywordScreenState extends State<KeywordScreen> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
-                    _selectedState = value; // Update the selected state
-                    print('Selected State11111111111111111111: $_selectedState'); // Debugging
+                    _selectedState = value;
+                    print('Selected State11111111111111111111: $_selectedState');
                   });
                 },
 
@@ -395,7 +392,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: DropdownButtonFormField<String>(
-                value: district,
+                value: districtCourt,
                 hint: Text('Type of Court'),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -408,7 +405,8 @@ class _KeywordScreenState extends State<KeywordScreen> {
                 ],
                 onChanged: (value) {
                   setState(() {
-                    district = value;
+                    districtCourt = value;
+                    // print(district);
                   });
                 },
               ),
@@ -416,7 +414,6 @@ class _KeywordScreenState extends State<KeywordScreen> {
 
             SizedBox(height: 10),
 
-            // Second Row: Keyword Dropdown and Save Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -452,7 +449,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
-                        saveLocation();
+                        saveState();
                       },
                       child: Text('Save'),
                     ),
@@ -552,7 +549,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                                         ),
                                       ),
                                       Text(
-                                        district?.isNotEmpty ?? false ? district! : '',  // Display selected district or an empty string if it's not set
+                                        districtCourt?.isNotEmpty ?? false ? districtCourt! : 'district',
                                         style: TextStyle(
                                           color: Color(0xFF757575),
                                         ),
@@ -606,18 +603,18 @@ class _KeywordScreenState extends State<KeywordScreen> {
   }
 
   void saveLocation() async {
-
     final String apiUrl = '${GlobalService.baseUrl}/api/premium/createlocation';
-    // const String token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3N2VhNTZiNzU1NGRhNWQ2YWExYWU3MSIsImlhdCI6MTczOTUxNjc2OCwiZXhwIjoxNzM5NjAzMTY4fQ.sRPicTUqCX_zQ0DrWNGHC8Lexf_GDQUGHnW72CoBXVE';
+
+    // Print token for debugging
+    print('Token being used: $token');
 
     Map<String, dynamic> payload = {
-      'state':_selectedState,
-      'courtType': district ??
-          'districtCourt', //
+      'courtType': 'districtCourt',
       'keyword': _selectedKeyword ?? '',
       'isCountryPremium': true,
-
     };
+
+    print('Payload being sent: $payload'); // Debugging
 
     try {
       final response = await http.post(
@@ -629,7 +626,6 @@ class _KeywordScreenState extends State<KeywordScreen> {
         body: json.encode(payload),
       );
 
-      // Handle the response
       if (response.statusCode == 201) {
         final responseBody = json.decode(response.body);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -640,12 +636,64 @@ class _KeywordScreenState extends State<KeywordScreen> {
         );
         print('Success: ${responseBody['newLocation']}');
       } else {
-        // Handle error
-        print('Failed to save location: ${response.body}');
+        print('❌ Failed to save location. Status: ${response.statusCode}, Response: ${response.body}');
       }
     } catch (e) {
-      // Handle any errors
-      print('Error occurred: $e');
+      print('❌ Error occurred: $e');
     }
   }
+
+
+  void saveState() async {
+    final String apiUrl = '${GlobalService.baseUrl}/api/premium/createlocation';
+
+    print('Token being used: $token');
+
+    // Ensure state and keyword are not null
+    if (_selectedState == null || _selectedKeyword == null || _selectedKeyword!.isEmpty) {
+      print('❌ Error: State or keyword is missing!');
+      return;
+    }
+
+    Map<String, dynamic> payload = {
+      'state': _selectedState, // Adding state
+      'courtType': 'districtCourt',
+      'keyword': _selectedKeyword, // Adding keyword
+      'isStatePremium': true, // Fixing incorrect isCountryPremium
+    };
+
+    print('🚀 Payload being sent: $payload');
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'token': '$token',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(payload),
+      );
+
+      final responseBody = json.decode(response.body);
+      print('🔄 Server Response: $responseBody');
+
+      if (response.statusCode == 201 && responseBody['success'] == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('✅ Keyword Added Successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        print('✅ Success: ${responseBody['newLocation']}');
+      } else {
+        print('❌ Failed to save location. Status: ${response.statusCode}, Response: ${response.body}');
+      }
+    } catch (e) {
+      print('❌ Error occurred: $e');
+    }
+  }
+
+
+
+
 }

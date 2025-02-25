@@ -1,8 +1,10 @@
 
 import 'package:cms/Case_status.dart';
+import 'package:cms/Consumercourt.dart';
 import 'package:cms/DigitalIntiative.dart';
 import 'package:cms/GlobalServiceurl.dart';
 import 'package:cms/Logout.dart';
+import 'package:cms/Searchbar.dart';
 import 'package:cms/View_report.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +43,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   String? newtoken;
   bool  _isLoading=true;
+  int selectedCaseCount = 0;
+  String selectedCaseLabel = 'All Cases';
 
   @override
   void initState() {
@@ -197,9 +201,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
               _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
               _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
-              _buildDrawerItem(context, Icons.people_alt_outlined, 'Case Status', CaseStatus()),
-
-              // _buildDrawerItem(context, Icons.bar_chart, 'View Report', ViewReport()),
+              _buildDrawerItem(context, Icons.safety_check, 'Case Status', CaseStatus()),
+              _buildDrawerItem(context, Icons.construction, 'Consumer Court', Consumercourt()),
               _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
 
               const Divider(),
@@ -225,7 +228,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ),
               const SizedBox(height: 16),
 
-              // Make the horizontal scrollable row inside the same SingleChildScrollView
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal, // Horizontal scrolling
                 child: Row(
@@ -273,40 +275,48 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   }
 
   Widget _buildCaseCard(String title, int count, IconData icon, Color color) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: color,  // Use the passed color
-      elevation: 4,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.28,
-        height: 155,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(icon, color: Colors.white, size: 40),
-            const SizedBox(height: 8),
-            Flexible(
-              child: Text(
-                '$count',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCaseCount = count;
+          selectedCaseLabel = title;
+        });
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        color: color,
+        elevation: 4,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.28,
+          height: 155,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white, size: 40),
+              const SizedBox(height: 8),
+              Flexible(
+                child: Text(
+                  '$count',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 4),
-            Flexible(
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 14, color: Colors.white70),
-                textAlign: TextAlign.center,
+              const SizedBox(height: 4),
+              Flexible(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 14, color: Colors.white70),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -321,10 +331,10 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             dataMap: _buildPieChartData(),
             chartType: ChartType.ring,
             colorList: [
-              Colors.green,Colors.red
+              Colors.green, Colors.red
             ],
             chartRadius: MediaQuery.of(context).size.width / 1.2,
-            centerText: '$allCases\nAll Cases',
+            centerText: '$selectedCaseCount\n$selectedCaseLabel',
             legendOptions: const LegendOptions(
               legendPosition: LegendPosition.left,
               showLegends: true,
@@ -366,7 +376,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             ),
             const SizedBox(height: 16),
 
-            // Active Cases Progress Bar
             Text(
               "Active Cases",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
@@ -376,7 +385,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               height: 16,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -430,7 +439,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               height: 16,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                 color: Colors.white
+                ,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
