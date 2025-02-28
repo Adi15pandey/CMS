@@ -162,7 +162,7 @@ class _TaskscreenState extends State<Taskscreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Task'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
           color: Colors.white),
         centerTitle: true,
       ),
@@ -182,7 +182,7 @@ class _TaskscreenState extends State<Taskscreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor:                                              Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor:                                              Color.fromRGBO(4, 163, 175, 1),
         foregroundColor: Colors.white,// Blue color
 
         onPressed: () async {
@@ -216,7 +216,7 @@ class _TaskscreenState extends State<Taskscreen> {
         return AlertDialog(
           title: const Text(
             "Edit Task",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromRGBO(0, 74, 173, 1)),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromRGBO(4, 163, 175, 1),),
           ),
           content: SingleChildScrollView(
             child: Column(
@@ -283,7 +283,7 @@ class _TaskscreenState extends State<Taskscreen> {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+                backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -301,7 +301,7 @@ class _TaskscreenState extends State<Taskscreen> {
       padding: const EdgeInsets.only(top: 10, bottom: 5),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color.fromRGBO(0, 74, 173, 1)),
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color.fromRGBO(4, 163, 175, 1),),
       ),
     );
   }
@@ -467,7 +467,7 @@ class _TaskscreenState extends State<Taskscreen> {
                                           text: "CNR Number: ",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color
+                                            color: Color.fromRGBO(4, 163, 175, 1), // Blue color
                                             fontSize: 16,
                                           ),
                                         ),
@@ -489,7 +489,7 @@ class _TaskscreenState extends State<Taskscreen> {
                                           text: "Task Title: ",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromRGBO(0, 74, 173, 1),
+                                            color: Color.fromRGBO(4, 163, 175, 1),
                                             fontSize: 16,
                                           ),
                                         ),
@@ -518,7 +518,7 @@ class _TaskscreenState extends State<Taskscreen> {
                                           text: "Description: ",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromRGBO(0, 74, 173, 1),
+                                            color: Color.fromRGBO(4, 163, 175, 1),
                                             fontSize: 14,
                                           ),
                                         ),
@@ -540,7 +540,7 @@ class _TaskscreenState extends State<Taskscreen> {
                                           text: "Status: ",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromRGBO(0, 74, 173, 1),
+                                            color: Color.fromRGBO(4, 163, 175, 1),
                                             fontSize: 14,
                                           ),
                                         ),
@@ -562,7 +562,7 @@ class _TaskscreenState extends State<Taskscreen> {
                                           text: "Due Date: ",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromRGBO(0, 74, 173, 1),
+                                            color: Color.fromRGBO(4, 163, 175, 1),
                                             fontSize: 14,
                                           ),
                                         ),
@@ -639,7 +639,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(' Add Task'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
       body: Padding(
@@ -707,7 +707,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 onPressed: _pickFile,
                 child: const Text("Select File"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(0, 74, 173, 1), // Background color
+                  backgroundColor: Color.fromRGBO(4, 163, 175, 1), // Background color
                   foregroundColor: Colors.white, // Text color
                 ),
               ),
@@ -758,7 +758,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       _dueDate != null
                           ? "${_dueDate!.year}-${_dueDate!.month.toString().padLeft(2, '0')}-${_dueDate!.day.toString().padLeft(2, '0')}"
                           : "Select Date",
-                      style: const TextStyle(                                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color
+                      style: const TextStyle(                                            color:Color.fromRGBO(4, 163, 175, 1), // Blue color
                       ),
                     ),
                   ),
@@ -793,7 +793,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   widget.onTaskAdded(task, _selectedPriority!, _selectedFile);
                   Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(backgroundColor:Color.fromRGBO(0, 74, 173, 1,),foregroundColor: Colors.white // Blue color
+                style: ElevatedButton.styleFrom(backgroundColor:Color.fromRGBO(4, 163, 175, 1),foregroundColor: Colors.white // Blue color
               ),
                 child: const Text("Add Task"),
               ),

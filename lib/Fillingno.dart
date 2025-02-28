@@ -177,7 +177,7 @@ class _FillingnoState extends State<Fillingno> {
               children: [
                 ElevatedButton(
                   onPressed: searchByFilingNumber,
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(4, 163, 175, 1),),
                   child: isLoading
                       ? CircularProgressIndicator(color: Colors.white)
                       : Text("Search", style: TextStyle(color: Colors.white)),
@@ -185,7 +185,7 @@ class _FillingnoState extends State<Fillingno> {
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: resetFields,
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.lightBlueAccent),
+                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(4, 163, 175, 1),),
                   child: Text("Reset", style: TextStyle(color: Colors.black)),
                 ),
               ],

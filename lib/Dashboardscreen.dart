@@ -136,7 +136,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       appBar: AppBar(
         title: Text(
             '', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),

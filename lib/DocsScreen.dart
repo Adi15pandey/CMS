@@ -88,7 +88,7 @@ class _DocsPageState extends State<DocsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Documents'),
-          backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,
+          backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor:Colors.white,
         centerTitle: true,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
@@ -118,7 +118,7 @@ class _DocsPageState extends State<DocsPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(0, 111, 253, 1), // Blue background
+                    backgroundColor: Color.fromRGBO(4, 163, 175, 1), // Blue background
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   ),
                   child: Text(
@@ -161,7 +161,7 @@ class _DocsPageState extends State<DocsPage> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color.fromRGBO(0, 74, 173, 1), // Text color
+                              color: Color.fromRGBO(4, 163, 175, 1), // Text color
                             ),
                           ),
                           SizedBox(height: 6),

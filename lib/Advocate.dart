@@ -141,7 +141,7 @@ class _AdvocateSearchState extends State<AdvocateSearch> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Advocate", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
+                Text("Advocate", style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromRGBO(4, 163, 175, 1),)),
                 SizedBox(height: 5),
                 TextField(
                   controller: advocateController,
@@ -152,7 +152,7 @@ class _AdvocateSearchState extends State<AdvocateSearch> {
                 ),
 
                 SizedBox(height: 15),
-                Text("Case Status", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
+                Text("Case Status", style: TextStyle(fontWeight: FontWeight.bold, color:Color.fromRGBO(4, 163, 175, 1),)),
                 SizedBox(height: 5),
                 DropdownButtonFormField<String>(
                   value: caseStatus,
@@ -172,15 +172,15 @@ class _AdvocateSearchState extends State<AdvocateSearch> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: searchAdvocate,
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                        child: isLoading ? CircularProgressIndicator(color: Colors.white) : Text("Search"),
+                        style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor: Colors.white),
+                        child: isLoading ? CircularProgressIndicator(color: Colors.white,) : Text("Search"),
                       ),
                     ),
                     SizedBox(width: 10), // Space between buttons
                     Expanded(
                       child: ElevatedButton(
                         onPressed: resetFields,
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.lightBlueAccent),
+                        style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(4, 163, 175, 1), foregroundColor: Colors.white),
                         child: Text("Reset"),
                       ),
                     ),

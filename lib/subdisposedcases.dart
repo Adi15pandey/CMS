@@ -117,7 +117,7 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Disposed Cases', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(
             color: Colors.white),
@@ -153,7 +153,7 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color for label
+                            color: Color.fromRGBO(4, 163, 175, 1), // Blue color for label
                           ),
                         ),
                         TextSpan(
@@ -204,7 +204,7 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
-                                color: Color.fromRGBO(0, 74, 173, 1),
+                                color:Color.fromRGBO(4, 163, 175, 1),
                               ),
                             ),
                             TextSpan(
@@ -228,7 +228,7 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                           text: 'Petitioner: ',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color for "Petitioner:"
+                            color: Color.fromRGBO(4, 163, 175, 1), // Blue color for "Petitioner:"
                             fontWeight: FontWeight.bold, // Optional: make it bold
                           ),
                         ),
@@ -250,7 +250,7 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                           text: 'Respondent: ',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Color.fromRGBO(0, 74, 173, 1),
+                            color: Color.fromRGBO(4, 163, 175, 1),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -287,7 +287,7 @@ class _SubDisposedCasesState extends State<SubDisposedCases> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:Color.fromRGBO(0, 74, 173, 1),
+                          backgroundColor:Color.fromRGBO(4, 163, 175, 1),
                           foregroundColor: Colors.white,
                         ),
                         child: const Text('Add docs'),

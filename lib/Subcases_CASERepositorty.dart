@@ -98,7 +98,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,// Blue header
         title: const Text(
           'Subcases Repository',
@@ -145,7 +145,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                         "CNR: ",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1),
+                          color: Color.fromRGBO(4, 163, 175, 1),
                         ),
                       ),
                       Text(
@@ -166,7 +166,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                         "Last Hearing: ",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                          color: Color.fromRGBO(4, 163, 175, 1), // Label color
                         ),
                       ),
                       Text(
@@ -185,7 +185,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                         "Next Hearing: ",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                          color: Color.fromRGBO(4, 163, 175, 1),// Label color
                         ),
                       ),
                       Text(
@@ -206,7 +206,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                         "Petitioner: ",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                          color: Color.fromRGBO(4, 163, 175, 1), // Label color
                         ),
                       ),
                       Text(
@@ -225,7 +225,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                         "Respondent: ",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                          color: Color.fromRGBO(4, 163, 175, 1), // Label color
                         ),
                       ),
                       // Text(
@@ -254,7 +254,7 @@ class _SubcasesCaserepositoryState extends State<SubcasesCaserepository> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromRGBO(0, 111, 253, 1),
+                            backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
                             foregroundColor: Colors.white
                           ),
                           child: const Text("Details"),

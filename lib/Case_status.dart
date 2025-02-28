@@ -58,7 +58,7 @@ class _CaseStatusState extends State<CaseStatus> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Case Status"),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [

@@ -107,7 +107,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 74, 173, 1), // Blue header
+        backgroundColor: const Color.fromRGBO(4, 163, 175, 1), // Blue header
         title: const Text(
            'Subcases Management',
           style: TextStyle(color: Colors.white),
@@ -148,7 +148,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1),
+                          color: Color.fromRGBO(4, 163, 175, 1),
                         ),
                       ),
                       Expanded(
@@ -175,7 +175,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1),
+                          color: Color.fromRGBO(4, 163, 175, 1),
                         ),
                       ),
                       Expanded(
@@ -202,7 +202,7 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 74, 173, 1),
+                          color:Color.fromRGBO(4, 163, 175, 1),
                         ),
                       ),
                       Expanded(
@@ -259,7 +259,8 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor:Color.fromRGBO(4, 163, 175, 1),
+                        foregroundColor: Colors.white
                       ),
                       child: const Text("Action"),
                     ),

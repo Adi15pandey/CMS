@@ -24,14 +24,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildTopSection(),
-              _buildLoginForm(),
-            ],
+      backgroundColor: Colors.grey[300],
+      body: Center(
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(height: 5),
+                  _buildTopSection(),
+                  SizedBox(height: 24),
+                  _buildLoginForm(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -39,41 +45,38 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildTopSection() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 40, bottom: 20),
-      child: Column(
-        children: [
-          Image.asset(
-            "assets/images/CMS  RECQARZ (5).png",
-            height: 150,
-            width: 200,
-            fit: BoxFit.cover,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Center(
+            child: Image.asset(
+              "assets/images/trans.1 (1) 1.png",
+              height: 83,
+              width: 227,
+              fit: BoxFit.cover,
+            ),
           ),
-          const SizedBox(height: 10),
-          const Text(
-            "Welcome Back!",
+        ),
+        const SizedBox(height: 40),
+        const Padding(
+          padding: EdgeInsets.only(left: 32.0),
+          child: Text(
+            'Welcome!',
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
             ),
           ),
-          const SizedBox(height: 5),
-          const Text(
-            "Sign in to your account",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildLoginForm() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+      padding: const EdgeInsets.symmetric( horizontal: 32.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -81,49 +84,71 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           _buildTextField("Password", passwordController, true),
           const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
-
-              },
-              child: const Text(
-                "Forgot Password?",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          _buildLoginButton(),
-          const SizedBox(height: 20),
-          Center(
-            child: Column(
-              children: [
-                const Text(
-                  "Don’t have an account?",
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                ),
-                const SizedBox(height: 5),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
-                  },
-                  child: const Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword()));
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        color: Color.fromRGBO(4, 163, 175, 1),
+                        fontSize: 14,
+                      ),
                     ),
                   ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
+                    },
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        color: Color.fromRGBO(4, 163, 175, 1),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              _buildLoginButton(),
+              const SizedBox(height: 20),
+              Center(
+                child: Column(
+                  children: [
+                    const Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "New to LAWTERV? ",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color.fromRGBO(113, 114, 122, 1),
+                            ),
+                          ),
+                          TextSpan(
+                            text: "Book a Demo",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(4, 163, 175, 1),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            ],
+          )
+
         ],
       ),
     );
@@ -164,20 +189,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginButton() {
-    return ElevatedButton(
+    return   ElevatedButton(
       onPressed: _isLoading ? null : _login,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 120),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 5,
       ),
       child: _isLoading
           ? const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       )
-          : const Text(
-        "Sign In",
+          : const
+      Text(
+        "Login",
         style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );

@@ -155,7 +155,7 @@ class _CaseresearcherState extends State<Caseresearcher> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color.fromRGBO(0, 74, 173, 1))),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color.fromRGBO(4, 163, 175, 1),)),
         Expanded(
           child: Text(value, style: const TextStyle(fontSize: 16, color: Color.fromRGBO(117, 117, 117, 1)), overflow: TextOverflow.ellipsis),
         ),
@@ -168,7 +168,7 @@ class _CaseresearcherState extends State<Caseresearcher> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [

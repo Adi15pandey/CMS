@@ -87,7 +87,7 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          color: Color.fromRGBO(0, 74, 173, 1),
+          color: Color.fromRGBO(4, 163, 175, 1),
         ),
       ),
       content: Padding(
@@ -103,15 +103,15 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
                 hintText: 'Enter the advocate\'s name',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1),),
+                  borderSide: BorderSide(color: Color.fromRGBO(4, 163, 175, 1),),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Color.fromRGBO(0, 74, 173, 1),),
+                  borderSide: BorderSide(color: Color.fromRGBO(4, 163, 175, 1),),
                 ),
                 prefixIcon: Icon(
                   Icons.person,
-                  color: Color.fromRGBO(0, 74, 173, 1),
+                  color: Color.fromRGBO(4, 163, 175, 1),
                 ),
               ),
               textInputAction: TextInputAction.done,
@@ -147,7 +147,7 @@ class _AddAdvocateDialogState extends State<AddAdvocateDialog> {
             }
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, backgroundColor: Color.fromRGBO(0, 74, 173, 1), // Text color
+            foregroundColor: Colors.white, backgroundColor: Color.fromRGBO(4, 163, 175, 1), // Text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

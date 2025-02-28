@@ -108,7 +108,7 @@ class _AddDirectoryState extends State<AddDirectory> {
         title: Text('Add Directory',style: TextStyle(color: Colors.white), ),
         iconTheme: const IconThemeData(
             color: Colors.white),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1) ,
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
       ),
       body: users.isEmpty
           ? const Center(
@@ -132,7 +132,7 @@ class _AddDirectoryState extends State<AddDirectory> {
                 children: [
                   // Profile Circle
                   CircleAvatar(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                     radius: 30,
                     child: Text(
                       user['name'][0].toUpperCase(),
@@ -154,7 +154,7 @@ class _AddDirectoryState extends State<AddDirectory> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(0, 74, 173, 1), // User Name Color
+                            color: Color.fromRGBO(4, 163, 175, 1), // User Name Color
                           ),
                         ),
                         const SizedBox(height: 4),

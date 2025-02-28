@@ -1,7 +1,7 @@
 
 class GlobalService{
 
-  static final baseUrl = "http://192.168.1.28:4001";
+  static final baseUrl = "http://192.168.1.24:4001";
 
 }
 

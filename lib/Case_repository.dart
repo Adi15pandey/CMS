@@ -210,7 +210,7 @@ class _MyCouncilState extends State<MyCouncil> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Case Repository', style: TextStyle(color: Colors.white)),
-          backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+          backgroundColor: Color.fromRGBO(4, 163, 175, 1),
           centerTitle: true,
           iconTheme: const IconThemeData(
               color: Colors.white),
@@ -229,7 +229,7 @@ class _MyCouncilState extends State<MyCouncil> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
-                    borderSide: BorderSide(color:Color.fromRGBO(0, 74, 173, 1)),
+                    borderSide: BorderSide(color:Color.fromRGBO(4, 163, 175, 1),),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -287,7 +287,7 @@ class _MyCouncilState extends State<MyCouncil> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF004AAD), // Background color
+                      backgroundColor: Color.fromRGBO(4, 163, 175, 1), // Background color
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(3), // Optional: Rounded corners
@@ -386,7 +386,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: Color.fromRGBO(0, 74, 173, 1), // Label color
+                                              color: Color.fromRGBO(4, 163, 175, 1), // Label color
                                             ),
                                           ),
                                         ),
@@ -419,7 +419,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                               color:Color.fromRGBO(0, 74, 173, 1),
+                                               color:Color.fromRGBO(4, 163, 175, 1),
                                             ),
                                           ),
                                         ),
@@ -451,7 +451,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color:Color.fromRGBO(0, 74, 173, 1),
+                                              color:Color.fromRGBO(4, 163, 175, 1),
                                             ),
                                           ),
                                         ),
@@ -484,7 +484,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color:Color.fromRGBO(0, 74, 173, 1),
+                                              color:Color.fromRGBO(4, 163, 175, 1),
                                             ),
                                           ),
                                         ),
@@ -517,7 +517,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color:Color.fromRGBO(0, 74, 173, 1),
+                                              color:Color.fromRGBO(4, 163, 175, 1),
                                             ),
                                           ),
                                         ),
@@ -550,7 +550,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color:Color.fromRGBO(0, 74, 173, 1),
+                                              color:Color.fromRGBO(4, 163, 175, 1),
                                             ),
                                           ),
                                         ),
@@ -578,7 +578,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                       Expanded(
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color.fromRGBO(0, 111, 253, 1),
+                                            backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                                             padding: const EdgeInsets.symmetric(vertical: 12.0),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8.0),
@@ -600,7 +600,7 @@ class _MyCouncilState extends State<MyCouncil> {
                                             "View Detail",
                                             style: TextStyle(
                                               color: Colors.white,
-                                              backgroundColor: Color.fromRGBO(0, 111, 253, 1),
+                                              backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                                               fontSize: 16,
                                             ),
                                           ),

@@ -63,7 +63,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Case Repository', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),iconTheme: const IconThemeData(
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),iconTheme: const IconThemeData(
           color: Colors.white),
         centerTitle: true,
       ),
@@ -119,7 +119,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 19.0),
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(0, 74, 173, 1), // Background color
+                            color: Color.fromRGBO(4, 163, 175, 1), // Background color
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Center(
@@ -184,7 +184,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromRGBO(0, 74, 173, 1),
+                                  color: Color.fromRGBO(4, 163, 175, 1),
                                 ),
                               ),
                             ),
@@ -283,7 +283,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromRGBO(0, 74, 173, 1),
+                                  color: Color.fromRGBO(4, 163, 175, 1),
                                 ),
                               ),
                             ),
@@ -369,7 +369,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(0, 74, 173, 1),
+                        color: Color.fromRGBO(4, 163, 175, 1),
                       ),
                     ),
                     SizedBox(height: 10,),
@@ -436,7 +436,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromRGBO(0, 74, 173, 1),
+                                    color: Color.fromRGBO(4, 163, 175, 1),
                                   ),
                                 ),
                               ),
@@ -493,7 +493,7 @@ class _MyCouncilDetailsState extends State<MyCouncilDetails> {
                                             child: Text(
                                               'View',
                                               style: TextStyle(
-                                                color: Colors.blue,
+                                                color: Color.fromRGBO(4, 163, 175, 1),
                                                 fontSize: 16,
                                                 decoration: TextDecoration.underline,
                                               ),
@@ -590,7 +590,7 @@ class DetailRow extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Color.fromRGBO(0, 74, 173, 1),
+                color: Color.fromRGBO(4, 163, 175, 1),
               ),
             ),
           ),

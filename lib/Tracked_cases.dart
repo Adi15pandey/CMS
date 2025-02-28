@@ -82,7 +82,7 @@ class _TrackedcasesState extends State<Trackedcases> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Tracked Cases", style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
         actions: [
@@ -114,11 +114,11 @@ class _TrackedcasesState extends State<Trackedcases> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Table(
-                  border: TableBorder.all(color: Color.fromRGBO(0, 74, 173, 1)),
+                  border: TableBorder.all(color: Color.fromRGBO(4, 163, 175, 1),),
                   columnWidths: {0: FlexColumnWidth(2), 1: FlexColumnWidth(1)},
                   children: [
                     TableRow(
-                      decoration: BoxDecoration(color: Color.fromRGBO(0, 74, 173, 1)),
+                      decoration: BoxDecoration(color: Color.fromRGBO(4, 163, 175, 1),),
                       children: [
                         _tableHeader("CNR NUMBER"),
                         _tableHeader("STATUS"),

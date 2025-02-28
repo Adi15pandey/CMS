@@ -116,7 +116,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color.fromRGBO(0, 74, 173, 1),
+              color: Color.fromRGBO(4, 163, 175, 1),
             ),
           ),
           content: SingleChildScrollView(
@@ -184,7 +184,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+                backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -275,7 +275,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
       padding: const EdgeInsets.only(top: 10, bottom: 5),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color.fromRGBO(0, 74, 173, 1)),
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color.fromRGBO(4, 163, 175, 1),),
       ),
     );
   }
@@ -358,7 +358,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expired Task'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor:Colors.white,
         centerTitle: true,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
@@ -444,7 +444,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                           text: "CNR Number: ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color.fromRGBO(0, 74, 173, 1), // Blue color
+                            color:Color.fromRGBO(4, 163, 175, 1), // Blue color
                             fontSize: 16,
                           ),
                         ),
@@ -470,7 +470,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                             text: "Task Title: ",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(0, 74, 173, 1),
+                              color: Color.fromRGBO(4, 163, 175, 1),
                               fontSize: 14,
                             ),
                           ),
@@ -492,7 +492,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                             text: "Description: ",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(0, 74, 173, 1),
+                              color: Color.fromRGBO(4, 163, 175, 1),
                               fontSize: 14,
                             ),
                           ),
@@ -514,7 +514,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                             text: "Status: ",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(0, 74, 173, 1),
+                              color: Color.fromRGBO(4, 163, 175, 1),
                               fontSize: 14,
                             ),
                           ),
@@ -536,7 +536,7 @@ class _ExpiredTaskState extends State<ExpiredTask> {
                             text: "Due Date: ",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(0, 74, 173, 1),
+                              color: Color.fromRGBO(4, 163, 175, 1),
                               fontSize: 14,
                             ),
                           ),

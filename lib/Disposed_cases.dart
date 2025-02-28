@@ -246,7 +246,7 @@ class _DisposedCasesState extends State<DisposedCases> {
     return Scaffold(
       appBar:AppBar(
         title: Text('Disposed Cases', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(
             color: Colors.white),
@@ -347,6 +347,7 @@ class _DisposedCasesState extends State<DisposedCases> {
                 }
 
                 return Card(
+                  
                   margin: const EdgeInsets.all(10),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
@@ -427,7 +428,7 @@ class _DisposedCasesState extends State<DisposedCases> {
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromRGBO(0, 111, 253, 1),
+                                      backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                         BorderRadius.circular(8),
@@ -447,7 +448,7 @@ class _DisposedCasesState extends State<DisposedCases> {
                                       _deleteCase(index);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromRGBO(253, 101, 0, 1),
+                                      backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                         BorderRadius.circular(8),
@@ -510,7 +511,7 @@ class _DisposedCasesState extends State<DisposedCases> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color:Color.fromRGBO(0, 74, 173, 1),
+              color:Color.fromRGBO(4, 163, 175, 1),
 
             ),
           ),

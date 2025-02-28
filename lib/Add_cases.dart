@@ -111,7 +111,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Cases', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(
             color: Colors.white),
@@ -131,7 +131,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12), // Curved border
                           borderSide: BorderSide(
-                            color: Color.fromRGBO(24, 73, 214, 1), // Border color set to rgba(24, 73, 214, 1)
+                            color: Color.fromRGBO(4, 163, 175, 1), // Border color set to rgba(24, 73, 214, 1)
                             width: 1.5, // Border width (optional)
                           ),
                         ),
@@ -143,7 +143,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
                   SizedBox(width: 16), // Space between TextField and Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Set the background color to blue[900]
+                      backgroundColor: Color.fromRGBO(4, 163, 175, 1), // Set the background color to blue[900]
                       foregroundColor: Colors.white, // Set the text color to white
                     ),
                     onPressed: () {
@@ -212,7 +212,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                     foregroundColor: Colors.white,// Set button color
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),

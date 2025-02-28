@@ -149,7 +149,7 @@ class _PartynameState extends State<Partyname> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF004AAD),
+      backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -168,7 +168,7 @@ class _PartynameState extends State<Partyname> {
                     children: [
                       const Text(
                         "Search by Petitioner/Respondent",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF004AAD)),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color:Color.fromRGBO(4, 163, 175, 1),),
                       ),
                       const SizedBox(height: 20),
 
@@ -232,7 +232,7 @@ class _PartynameState extends State<Partyname> {
                             child: ElevatedButton(
                               onPressed: _isLoading ? null : searchCases, // Disable button when loading
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF004AAD),
+                                backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(vertical: 14),
                                 textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -296,7 +296,7 @@ class _PartynameState extends State<Partyname> {
                     children: [
                       const Text(
                         "Search Results",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF004AAD)),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color:Color.fromRGBO(4, 163, 175, 1),),
                       ),
                       const Divider(),
                       ...searchResults.map((caseData) {

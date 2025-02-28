@@ -165,7 +165,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
       appBar: AppBar(
 
         title: const Text(' Edit Documents'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor:Colors.white,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
       body: SingleChildScrollView(
@@ -197,29 +197,29 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
                         // Label text
                         prefixIcon: Icon(
                           Icons.person, // Icon before text field
-                          color: Color.fromRGBO(0, 74, 173, 1), // Icon color, same as your border color
+                          color: Color.fromRGBO(4, 163, 175, 1), // Icon color, same as your border color
                         ),
-                        suffixIconColor: Color.fromRGBO(0, 74, 173, 1), // Color of the suffix icon (if any)
+                        suffixIconColor: Color.fromRGBO(4, 163, 175, 1), // Color of the suffix icon (if any)
 
                         // Set border color and style
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8), // Rounded corners
                           borderSide: BorderSide(
-                            color: Color.fromRGBO(24, 73, 214, 1), // Border color
+                            color: Color.fromRGBO(4, 163, 175, 1), // Border color
                             width: 2, // Border width
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
-                            color: Color.fromRGBO(24, 73, 214, 1), // Border color when not focused
+                            color: Color.fromRGBO(4, 163, 175, 1), // Border color when not focused
                             width: 2,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
-                            color: Color.fromRGBO(24, 73, 214, 1), // Border color when focused
+                            color:Color.fromRGBO(4, 163, 175, 1), // Border color when focused
                             width: 2,
                           ),
                         ),
@@ -237,12 +237,12 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.link, color:   Color.fromRGBO(0, 74, 173, 1),),
+                          Icon(Icons.link, color:   Color.fromRGBO(4, 163, 175, 1),),
                           SizedBox(width: 8),
                           Text(
                             'Open Document',
                             style: TextStyle(
-                            color:   Color.fromRGBO(0, 74, 173, 1),
+                            color:   Color.fromRGBO(4, 163, 175, 1),
                               decoration: TextDecoration.underline,
                             ),
                           ),
@@ -261,7 +261,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
               icon: Icon(Icons.add),
               label: Text('Add Another Document'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(0, 111, 253, 1),
+                backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                 foregroundColor: Colors.white,
                 minimumSize: Size(double.infinity, 48),
               ),
@@ -273,7 +273,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
                   child: ElevatedButton(
                     onPressed: _submitDocuments,
                     child: Text('Submit'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 111, 253, 1),foregroundColor: Colors.white),
+                    style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor: Colors.white),
                   ),
                 ),
                 SizedBox(width: 16),
@@ -351,7 +351,7 @@ class DocumentCard extends StatelessWidget {
               onPressed: () => onUploadFile(index),
               icon: Icon(Icons.upload_file),
               label: Text('Upload File'),
-              style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(0, 111, 253, 1),foregroundColor: Colors.white),),
+              style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor: Colors.white),),
           ],
         ),
       ),

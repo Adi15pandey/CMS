@@ -176,7 +176,7 @@ class _OtpVerificationState extends State<OtpVerification> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.blue),
+                borderSide: const BorderSide(color: Color.fromRGBO(4, 163, 175, 1),),
               ),
             ),
             onChanged: (value) {
@@ -211,7 +211,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
+                    color: Color.fromRGBO(4, 163, 175, 1),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -252,7 +252,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                 _isResendingEmailOtp
                     ? Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: CircularProgressIndicator(color: Colors.blue),
+                  child: CircularProgressIndicator(color:Color.fromRGBO(4, 163, 175, 1),),
                 )
                     : Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -267,7 +267,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                     ),
                     child: Text(
                       "Resend Email OTP",
-                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                      style: TextStyle(fontSize: 14, color: Color.fromRGBO(4, 163, 175, 1),),
                     ),
                   ),
                 ),
@@ -289,7 +289,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                 _isResendingSmsOtp
                     ? Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: CircularProgressIndicator(color: Colors.blue),
+                  child: CircularProgressIndicator(color: Color.fromRGBO(4, 163, 175, 1),),
                 )
                     : Padding(
                   padding: const EdgeInsets.only(top: 10.0),
@@ -304,7 +304,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                     ),
                     child: Text(
                       "Resend SMS OTP",
-                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                      style: TextStyle(fontSize: 14, color: Color.fromRGBO(4, 163, 175, 1),),
                     ),
                   ),
                 ),
@@ -314,7 +314,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                 ElevatedButton(
                   onPressed: _isLoading ? null : _verifyOtp,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                     padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),

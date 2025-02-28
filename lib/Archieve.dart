@@ -101,7 +101,7 @@ class _ArchieveState extends State<Archieve> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Archive Cases', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -150,7 +150,7 @@ class _ArchieveState extends State<Archieve> {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      color: Color.fromRGBO(0, 74, 173, 1),
+                      color: Color.fromRGBO(4, 163, 175, 1),
                     ),
                   ),
                   const SizedBox(height: 8),

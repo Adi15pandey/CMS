@@ -17,7 +17,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,// Blue header
         title: const Text(
           'Management',

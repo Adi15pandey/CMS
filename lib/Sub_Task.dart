@@ -135,7 +135,7 @@ class _SubTaskState extends State<SubTask> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sub Task'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,foregroundColor:Colors.white,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
@@ -197,7 +197,7 @@ class _SubTaskState extends State<SubTask> {
                         text: "CNR Number: ",
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(0, 74, 173, 1), // CNR Number color
+                          color:Color.fromRGBO(4, 163, 175, 1), // CNR Number color
                         ),
                       ),
                       TextSpan(

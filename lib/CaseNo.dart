@@ -353,7 +353,7 @@ print("8rghurguigbfiugufgiuf");
                   child: ElevatedButton(
                     onPressed: isLoading ? null : fetchCaseData,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade900,
+                      backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),

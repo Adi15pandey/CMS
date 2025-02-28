@@ -177,7 +177,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
@@ -241,7 +241,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                     color: Colors.white, // Background color
                     borderRadius: BorderRadius.circular(20), // Rounded shape
                     border: Border.all(
-                      color: Color(0xFF004AAD), // Border color
+                      color:Color.fromRGBO(4, 163, 175, 1), // Border color
                       width: 2, // Border width
                     ),
                     boxShadow: [
@@ -259,9 +259,9 @@ class _KeywordScreenState extends State<KeywordScreen> {
                           ? _selectedLocation
                           : 'Add New Location',
                       icon: const Icon(Icons.arrow_drop_down,
-                          color: Color(0xFF004AAD)),
+                          color: Color.fromRGBO(4, 163, 175, 1),),
                       style: const TextStyle(
-                          color: Color(0xFF004AAD),
+                          color: Color.fromRGBO(4, 163, 175, 1),
                           fontWeight: FontWeight.bold),
                       onChanged: (String? newValue) {
                         if (newValue != null) {
@@ -347,7 +347,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+                        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
@@ -445,7 +445,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+                        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
@@ -503,7 +503,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                                         "Country:",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF004AAD),
+                                          color: Color.fromRGBO(4, 163, 175, 1),
                                         ),
                                       ),
                                       Text(
@@ -522,7 +522,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                                         "State:",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF004AAD),
+                                          color: Color.fromRGBO(4, 163, 175, 1),
                                         ),
                                       ),
                                       Text(
@@ -545,7 +545,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                                         "District:",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF004AAD),
+                                          color: Color.fromRGBO(4, 163, 175, 1),
                                         ),
                                       ),
                                       Text(
@@ -565,7 +565,7 @@ class _KeywordScreenState extends State<KeywordScreen> {
                                         "Keyword:",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF004AAD),
+                                          color: Color.fromRGBO(4, 163, 175, 1),
                                         ),
                                       ),
                                       Text(
