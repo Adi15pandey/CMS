@@ -147,7 +147,7 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Calender', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -179,7 +179,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Color.fromRGBO(4, 163, 175, 1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       padding: const EdgeInsets.all(4),
@@ -245,7 +245,7 @@ class _CalendarPageState extends State<CalendarPage> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(0, 74, 173, 1),
+                        color: Color.fromRGBO(4, 163, 175, 1),
                       ),
                     ),
                     subtitle: Padding(
@@ -261,7 +261,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     ),
                     leading: CircleAvatar(
                       backgroundColor: Colors.blue.shade100,
-                      child: Icon(Icons.event, color: Colors.blue),
+                      child: Icon(Icons.event, color: Color.fromRGBO(4, 163, 175, 1),),
                     ),
                   ),
                 );

@@ -98,7 +98,7 @@ class _OtpVerificationSignupState extends State<OtpVerificationSignup> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Verify OTP"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

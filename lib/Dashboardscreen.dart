@@ -1,5 +1,6 @@
 
 import 'package:cms/Case_status.dart';
+import 'package:cms/ConsumerCourt/AddCases.dart';
 import 'package:cms/Consumercourt.dart';
 import 'package:cms/DigitalIntiative.dart';
 import 'package:cms/GlobalServiceurl.dart';
@@ -165,7 +166,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ),
               ExpansionTile(
                 leading: const Icon(Icons.gavel, color: Colors.black54),
-                title: const Text('Litigation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                title: const Text('E Court', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 children: [
                   _buildDrawerSubItem(context, 'Case Repository', MyCouncil()),
                   _buildDrawerSubItem(context, 'Disposed Cases', DisposedCases()),
@@ -173,6 +174,18 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   _buildDrawerSubItem(context, 'Add Cases', CnrSearchScreen()),
                   _buildDrawerSubItem(context, 'Case Researcher', Caseresearcher()),
                   _buildDrawerSubItem(context, 'Management', ManagementScreen()),
+                ],
+              ),
+              ExpansionTile(
+                leading: const Icon(Icons.gavel, color: Colors.black54),
+                title: const Text('Consumer Court', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                children: [
+                  _buildDrawerSubItem(context, 'Add Cases', AddConsumer()),
+                  // _buildDrawerSubItem(context, 'Disposed Cases', DisposedCases()),
+                  // _buildDrawerSubItem(context, 'Tracked Cases', Trackedcases()),
+                  // _buildDrawerSubItem(context, 'Add Cases', CnrSearchScreen()),
+                  // _buildDrawerSubItem(context, 'Case Researcher', Caseresearcher()),
+                  // _buildDrawerSubItem(context, 'Management', ManagementScreen()),
                 ],
               ),
 
@@ -186,8 +199,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   _buildDrawerSubItem(context, 'Management', SubcasesManagement()),
                 ],
               ),
-
-              // Users Section
               ExpansionTile(
                 leading: const Icon(Icons.people, color: Colors.black54),
                 title: const Text('Users', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
@@ -202,7 +213,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
               _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
               _buildDrawerItem(context, Icons.safety_check, 'Case Status', CaseStatus()),
-              _buildDrawerItem(context, Icons.construction, 'Consumer Court', Consumercourt()),
               _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
 
               const Divider(),
@@ -229,7 +239,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               const SizedBox(height: 16),
 
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Horizontal scrolling
+                scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

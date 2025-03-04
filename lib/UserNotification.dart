@@ -60,7 +60,7 @@ class _UsersNotificationState extends State<UsersNotification> {
       appBar: AppBar(
         title: Text(
           '',
-          style: TextStyle(color: Colors.blue),
+          style: TextStyle(color: Color.fromRGBO(4, 163, 175, 1),),
         ),
       ),
       body: SingleChildScrollView(
@@ -174,7 +174,7 @@ class _UsersNotificationState extends State<UsersNotification> {
                 onPressed: addUserFields,
                 child: Text(
                   'Add More Fields',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Color.fromRGBO(4, 163, 175, 1),),
                 ),
               ),
 
@@ -183,7 +183,7 @@ class _UsersNotificationState extends State<UsersNotification> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                     foregroundColor: Colors.white,// Set the background color to black
                   ),
                   onPressed: submitData, // Handle submission when clicked

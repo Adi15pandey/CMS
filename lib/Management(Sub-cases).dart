@@ -28,9 +28,9 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
   }
 
   Future<void> _initializeData() async {
-    await _fetchToken(); // Fetch the token first
+    await _fetchToken();
     if (token != null && token!.isNotEmpty) {
-      fetchSubcases(); // Fetch subcases if the token is valid
+      fetchSubcases();
     } else {
       setState(() {
         isLoading = false;
@@ -55,7 +55,6 @@ class _SubcasesManagementState extends State<SubcasesManagement> {
     }
   }
 
-  // Fetch subcases from the API
   Future<void> fetchSubcases() async {
     setState(() {
       isLoading = true;

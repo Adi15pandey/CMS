@@ -155,7 +155,7 @@ class _TicketscreenState extends State<Ticketscreen> {
     return Scaffold(
       appBar:AppBar(
         title: const Text('Ticket'),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),foregroundColor:Colors.white,
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),foregroundColor:Colors.white,
         centerTitle: true,iconTheme: const IconThemeData(
           color: Colors.white),
       ),
@@ -199,7 +199,7 @@ class _TicketscreenState extends State<Ticketscreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                          color: Color.fromRGBO(4, 163, 175, 1), // rgba(0, 74, 173, 1)
                         ),
                       ),
                       const SizedBox(width: 16),  // Added spacing between key and value
@@ -226,7 +226,7 @@ class _TicketscreenState extends State<Ticketscreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                          color: Color.fromRGBO(4, 163, 175, 1), // rgba(0, 74, 173, 1)
                         ),
                       ),
                       const SizedBox(width: 16),  // Added spacing between key and value
@@ -253,7 +253,7 @@ class _TicketscreenState extends State<Ticketscreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                          color: Color.fromRGBO(4, 163, 175, 1), // rgba(0, 74, 173, 1)
                         ),
                       ),
                       const SizedBox(width: 16),  // Added spacing between key and value
@@ -280,7 +280,7 @@ class _TicketscreenState extends State<Ticketscreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                          color: Color.fromRGBO(4, 163, 175, 1),// rgba(0, 74, 173, 1)
                         ),
                       ),
                       const SizedBox(width: 16),  // Added spacing between key and value
@@ -307,7 +307,7 @@ class _TicketscreenState extends State<Ticketscreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 74, 173, 1), // rgba(0, 74, 173, 1)
+                          color: Color.fromRGBO(4, 163, 175, 1), // rgba(0, 74, 173, 1)
                         ),
                       ),
                       const SizedBox(width: 16),  // Added spacing between key and value
@@ -334,7 +334,7 @@ class _TicketscreenState extends State<Ticketscreen> {
                           handleAccept(task['_id']);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(0, 111, 253, 1),
+                          backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                           foregroundColor: Colors.white// rgba(0, 111, 253, 1) for Accept
                         ),
                         child: const Text('Accept'),

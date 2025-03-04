@@ -142,7 +142,7 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -169,14 +169,14 @@ class _SettingState extends State<Setting> {
                         title: ListTile(
                           leading: Icon(
                             Icons.notifications, // Icon for notifications
-                            color: Color.fromRGBO(0, 74, 173, 1),
+                            color: Color.fromRGBO(4, 163, 175, 1),
                           ),
                           title: Text(
                             key,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Color.fromRGBO(0, 74, 173, 1),
+                              color: Color.fromRGBO(4, 163, 175, 1),
                             ),
                           ),
                         ),
@@ -216,7 +216,7 @@ class _SettingState extends State<Setting> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Color.fromRGBO(4, 163, 175, 1),
                   foregroundColor: Colors.white,
                   elevation: 5,
                 ),

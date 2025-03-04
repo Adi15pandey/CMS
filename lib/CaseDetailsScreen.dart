@@ -104,7 +104,7 @@ class _CaseDetailsScreenState extends State<CaseDetailsScreen> {
     return Scaffold(
       appBar:AppBar(
         title: Text('Case Details', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1),
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(
             color: Colors.white),
@@ -132,7 +132,7 @@ class _CaseDetailsScreenState extends State<CaseDetailsScreen> {
               style: GoogleFonts.poppins(
                 fontSize: MediaQuery.of(context).size.width * 0.05, // Dynamic font size
                 fontWeight: FontWeight.w500,
-                color: Colors.blue[900],
+                color: Color.fromRGBO(4, 163, 175, 1),
               ),
             ),
             const Divider(height: 20, thickness: 1),
@@ -170,7 +170,7 @@ class _CaseDetailsScreenState extends State<CaseDetailsScreen> {
       style: GoogleFonts.poppins(
         fontSize: 16,
         fontWeight: FontWeight.bold,
-        color: Colors.blue.shade800,
+        color: Color.fromRGBO(4, 163, 175, 1),
       ),
     );
   }
@@ -317,7 +317,7 @@ class _CaseDetailsScreenState extends State<CaseDetailsScreen> {
                   },
                   child: Text(
                     'View Order',
-                    style: GoogleFonts.poppins(fontSize: 14, color: Colors.blue),
+                    style: GoogleFonts.poppins(fontSize: 14, color: Color.fromRGBO(4, 163, 175, 1),),
                   ),
                 ),
               ),

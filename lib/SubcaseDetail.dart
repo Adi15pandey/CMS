@@ -197,7 +197,7 @@ class _SubcaseDetailsState extends State<SubcaseDetails> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
-                            icon: const Icon(Icons.download, color: Colors.blue),
+                            icon: const Icon(Icons.download, color: Color.fromRGBO(4, 163, 175, 1),),
                             onPressed: () {
                               final Uri _url = Uri.parse(widget.documentUrls[index].toString());
                               launchUrl(_url);
@@ -231,7 +231,7 @@ class _SubcaseDetailsState extends State<SubcaseDetails> {
               onPressed: _addDocument,
               child: const Text(
                 "+ Add Another Document",
-                style: TextStyle(color: Colors.purple),
+                style: TextStyle(color:Color.fromRGBO(4, 163, 175, 1),),
               ),
             ),
           ],
