@@ -65,7 +65,7 @@ class _TrackedcasesState extends State<Trackedcases> {
     }
   }
 
-  void _filterSearchResults(String query) {
+  void _filterSearchResults( String query ) {
     setState(() {
       _filteredCnrs = query.isEmpty
           ? List.from(_unsavedCnrs)

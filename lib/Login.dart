@@ -231,15 +231,19 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['success'] == true) {
+          String userEmail = emailController.text.trim();
+          String userName = userEmail.split('@').first;  // Extract username from email
+
+          await _saveUserName(userName); // Save it for later use
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(data['message'] ?? 'Login successful')),
           );
+
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OtpVerification(
-                email: emailController.text.trim(),
-              ),
+              builder: (context) => OtpVerification(email: userEmail),
             ),
           );
         } else {
@@ -256,6 +260,12 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
+  Future<void> _saveUserName(String userName) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', userName);
+  }
+
+
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));

@@ -1,6 +1,9 @@
 
 import 'package:cms/Case_status.dart';
 import 'package:cms/ConsumerCourt/AddCases.dart';
+import 'package:cms/ConsumerCourt/CaseRepository.dart';
+import 'package:cms/ConsumerCourt/Disposed.dart';
+import 'package:cms/ConsumerCourt/TrackedCases.dart';
 import 'package:cms/Consumercourt.dart';
 import 'package:cms/DigitalIntiative.dart';
 import 'package:cms/GlobalServiceurl.dart';
@@ -46,14 +49,24 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   bool  _isLoading=true;
   int selectedCaseCount = 0;
   String selectedCaseLabel = 'All Cases';
+  String? userName;
+
 
   @override
   void initState() {
     super.initState();
+    _loadUserName();
+
     fetchCasesData();
 
 
 
+  }
+  Future<void> _loadUserName() async {
+    String? storedUserName = await _getUserName();
+    setState(() {
+      userName = storedUserName ?? 'Guest'; // Default to 'Guest' if null
+    });
   }
 
   Future<void> fetchCasesData() async {
@@ -129,32 +142,70 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
     }
   }
+  Future<String?> _getUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('username');
+  }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            '', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
+        title: FutureBuilder<String?>(
+          future: _getUserName(), // Fetch username from SharedPreferences
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Text('Loading...', style: TextStyle(color: Colors.white));
+            }
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Text('Hello, Guest', style: TextStyle(color: Colors.white));
+            }
+            return Text(
+              'Hello, ${snapshot.data!}', // Add "Hello, " before the username
+              style: const TextStyle(color: Colors.white),
+            );
+          },
+        ),
+        backgroundColor: const Color.fromRGBO(4, 163, 175, 1),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+
+
       drawer:Drawer(
         child: SingleChildScrollView(
           child: Column(
             children: [
               DrawerHeader(
                 decoration: const BoxDecoration(color: Colors.white),
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/CMS  RECQARZ (5).png',
-                    height: 200,
-                    fit: BoxFit.contain,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          'assets/images/trans.1 (1) 1.png',
+                          height: 150, // Reduce height if necessary
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      const SizedBox(height: 10), // Space between image and text
+                      const Text(
+                        'Hello,',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+          Text(
+            userName ?? 'Loading...',  // Show 'Loading...' while fetching
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+                    ],
                   ),
                 ),
-              ),
+              )
+
+              ,
 
               // Dashboard
               ListTile(
@@ -174,13 +225,29 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   _buildDrawerSubItem(context, 'Add Cases', CnrSearchScreen()),
                   _buildDrawerSubItem(context, 'Case Researcher', Caseresearcher()),
                   _buildDrawerSubItem(context, 'Management', ManagementScreen()),
+                  _buildDrawerSubItem(context, 'Sub-Case Repository', SubcasesCaserepository()),
+                  _buildDrawerSubItem(context, 'Sub-Disposed Cases', SubDisposedCases()),
+                  _buildDrawerSubItem(context, 'Sub-Management', SubcasesManagement()),
+                  _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
+                  // _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
+                  _buildDrawerItem(context, Icons.safety_check, 'Case Status', CaseStatus()),
+                  _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
+
                 ],
               ),
               ExpansionTile(
                 leading: const Icon(Icons.gavel, color: Colors.black54),
                 title: const Text('Consumer Court', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 children: [
+                  _buildDrawerSubItem(context, 'Case Repository', CaseConsrepository()),
                   _buildDrawerSubItem(context, 'Add Cases', AddConsumer()),
+                  _buildDrawerSubItem(context, 'Dispose Cases', DisposedCons()),
+                  _buildDrawerSubItem(context, 'Tracked Cases', TrackedConscases()),
+
+
+
+
+
                   // _buildDrawerSubItem(context, 'Disposed Cases', DisposedCases()),
                   // _buildDrawerSubItem(context, 'Tracked Cases', Trackedcases()),
                   // _buildDrawerSubItem(context, 'Add Cases', CnrSearchScreen()),
@@ -190,15 +257,15 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ),
 
               // Sub-Cases Section
-              ExpansionTile(
-                leading: const Icon(Icons.cases, color: Colors.black54),
-                title: const Text('Sub-Cases', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                children: [
-                  _buildDrawerSubItem(context, 'Case Repository', SubcasesCaserepository()),
-                  _buildDrawerSubItem(context, 'Disposed Cases', SubDisposedCases()),
-                  _buildDrawerSubItem(context, 'Management', SubcasesManagement()),
-                ],
-              ),
+              // ExpansionTile(
+              //   leading: const Icon(Icons.cases, color: Colors.black54),
+              //   title: const Text('Sub-Cases', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              //   children: [
+              //     // _buildDrawerSubItem(context, 'Sub-Case Repository', SubcasesCaserepository()),
+              //     // _buildDrawerSubItem(context, 'Sub-Disposed Cases', SubDisposedCases()),
+              //     // _buildDrawerSubItem(context, 'Sub-Management', SubcasesManagement()),
+              //   ],
+              // ),
               ExpansionTile(
                 leading: const Icon(Icons.people, color: Colors.black54),
                 title: const Text('Users', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
@@ -210,12 +277,12 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
               const Divider(),
 
-              _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
-              _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
-              _buildDrawerItem(context, Icons.safety_check, 'Case Status', CaseStatus()),
-              _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
-
-              const Divider(),
+              // _buildDrawerItem(context, Icons.archive, 'Archive', Archieve()),
+              // // _buildDrawerItem(context, Icons.people_alt_outlined, 'Digital Initiative', Digitalintiative()),
+              // _buildDrawerItem(context, Icons.safety_check, 'Case Status', CaseStatus()),
+              // _buildDrawerItem(context, Icons.calendar_today, 'Calendar', CalendarPage()),
+              //
+              // const Divider(),
 
               _buildDrawerItem(context, Icons.settings, 'Settings', Setting()),
               _buildDrawerItem(context, Icons.logout, 'Logout', LogoutScreen()),
