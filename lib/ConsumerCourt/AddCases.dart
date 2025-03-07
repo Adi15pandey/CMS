@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:cms/ConsumerCourt/UserSelection.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
@@ -163,14 +164,33 @@ class _AddConsumerState extends State<AddConsumer> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: handleAddCase,
+                onPressed: () {
+                  if (_caseNumberController.text.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserSelection(
+                          Sendcnr: _caseNumberController.text, // Pass entered case number
+                          selectedFile: null,
+                          sendScreentype: 'Cnr',
+                        ),
+                      ),
+                    );
+                    print("Navigating to UserSelection with case number: ${_caseNumberController.text}");
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Please enter a case number")),
+                    );
+                  }
+                },
+                child: Text("Add"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(4, 163, 175, 1),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
-                child: const Text('Add Case Number', style: TextStyle(color: Colors.white, fontSize: 16)),
               ),
+
               const SizedBox(height: 32),
         
               // File Upload Section

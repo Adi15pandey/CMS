@@ -157,21 +157,33 @@ class _TrackedcasesState extends State<Trackedcases> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.circle, size: 10, color: cnr['status'] == "processed" ? Colors.purple : Colors.orange),
+                  Icon(
+                    Icons.circle,
+                    size: 10,
+                    color: cnr['status'].toLowerCase() == "processed"
+                        ? Colors.purple
+                        : Colors.orange,
+                  ),
                   SizedBox(width: 5),
                   Flexible(
                     child: Text(
                       cnr['status'],
                       style: TextStyle(fontSize: 14, color: Colors.black),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1, // Ensure single line
+                      maxLines: 1,
                     ),
                   ),
                 ],
               ),
 
               SizedBox(height: 5),
-              Text("(Due on ${cnr['date']})", style: TextStyle(fontSize: 12, color: Colors.black54)),
+
+              // Hide Due Date if status is "processed"
+              if (cnr['status'].toLowerCase() != "processed")
+                Text(
+                  "(Due on ${cnr['date']})",
+                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                ),
             ],
           ),
         ),

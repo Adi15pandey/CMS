@@ -268,7 +268,7 @@ class _CnrSearchScreenState extends State<CnrSearchScreen> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(0, 111, 253, 1), // Submit (Save Changes) button color
+                backgroundColor: Color.fromRGBO(4, 163, 175, 1), // Submit (Save Changes) button color
               ),
               onPressed: () {
                 if (_newCnrController.text.length == 16) {
@@ -554,7 +554,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
         title: Text('',style: TextStyle(color: Colors.white), ),
         iconTheme: const IconThemeData(
             color: Colors.white),
-        backgroundColor: Color.fromRGBO(0, 74, 173, 1) ,
+        backgroundColor: Color.fromRGBO(4, 163, 175, 1),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -628,7 +628,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
             ElevatedButton(
 
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor:Color.fromRGBO(4, 163, 175, 1),
                 foregroundColor: Colors.white
               ),
               onPressed: () {

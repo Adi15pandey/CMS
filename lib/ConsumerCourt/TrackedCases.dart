@@ -183,8 +183,8 @@ class _TrackedConscasesState extends State<TrackedConscases> {
   TableRow _buildTableRow(dynamic caseItem) {
     return TableRow(
       children: [
-        _tableCell(caseItem['caseNumber']), // Case Number
-        _statusWithDateCell(caseItem['status'], caseItem['date']), // Status + Due Date
+        _tableCell(caseItem['caseNumber']),
+        _statusWithDateCell(caseItem['status'], caseItem['date']),
       ],
     );
   }
@@ -192,41 +192,48 @@ class _TrackedConscasesState extends State<TrackedConscases> {
 
 
   Widget _statusWithDateCell(String status, String dueDate) {
+    bool isProcessed = status.toLowerCase() == "processed";
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Wrap Row inside a Flexible or ConstrainedBox to prevent overflow
+          // Status Badge
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 100), // Adjust width as needed
+            constraints: const BoxConstraints(maxWidth: 100),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.blue[100],
+                color: isProcessed ? Colors.blue[100] : Colors.red[100],
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.circle, size: 10, color: Colors.blue),
+                  Icon(Icons.circle, size: 10, color: isProcessed ? Colors.blue : Colors.red), // Icon color
                   const SizedBox(width: 5),
-                  Flexible( // Prevents overflow
+                  Flexible(
                     child: Text(
                       status,
-                      overflow: TextOverflow.ellipsis, // Avoid text overflow
-                      style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: isProcessed ? Colors.blue : Colors.red, // Text color
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 4), // Spacing
-          Text(
-            "(Due on $dueDate)",
-            style: const TextStyle(color: Colors.black54, fontSize: 12),
-          ),
+          const SizedBox(height: 4),
+
+          if (!isProcessed)
+            Text(
+              "(Due on $dueDate)",
+              style: const TextStyle(color: Colors.black54, fontSize: 12),
+            ),
         ],
       ),
     );
